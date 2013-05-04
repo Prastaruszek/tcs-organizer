@@ -1,5 +1,7 @@
 package models;
 
+import factories.EventFactory;
+
 import java.lang.reflect.Field;
 import java.util.GregorianCalendar;
 
@@ -16,7 +18,7 @@ import static org.mockito.Mockito.*;
 public class EventTest {
     @org.junit.Test
     public void testGetTitle() throws Exception {
-        Event event = new Event("Title", "Comment", new GregorianCalendar(), new GregorianCalendar());
+        Event event = EventFactory.create();
         EventGroup group = mock(EventGroup.class);
         Field parent = event.getClass().getDeclaredField("parent");
         parent.setAccessible(true);
@@ -33,7 +35,9 @@ public class EventTest {
         GregorianCalendar now = new GregorianCalendar();
         GregorianCalendar tomorrow = (GregorianCalendar) now.clone();
         tomorrow.add(GregorianCalendar.DAY_OF_MONTH, 1);
-        Event event = new Event("Title", "Comment", now, tomorrow);
+        Event event = EventFactory.create();
+        event.setStartTime(now);
+        event.setEndTime(tomorrow);
         assertEquals(24*60*60, event.duration());
     }
 }

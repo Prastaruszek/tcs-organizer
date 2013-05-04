@@ -1,5 +1,6 @@
 package models;
 
+import factories.UserProfileFactory;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -14,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class UserProfileTest {
     @org.junit.Test
     public void testProvideSchedule() throws Exception {
-        UserProfile profile = new UserProfile();
+        UserProfile profile = UserProfileFactory.create();
         assertFalse(profile.hasProvidedSchedule());
         profile.provideSchedule();
         assertTrue(profile.hasProvidedSchedule());
