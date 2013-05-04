@@ -48,4 +48,8 @@ public class Event extends Model {
     public String getTitle() {
         return this.parent.getTitle();
     }
+
+    public long duration() {
+        return (endTime.getTimeInMillis()-startTime.getTimeInMillis())/1000;
+    }
 }

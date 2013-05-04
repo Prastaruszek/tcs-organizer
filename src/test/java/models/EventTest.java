@@ -27,4 +27,13 @@ public class EventTest {
         verify(group).getTitle();
         assertEquals(title, mockedTitle);
     }
+
+    @org.junit.Test
+    public void testDuration() throws Exception {
+        GregorianCalendar now = new GregorianCalendar();
+        GregorianCalendar tomorrow = (GregorianCalendar) now.clone();
+        tomorrow.add(GregorianCalendar.DAY_OF_MONTH, 1);
+        Event event = new Event("Title", "Comment", now, tomorrow);
+        assertEquals(24*60*60, event.duration());
+    }
 }
