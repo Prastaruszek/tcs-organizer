@@ -25,7 +25,6 @@ import java.awt.GridBagConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
-import net.miginfocom.swing.MigLayout;
 
 public class Calendar {
 
