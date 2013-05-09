@@ -19,6 +19,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.BoxLayout;
+
+import views.gui.components.JEventDisplay;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagConstraints;
@@ -29,7 +32,7 @@ import com.jgoodies.forms.layout.RowSpec;
 public class Calendar {
 
 	private JFrame frame;
-	private JTable table;
+	private JEventDisplay eventDisplay;
 
 	/**
 	 * Launch the application.
@@ -66,7 +69,7 @@ public class Calendar {
 		
 		JPanel panel_2 = new JPanel();
 		
-		table = new JTable();
+		eventDisplay = new JEventDisplay();
 		
 		JPanel panel_1 = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -78,7 +81,7 @@ public class Calendar {
 					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
 					.addGap(6))
 				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addComponent(table, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+					.addComponent(eventDisplay, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
@@ -95,21 +98,37 @@ public class Calendar {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
 							.addGap(11))
-						.addComponent(table, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
+						.addComponent(eventDisplay, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
 		);
-		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnAddEvent = new JButton("Add Event");
-		panel_1.add(btnAddEvent);
 		
 		JButton btnSettings = new JButton("Settings");
-		panel_1.add(btnSettings);
 		
 		JButton btnImport = new JButton("Import");
-		panel_1.add(btnImport);
 		
 		JButton btnExport = new JButton("Export");
-		panel_1.add(btnExport);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addComponent(btnAddEvent, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+				.addComponent(btnSettings, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+				.addComponent(btnExport, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+				.addComponent(btnImport, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addComponent(btnAddEvent)
+					.addGap(18)
+					.addComponent(btnSettings)
+					.addGap(18)
+					.addComponent(btnImport)
+					.addGap(18)
+					.addComponent(btnExport)
+					.addGap(158))
+		);
+		panel_1.setLayout(gl_panel_1);
 		
 		JLabel lblVelocity = new JLabel("Velocity: 9000");
 		lblVelocity.setFont(new Font("Dialog", Font.BOLD, 20));
