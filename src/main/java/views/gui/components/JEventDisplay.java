@@ -1,6 +1,6 @@
 package views.gui.components;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
 public class JEventDisplay extends JComponent {
 

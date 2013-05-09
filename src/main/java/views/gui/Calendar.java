@@ -1,33 +1,11 @@
 package views.gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.JSeparator;
-import javax.swing.JLabel;
-import java.awt.FlowLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Font;
-import javax.swing.JTable;
-import javax.swing.BoxLayout;
-
 import views.gui.components.JEventDisplay;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagConstraints;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.*;
 
 public class Calendar {
 
@@ -35,27 +13,15 @@ public class Calendar {
 	private JEventDisplay eventDisplay;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Calendar window = new Calendar();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public Calendar() {
 		initialize();
 	}
+
+    public void setVisibility(boolean value) {
+        frame.setVisible(value);
+    }
 
 	/**
 	 * Initialize the contents of the frame.
@@ -117,17 +83,17 @@ public class Calendar {
 				.addComponent(btnImport, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
 		);
 		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addComponent(btnAddEvent)
-					.addGap(18)
-					.addComponent(btnSettings)
-					.addGap(18)
-					.addComponent(btnImport)
-					.addGap(18)
-					.addComponent(btnExport)
-					.addGap(158))
-		);
+                gl_panel_1.createParallelGroup(Alignment.LEADING)
+                        .addGroup(gl_panel_1.createSequentialGroup()
+                                .addComponent(btnAddEvent)
+                                .addGap(18)
+                                .addComponent(btnSettings)
+                                .addGap(18)
+                                .addComponent(btnImport)
+                                .addGap(18)
+                                .addComponent(btnExport)
+                                .addGap(158))
+        );
 		panel_1.setLayout(gl_panel_1);
 		
 		JLabel lblVelocity = new JLabel("Velocity: 9000");
