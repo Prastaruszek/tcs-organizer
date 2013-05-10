@@ -1,12 +1,11 @@
+import java.awt.EventQueue;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
+
 import models.DisplayState;
 import models.Event;
 import models.UserProfile;
 import views.gui.Calendar;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
 
 /**
  * Created with IntelliJ IDEA.

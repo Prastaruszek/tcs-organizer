@@ -5,6 +5,9 @@ import views.gui.components.JEventDisplay;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import models.Event;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -42,6 +45,12 @@ public class Calendar {
 		JPanel panel_2 = new JPanel();
 		
 		eventDisplay = new JEventDisplay();
+		eventDisplay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new EventDetails((Event) arg0.getSource());
+			}
+		});
+		eventDisplay.setToolTipText("");
 		
 		JPanel panel_1 = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
