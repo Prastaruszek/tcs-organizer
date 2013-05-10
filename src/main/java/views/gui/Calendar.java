@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Calendar {
 
@@ -68,12 +70,32 @@ public class Calendar {
 		);
 		
 		JButton btnAddEvent = new JButton("Add Event");
+		btnAddEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Add Event clicked");
+			}
+		});
 		
 		JButton btnSettings = new JButton("Settings");
+		btnSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Settings clicked");
+			}
+		});
 		
 		JButton btnImport = new JButton("Import");
+		btnImport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Import clicked");
+			}
+		});
 		
 		JButton btnExport = new JButton("Export");
+		btnExport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Export clicked");
+			}
+		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -101,9 +123,19 @@ public class Calendar {
 		panel_2.add(lblVelocity);
 		
 		JButton btnPrevious = new JButton("Previous");
+		btnPrevious.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Previous clicked");
+			}
+		});
 		panel.add(btnPrevious);
 		
 		JButton btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Next clicked");
+			}
+		});
 		panel.add(btnNext);
 		
 		JTextPane txtpnThereWillBe = new JTextPane();
