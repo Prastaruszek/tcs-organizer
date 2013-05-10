@@ -36,13 +36,13 @@ public class Organizer {
                 Calendar window = new Calendar();
                 // itz only test
                 Event[] ev = {
-                		new models.Event("kutas", "kutasowy",
+                		new models.Event("matematyka dyskretna", "kutasowy",
                 		new GregorianCalendar(2013,4,10,11,20), new GregorianCalendar(2013,4,10,15,15)),
                 		new models.Event("abc", "asd", 
                 		new GregorianCalendar(2013,4,7,8,0 ), new GregorianCalendar(2013,4,10,11,19)),
-                		new models.Event("abc", "asd", 
+                		new models.Event("abcd", "asd", 
                         		new GregorianCalendar(2013,4,6,12,0 ), new GregorianCalendar(2013,4,6,13,0)),
-                        new models.Event("abc", "asd", 
+                        new models.Event("abcde", "asd", 
                         		new GregorianCalendar(2013,4,6,8,0 ), new GregorianCalendar(2013,4,6,8,10))
                 };
                 // end of testz

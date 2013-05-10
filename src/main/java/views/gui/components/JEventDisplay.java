@@ -119,6 +119,16 @@ public class JEventDisplay extends JComponent {
 							width, height+eventArcHeight,
 							eventArcWidth, eventArcHeight, eventFillColor, eventBorderColor, g);
 				}
+				g.setColor(Color.BLACK);
+				String eventTitleShrinked = event.getTitle();
+				if(g.getFontMetrics().getStringBounds(eventTitleShrinked, g).getWidth()>width-eventArcWidth){
+					eventTitleShrinked+="...";
+					while(g.getFontMetrics().getStringBounds(eventTitleShrinked, g).getWidth()>width-eventArcWidth){
+						eventTitleShrinked = eventTitleShrinked.substring(0, eventTitleShrinked.length()-4);
+						eventTitleShrinked+="...";
+					}
+				}
+				g.drawString(eventTitleShrinked, x + eventArcWidth, y + g.getFontMetrics().getHeight());
 			}
 		}
 		drawWeekNameRow(colWidth, rowHeight, g);
