@@ -1,8 +1,12 @@
 import models.DisplayState;
+import models.Event;
 import models.UserProfile;
 import views.gui.Calendar;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +37,19 @@ public class Organizer {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Calendar window = new Calendar();
+                // itz only test
+                Event[] ev = {
+                		new models.Event("kutas", "kutasowy",
+                		new GregorianCalendar(2013,4,10,11,20), new GregorianCalendar(2013,4,10,15,15)),
+                		new models.Event("abc", "asd", 
+                		new GregorianCalendar(2013,4,7,8,0 ), new GregorianCalendar(2013,4,10,11,19)),
+                		new models.Event("abc", "asd", 
+                        		new GregorianCalendar(2013,4,6,12,0 ), new GregorianCalendar(2013,4,6,13,0)),
+                        new models.Event("abc", "asd", 
+                        		new GregorianCalendar(2013,4,6,8,0 ), new GregorianCalendar(2013,4,6,8,10))
+                };
+                // end of testz
+                window.getEventDisplay().setEvents(Arrays.asList(ev));
                 window.setVisibility(true);
             }
         });

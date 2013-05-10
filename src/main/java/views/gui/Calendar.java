@@ -14,6 +14,10 @@ public class Calendar {
 	private JFrame frame;
 	private JEventDisplay eventDisplay;
 
+	public JEventDisplay getEventDisplay() {
+		return eventDisplay;
+	}
+
 	/**
 	 * Create the application.
 	 */
