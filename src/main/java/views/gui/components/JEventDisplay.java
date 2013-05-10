@@ -93,7 +93,7 @@ public class JEventDisplay extends JComponent {
 			endingDay=(endingDay+5)%7;
 			Color eventFillColor = Color.RED;
 			Color eventBorderColor = Color.BLACK;
-			System.out.println(""+startingDay+" "+endingDay+"|"+startHour+" "+endHour+"|"+startingMinute+" "+endingMinute);
+			//System.out.println(""+startingDay+" "+endingDay+"|"+startHour+" "+endHour+"|"+startingMinute+" "+endingMinute);
 			for(int day=startingDay;day<=endingDay;day++){
 				int x = eventRectangleXOffset+colWidth*(day+1);
 				int y = rowHeight*(startHour-startingHour+1)+(int)((float)rowHeight*((float)startingMinute/60.0f));
