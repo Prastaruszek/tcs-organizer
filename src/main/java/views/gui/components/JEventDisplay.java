@@ -15,7 +15,7 @@ public class JEventDisplay extends JComponent {
 	private static final long serialVersionUID = -6850617078923766896L;
 	private int rowCount=14;
 	private int startingHour = 8;
-	String[] daysOfTheWeek = {"Monday", "Tuesday", "Œroda(via pic)", "Thursday", "Friday", "Saturday", "Sunday"};
+	String[] daysOfTheWeek = {"Monday", "Tuesday", "ï¿½roda(via pic)", "Thursday", "Friday", "Saturday", "Sunday"};
 	Iterable<Event> events= null;
 	public Iterable<Event> getEvents() {
 		return events;
