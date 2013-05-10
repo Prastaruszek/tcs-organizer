@@ -7,9 +7,13 @@ package models;
  * Time: 00:10
  */
 public class UserProfile extends Model {
+    private DisplayState state;
     private boolean hasProvidedSchedule;
 
-    public UserProfile() {
+    public UserProfile() {}
+
+    public UserProfile(DisplayState state) {
+        this.state = state;
     }
 
     public boolean hasProvidedSchedule() {
@@ -18,5 +22,9 @@ public class UserProfile extends Model {
 
     public void provideSchedule() {
         this.hasProvidedSchedule = true;
+    }
+
+    public DisplayState getState() {
+        return state;
     }
 }

@@ -1,3 +1,4 @@
+import models.DisplayState;
 import models.Event;
 import models.UserProfile;
 import views.gui.Calendar;
@@ -23,8 +24,10 @@ public class Organizer {
     }
 
     private void initializeUser() {
-        if ( userProfile == null )
-            userProfile = new UserProfile();
+        if ( userProfile == null ) {
+            DisplayState state = new DisplayState();
+            userProfile = new UserProfile(state);
+        }
     }
 
     /**
