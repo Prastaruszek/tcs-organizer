@@ -2,9 +2,10 @@ package views.gui.components;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Random;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+
+import models.Event;
 
 public class JEventDisplay extends JComponent {
 
@@ -15,10 +16,21 @@ public class JEventDisplay extends JComponent {
 	private int rowCount=14;
 	private int startingHour = 8;
 	String[] daysOfTheWeek = {"Monday", "Tuesday", "Œroda(via pic)", "Thursday", "Friday", "Saturday", "Sunday"};
+	Iterable<Event> events= null;
+	public Iterable<Event> getEvents() {
+		return events;
+	}
+	public void setEvents(Iterable<Event> events) {
+		this.events = events;
+	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		int colWidth = getWidth()/8;
 		int rowHeight = getHeight()/rowCount;
+		drawRowsAndColumns(colWidth, rowHeight, g);
+	}
+	
+	private void drawRowsAndColumns(int colWidth,int rowHeight,Graphics g){
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0,0,getWidth(),rowHeight);
 		g.fillRect(0,0,colWidth,getHeight());
@@ -39,7 +51,11 @@ public class JEventDisplay extends JComponent {
 					rowHeight-g.getFontMetrics().getHeight()/2);
 			g.drawLine(colWidth*i,0,colWidth*i,getHeight());		
 		}
-		
+		drawEvents(g);
+		// TODO: tooooooltips or something to show details about event like on pic.
 	}
 	
+	private void drawEvents(Graphics g){
+		// TODO: draw those events
+	}
 }
