@@ -92,7 +92,8 @@ public class Calendar {
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Settings clicked");
+				//System.out.println("Settings clicked");
+				new Settings();
 			}
 		});
 		
