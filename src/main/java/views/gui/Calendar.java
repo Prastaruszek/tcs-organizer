@@ -47,7 +47,7 @@ public class Calendar {
 		eventDisplay = new JEventDisplay();
 		eventDisplay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new EventDetails((Event) arg0.getSource());
+				new EventDetails((Event) arg0.getSource()).setVisible(true);
 			}
 		});
 		eventDisplay.setToolTipText("");
@@ -93,7 +93,7 @@ public class Calendar {
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("Settings clicked");
-				new Settings();
+				new Settings().setVisible(true);
 			}
 		});
 		
@@ -156,5 +156,6 @@ public class Calendar {
 		txtpnThereWillBe.setText("There will be date");
 		panel.add(txtpnThereWillBe);
 		frame.getContentPane().setLayout(groupLayout);
+		frame.setVisible(true);
 	}
 }
