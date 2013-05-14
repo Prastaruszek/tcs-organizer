@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
  * Date: 09.05.13
  * Time: 22:31
  */
-public class DisplayState {
+public class DisplayState extends Model {
     private final int firstDayOfWeek = Calendar.MONDAY;
     private Calendar firstDay;
     private Calendar lastDay;
@@ -43,10 +43,12 @@ public class DisplayState {
     public void setNextWeek() {
         firstDay.add(Calendar.DAY_OF_YEAR, 7);
         lastDay.add(Calendar.DAY_OF_YEAR, 7);
+        Organizer.getInstance().update();
     }
 
     public void setPreviousWeek() {
         firstDay.add(Calendar.DAY_OF_YEAR, -7);
         lastDay.add(Calendar.DAY_OF_YEAR, -7);
+        Organizer.getInstance().update();
     }
 }

@@ -1,5 +1,8 @@
 package views.gui;
 
+import controllers.WeekPickerBackController;
+import controllers.WeekPickerNextController;
+import models.DisplayState;
 import views.gui.components.JEventDisplay;
 
 import javax.swing.*;
@@ -11,13 +14,18 @@ import models.Event;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.util.Locale;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Calendar {
+public class Calendar implements Observer {
 
 	private JFrame frame;
 	private JEventDisplay eventDisplay;
+    private JTextPane txtpnThereWillBe;
 
-	public JEventDisplay getEventDisplay() {
+    public JEventDisplay getEventDisplay() {
 		return eventDisplay;
 	}
 
@@ -137,24 +145,25 @@ public class Calendar {
 		panel_2.add(lblVelocity);
 		
 		JButton btnPrevious = new JButton("Previous");
-		btnPrevious.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Previous clicked");
-			}
-		});
+		btnPrevious.addActionListener(new WeekPickerBackController());
 		panel.add(btnPrevious);
 		
 		JButton btnNext = new JButton("Next");
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Next clicked");
-			}
-		});
+		btnNext.addActionListener(new WeekPickerNextController());
 		panel.add(btnNext);
 		
-		JTextPane txtpnThereWillBe = new JTextPane();
+		txtpnThereWillBe = new JTextPane();
 		txtpnThereWillBe.setText("There will be date");
 		panel.add(txtpnThereWillBe);
 		frame.getContentPane().setLayout(groupLayout);
 	}
+
+    @Override
+    public void update(Observable o, Object arg) {
+        DisplayState state = (DisplayState) arg;
+        DateFormat d = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
+        String from = d.format(state.getFirstDay().getTime());
+        String to = d.format(state.getLastDay().getTime());
+        txtpnThereWillBe.setText(from + '-' + to);
+    }
 }
