@@ -1,7 +1,9 @@
 package models;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -55,5 +57,12 @@ public class DisplayState extends Model {
         firstDay.add(Calendar.DAY_OF_YEAR, -7);
         lastDay.add(Calendar.DAY_OF_YEAR, -7);
         Organizer.getInstance().update();
+    }
+
+    public String getRangeDisplay() {
+        DateFormat d = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
+        String from = d.format(getFirstDay().getTime());
+        String to = d.format(getLastDay().getTime());
+        return from + '-' + to;
     }
 }

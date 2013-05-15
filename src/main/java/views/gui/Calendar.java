@@ -3,6 +3,7 @@ package views.gui;
 import controllers.WeekPickerBackController;
 import controllers.WeekPickerNextController;
 import models.DisplayState;
+import models.Organizer;
 import views.gui.components.JEventDisplay;
 
 import javax.swing.*;
@@ -153,8 +154,12 @@ public class Calendar implements Observer {
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new WeekPickerNextController());
 		panel.add(btnNext);
-		
-		lblThereWillBe = new JLabel("There will be date");
+
+        // TODO: find better way to provide initial value
+		lblThereWillBe = new JLabel(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getRangeDisplay(), JLabel.CENTER);
+        lblThereWillBe.setOpaque(true);
+        lblThereWillBe.setBackground(Color.WHITE);
+        lblThereWillBe.setPreferredSize(new Dimension(200, 25));
 		panel.add(lblThereWillBe);
 		
 		JButton btnDatePicker = new JButton("DatePicker");
@@ -174,10 +179,7 @@ public class Calendar implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         DisplayState state = (DisplayState) arg;
-        DateFormat d = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
-        String from = d.format(state.getFirstDay().getTime());
-        String to = d.format(state.getLastDay().getTime());
-        lblThereWillBe.setText(from + '-' + to);
+        lblThereWillBe.setText(state.getRangeDisplay());
     }
 	protected JLabel getLblThereWillBe() {
 		return lblThereWillBe;
