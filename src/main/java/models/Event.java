@@ -12,29 +12,29 @@ import java.util.GregorianCalendar;
 public class Event extends Model {
     private EventGroup parent;
     private String comment;
-    private GregorianCalendar startTime;
-    private GregorianCalendar endTime;
+    private Calendar startTime;
+    private Calendar endTime;
 
-    public Event(String title, String comment, GregorianCalendar startTime, GregorianCalendar endTime) {
+    public Event(String title, String comment, Calendar startTime, Calendar endTime) {
         this.parent = new EventGroup(title);
         this.comment = comment;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public GregorianCalendar getStartTime() {
+    public Calendar getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(GregorianCalendar startTime) {
+    public void setStartTime(Calendar startTime) {
         this.startTime = startTime;
     }
 
-    public GregorianCalendar getEndTime() {
+    public Calendar getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(GregorianCalendar endTime) {
+    public void setEndTime(Calendar endTime) {
         this.endTime = endTime;
     }
 
@@ -55,6 +55,11 @@ public class Event extends Model {
     }
 
     public boolean isBetween(Calendar startTime, Calendar endTime) {
-        return false;
+        Calendar eventStart = getStartTime();
+        Calendar eventEnd = getEndTime();
+        if ( eventStart == null || eventEnd == null )
+            return false;
+        return (eventStart.equals(startTime) || eventStart.after(startTime)) &&
+               (eventEnd.equals(endTime) || eventEnd.before(endTime));
     }
 }

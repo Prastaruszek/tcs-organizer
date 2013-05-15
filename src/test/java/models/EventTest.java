@@ -3,9 +3,12 @@ package models;
 import factories.EventFactory;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 
@@ -39,5 +42,41 @@ public class EventTest {
         event.setStartTime(now);
         event.setEndTime(tomorrow);
         assertEquals(24*60*60, event.duration());
+    }
+
+    @org.junit.Test
+    public void testIsBetween() throws Exception {
+        Calendar before, after, now;
+        now = new GregorianCalendar();
+        after = (Calendar) now.clone();
+        before = (Calendar) after.clone();
+        before.add(Calendar.DAY_OF_MONTH, 6);
+        Event event = EventFactory.create();
+        event.setStartTime(after);
+        event.setEndTime(before);
+        assertTrue(event.isBetween(after, before));
+
+        after = (Calendar) after.clone();
+        after.add(Calendar.DAY_OF_MONTH, 1);
+        assertFalse(event.isBetween(after, before));
+
+        after = (Calendar) now.clone();
+        before = (Calendar) before.clone();
+        before.add(Calendar.DAY_OF_MONTH, -2);
+        assertFalse(event.isBetween(after, before));
+
+        after = (Calendar) now.clone();
+        after.add(Calendar.DAY_OF_MONTH, -2);
+        before = (Calendar) before.clone();
+        before.add(Calendar.DAY_OF_MONTH, 2);
+        assertTrue(event.isBetween(after, before));
+
+        event = EventFactory.create();
+        event.setStartTime(null);
+        assertFalse(event.isBetween(after, before));
+
+        event = EventFactory.create();
+        event.setEndTime(null);
+        assertFalse(event.isBetween(after, before));
     }
 }
