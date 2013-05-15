@@ -25,7 +25,7 @@ public class Calendar implements Observer {
 
 	private JFrame frame;
 	private JEventDisplay eventDisplay;
-    private JTextPane txtpnThereWillBe;
+	private JLabel lblThereWillBe;
 	
     public JEventDisplay getEventDisplay() {
 		return eventDisplay;
@@ -154,9 +154,8 @@ public class Calendar implements Observer {
 		btnNext.addActionListener(new WeekPickerNextController());
 		panel.add(btnNext);
 		
-		txtpnThereWillBe = new JTextPane();
-		txtpnThereWillBe.setText("There will be date");
-		panel.add(txtpnThereWillBe);
+		lblThereWillBe = new JLabel("There will be date");
+		panel.add(lblThereWillBe);
 		
 		JButton btnDatePicker = new JButton("DatePicker");
 		btnDatePicker.addActionListener(new ActionListener() {
@@ -178,6 +177,9 @@ public class Calendar implements Observer {
         DateFormat d = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
         String from = d.format(state.getFirstDay().getTime());
         String to = d.format(state.getLastDay().getTime());
-        txtpnThereWillBe.setText(from + '-' + to);
+        lblThereWillBe.setText(from + '-' + to);
     }
+	protected JLabel getLblThereWillBe() {
+		return lblThereWillBe;
+	}
 }
