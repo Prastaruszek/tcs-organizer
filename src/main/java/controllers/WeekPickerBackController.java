@@ -1,5 +1,6 @@
 package controllers;
 
+import models.DisplayState;
 import models.Organizer;
 
 import java.awt.event.ActionEvent;
@@ -13,7 +14,9 @@ import java.awt.event.ActionEvent;
 public class WeekPickerBackController extends Controller {
     @Override
     public void actionPerformed(ActionEvent e) {
-        Organizer.getInstance().getCurrentUser().getState().setPreviousWeek();
-        Organizer.getInstance().notifyObservers(Organizer.getInstance().getCurrentUser().getState());
+        Organizer organizer = Organizer.getInstance();
+        DisplayState state = organizer.getCurrentUser().getUserProfile().getState();
+        state.setPreviousWeek();
+        organizer.notifyObservers(state);
     }
 }

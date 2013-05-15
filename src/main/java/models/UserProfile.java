@@ -8,12 +8,16 @@ package models;
  */
 public class UserProfile extends Model {
     private DisplayState state;
+    private EventSet events;
+    private User user;
     private boolean hasProvidedSchedule;
 
     public UserProfile() {}
 
-    public UserProfile(DisplayState state) {
+    public UserProfile(DisplayState state, EventSet events, User user) {
         this.state = state;
+        this.events = events;
+        this.user = user;
     }
 
     public boolean hasProvidedSchedule() {
@@ -26,5 +30,13 @@ public class UserProfile extends Model {
 
     public DisplayState getState() {
         return state;
+    }
+
+    public EventSet getEvents() {
+        return events;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

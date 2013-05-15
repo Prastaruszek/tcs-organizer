@@ -1,5 +1,6 @@
 package controllers;
 
+import models.DisplayState;
 import models.Organizer;
 
 import java.awt.event.ActionEvent;
@@ -14,7 +15,9 @@ import java.text.DateFormat;
 public class WeekPickerNextController extends Controller {
     @Override
     public void actionPerformed(ActionEvent e) {
-        Organizer.getInstance().getCurrentUser().getState().setNextWeek();
-        Organizer.getInstance().notifyObservers(Organizer.getInstance().getCurrentUser().getState());
+        Organizer organizer = Organizer.getInstance();
+        DisplayState state = organizer.getCurrentUser().getUserProfile().getState();
+        state.setNextWeek();
+        organizer.notifyObservers(state);
     }
 }

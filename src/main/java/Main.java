@@ -24,7 +24,7 @@ public class Main {
                 organizer.addObserver(window);
                 // itz only test
                 models.Event[] ev = {
-                        new models.Event("matematyka dyskretna", "kutasowy",
+                        new models.Event("matematyka dyskretna", "kolokwium",
                                 new GregorianCalendar(2013, 4, 10, 11, 20), new GregorianCalendar(2013, 4, 10, 15, 15)),
                         new models.Event("abc", "asd",
                                 new GregorianCalendar(2013, 4, 7, 8, 0), new GregorianCalendar(2013, 4, 10, 11, 19)),

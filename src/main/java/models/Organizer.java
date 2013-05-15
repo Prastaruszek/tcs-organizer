@@ -9,21 +9,30 @@ import java.util.Observable;
  * Time: 22:14
  */
 public class Organizer extends Observable {
-    private UserProfile userProfile;
+    private User currentUser;
     private static Organizer instance;
+    private static UserSet users;
 
     private Organizer() {
+        users = new UserSet();
         initializeUser();
     }
 
-    public UserProfile getCurrentUser() {
-        return userProfile;
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public UserSet getUsers() {
+        return users;
     }
 
     private void initializeUser() {
-        if ( userProfile == null ) {
+        if ( currentUser == null ) {
             DisplayState state = new DisplayState();
-            userProfile = new UserProfile(state);
+            EventSet events = new EventSet();
+            currentUser = new User();
+            UserProfile profile = new UserProfile(state, events, currentUser);
+            users.add(currentUser);
         }
     }
 

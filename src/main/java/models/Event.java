@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -51,5 +52,9 @@ public class Event extends Model {
 
     public long duration() {
         return (endTime.getTimeInMillis()-startTime.getTimeInMillis())/1000;
+    }
+
+    public boolean isBetween(Calendar startTime, Calendar endTime) {
+        return false;
     }
 }
