@@ -33,6 +33,7 @@ public class Organizer extends Observable {
             currentUser = new User();
             UserProfile profile = new UserProfile(state, events, currentUser);
             users.add(currentUser);
+            currentUser.setUserProfile(profile);
         }
     }
 

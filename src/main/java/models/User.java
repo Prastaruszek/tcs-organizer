@@ -18,4 +18,8 @@ public class User extends Model {
     public UserProfile getUserProfile() {
         return userProfile;
     }
+
+    public void setUserProfile(UserProfile profile) {
+        userProfile = profile;
+    }
 }
