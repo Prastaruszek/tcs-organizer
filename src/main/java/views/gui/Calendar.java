@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import com.toedter.calendar.JCalendar;
+
 import models.Event;
 
 import java.awt.*;
@@ -24,7 +26,7 @@ public class Calendar implements Observer {
 	private JFrame frame;
 	private JEventDisplay eventDisplay;
     private JTextPane txtpnThereWillBe;
-
+	
     public JEventDisplay getEventDisplay() {
 		return eventDisplay;
 	}
@@ -155,6 +157,17 @@ public class Calendar implements Observer {
 		txtpnThereWillBe = new JTextPane();
 		txtpnThereWillBe.setText("There will be date");
 		panel.add(txtpnThereWillBe);
+		
+		JButton btnDatePicker = new JButton("DatePicker");
+		btnDatePicker.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("DatePicker clicked");
+				new DatePicker().setVisible(true);
+			}
+		});
+		panel.add(btnDatePicker);
+		
+		
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setVisible(true);
 	}
