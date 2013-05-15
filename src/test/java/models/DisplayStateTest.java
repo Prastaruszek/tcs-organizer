@@ -34,6 +34,16 @@ public class DisplayStateTest {
         assertEquals(lastDay.get(Calendar.YEAR), 2013);
         assertEquals(lastDay.get(Calendar.MONTH), Calendar.JANUARY);
         assertEquals(lastDay.get(Calendar.DAY_OF_MONTH), 6);
+
+        state.setWeek(2013, Calendar.MAY, 5);
+        firstDay = state.getFirstDay();
+        lastDay = state.getLastDay();
+        assertEquals(firstDay.get(Calendar.YEAR), 2013);
+        assertEquals(firstDay.get(Calendar.MONTH), Calendar.APRIL);
+        assertEquals(firstDay.get(Calendar.DAY_OF_MONTH), 29);
+        assertEquals(lastDay.get(Calendar.YEAR), 2013);
+        assertEquals(lastDay.get(Calendar.MONTH), Calendar.MAY);
+        assertEquals(lastDay.get(Calendar.DAY_OF_MONTH), 5);
     }
 
     @Test

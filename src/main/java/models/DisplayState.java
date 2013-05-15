@@ -16,10 +16,10 @@ public class DisplayState extends Model {
 
     public DisplayState() {
         Calendar c = new GregorianCalendar();
-        setWeek(
-            c.get(Calendar.YEAR),
-            c.get(Calendar.MONTH),
-            c.get(Calendar.DAY_OF_YEAR)
+        _setWeek(
+                c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH)
         );
     }
 
@@ -31,13 +31,18 @@ public class DisplayState extends Model {
         return lastDay;
     }
 
-    public void setWeek(int year, int month, int day) {
+    private void _setWeek(int year, int month, int day) {
         Calendar calendar = new GregorianCalendar(year, month, day);
         calendar.setFirstDayOfWeek(firstDayOfWeek);
         firstDay = (Calendar) calendar.clone();
-        firstDay.add(Calendar.DAY_OF_YEAR, -calendar.get(Calendar.DAY_OF_WEEK) + 2);
+        firstDay.add(Calendar.DAY_OF_YEAR, (-7-calendar.get(Calendar.DAY_OF_WEEK) + 2)%7);
         lastDay = (Calendar) firstDay.clone();
         lastDay.add(Calendar.DAY_OF_WEEK, 6);
+    }
+
+    public void setWeek(int year, int month, int day) {
+        _setWeek(year, month, day);
+        Organizer.getInstance().update();
     }
 
     public void setNextWeek() {

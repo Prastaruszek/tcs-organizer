@@ -16,12 +16,12 @@ import java.util.Date;
 import javax.swing.Action;
 
 import com.toedter.calendar.JCalendar;
+import controllers.DatePickerController;
 
 public class DatePicker extends JFrame {
 
 	private JPanel contentPane;
 	private JCalendar jCalendar;
-	private Date data;
 	/**
 	 * Launch the application.
 	 */
@@ -58,13 +58,7 @@ public class DatePicker extends JFrame {
 		topAndBot.setRightComponent(okAndCancel);
 		
 		JButton btnOk = new JButton("OK");
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Showing...");
-				data = jCalendar.getDate(); //jak to przekazac?
-				dispose();
-			}
-		});
+		btnOk.addActionListener(new DatePickerController(jCalendar, this));
 		okAndCancel.setLeftComponent(btnOk);
 		
 		JButton btnCancel = new JButton("Cancel");
