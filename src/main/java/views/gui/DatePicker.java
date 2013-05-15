@@ -8,12 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
-import javax.swing.Action;
 
 import com.toedter.calendar.JCalendar;
 import controllers.DatePickerController;
@@ -42,6 +40,7 @@ public class DatePicker extends JFrame {
 	 * Create the frame.
 	 */
 	public DatePicker() {
+		setName("DatePicker");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
