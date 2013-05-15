@@ -162,7 +162,7 @@ public class Calendar implements Observer {
         lblThereWillBe.setPreferredSize(new Dimension(200, 25));
 		panel.add(lblThereWillBe);
 		
-		JButton btnDatePicker = new JButton(new ImageIcon("src/main/java/views/gui/images/DatePickerIcon.gif"));
+		JButton btnDatePicker = new JButton(new ImageIcon("src/main/images/DatePickerIcon.gif"));
 		btnDatePicker.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("DatePicker clicked");
