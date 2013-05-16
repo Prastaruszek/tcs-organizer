@@ -1,6 +1,5 @@
 package views.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -8,28 +7,24 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.GroupLayout.Alignment;
-import com.jgoodies.forms.factories.FormFactory;
-import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
 
 public class Settings extends JFrame {
 
+	private static final long serialVersionUID = -6483555840304512880L;
+	
 	private JPanel contentPane;
 	private JTextField txtText;
 	private JPasswordField pwdPassword;
@@ -105,7 +100,7 @@ public class Settings extends JFrame {
 		pwdPassword.setText("password");
 		
 		String[] options = {"option1", "option2", "option3"};
-		JComboBox comboBox = new JComboBox(options);
+		JComboBox<String> comboBox = new JComboBox<String>(options);
 		
 		final JToggleButton tglbtnSetting = new JToggleButton("off");
 		tglbtnSetting.addActionListener(new ActionListener() {
