@@ -11,10 +11,10 @@ import java.util.Observable;
 public class Organizer extends Observable {
     private User currentUser;
     private static Organizer instance;
-    private static UserSet users;
+    private static UserManager users;
 
     private Organizer() {
-        users = new UserSet();
+        users = new UserManager();
         initializeUser();
     }
 
@@ -22,14 +22,14 @@ public class Organizer extends Observable {
         return currentUser;
     }
 
-    public UserSet getUsers() {
+    public UserManager getUsers() {
         return users;
     }
 
     private void initializeUser() {
         if ( currentUser == null ) {
             DisplayState state = new DisplayState();
-            EventSet events = new EventSet();
+            EventManager events = new EventManager();
             currentUser = new User();
             UserProfile profile = new UserProfile(state, events, currentUser);
             users.add(currentUser);

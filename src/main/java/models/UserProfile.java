@@ -8,13 +8,13 @@ package models;
  */
 public class UserProfile extends Model {
     private DisplayState state;
-    private EventSet events;
+    private EventManager events;
     private User user;
     private boolean hasProvidedSchedule;
 
     public UserProfile() {}
 
-    public UserProfile(DisplayState state, EventSet events, User user) {
+    public UserProfile(DisplayState state, EventManager events, User user) {
         this.state = state;
         this.events = events;
         this.user = user;
@@ -32,7 +32,7 @@ public class UserProfile extends Model {
         return state;
     }
 
-    public EventSet getEvents() {
+    public EventManager getEvents() {
         return events;
     }
 

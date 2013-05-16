@@ -13,8 +13,10 @@ public class Event extends Model {
     private String comment;
     private Calendar startTime;
     private Calendar endTime;
+    private UserProfile profile;
 
-    public Event(String title, String comment, Calendar startTime, Calendar endTime) {
+    public Event(String title, String comment, Calendar startTime, Calendar endTime, UserProfile profile) {
+        this.profile = profile;
         this.parent = new EventGroup(title);
         this.comment = comment;
         this.startTime = startTime;
@@ -47,6 +49,13 @@ public class Event extends Model {
 
     public String getTitle() {
         return this.parent.getTitle();
+    }
+
+    public Event save() {
+        if ( profile == null )
+            throw new IllegalArgumentException("Profile violates not null constraint");
+        profile.getEvents().add(this);
+        return this;
     }
 
     public long duration() {

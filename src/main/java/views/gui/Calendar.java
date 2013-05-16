@@ -156,7 +156,7 @@ public class Calendar implements Observer {
 		lblThereWillBe = new JLabel(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getRangeDisplay(), JLabel.CENTER);
         lblThereWillBe.setOpaque(true);
         lblThereWillBe.setBackground(Color.WHITE);
-        lblThereWillBe.setPreferredSize(new Dimension(200, 25));
+        lblThereWillBe.setPreferredSize(new Dimension(250, 25));
 		panel.add(lblThereWillBe);
 		
 		JButton btnDatePicker = new JButton(new ImageIcon("src/main/images/DatePickerIcon.gif"));
@@ -178,6 +178,7 @@ public class Calendar implements Observer {
         DisplayState state = (DisplayState) arg;
         lblThereWillBe.setText(state.getRangeDisplay());
     }
+
 	protected JLabel getLblThereWillBe() {
 		return lblThereWillBe;
 	}
