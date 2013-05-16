@@ -17,6 +17,6 @@ public class EventFactory {
         GregorianCalendar startTime = new GregorianCalendar();
         GregorianCalendar endTime = (GregorianCalendar) startTime.clone();
         endTime.add(GregorianCalendar.HOUR, 1);
-        return new Event("Title", "Comment", startTime, endTime);
+        return new Event("Title", "Comment", startTime, endTime, UserProfileFactory.create());
     }
 }

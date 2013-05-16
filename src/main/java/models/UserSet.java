@@ -9,7 +9,17 @@ import java.util.HashSet;
  * Time: 22:48
  */
 public class UserSet extends HashSet<User> {
+    private final UserManager userManager;
+
+    public UserSet(UserManager userManager) {
+        this.userManager = userManager;
+    }
+
     public User validateUser(String username, String rawPassword) {
         return null;
+    }
+
+    public UserSet all() {
+        return this;
     }
 }
