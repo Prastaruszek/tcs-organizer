@@ -63,6 +63,6 @@ public class DisplayState extends Model {
         DateFormat d = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
         String from = d.format(getFirstDay().getTime());
         String to = d.format(getLastDay().getTime());
-        return from + '-' + to;
+        return from + " to " + to;
     }
 }
