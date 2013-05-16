@@ -10,15 +10,12 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import com.toedter.calendar.JCalendar;
 
 import models.Event;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.text.DateFormat;
-import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 

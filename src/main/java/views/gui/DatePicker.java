@@ -13,8 +13,6 @@ import models.Organizer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
-
 
 import com.toedter.calendar.JCalendar;
 import controllers.DatePickerController;
@@ -51,6 +49,7 @@ public class DatePicker extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		jCalendar = new JCalendar(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay());
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new DatePickerController(jCalendar, this));
 		
@@ -61,7 +60,6 @@ public class DatePicker extends JFrame {
 				dispose();
 			}
 		});
-		jCalendar = new JCalendar(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay());
 		
 		topAndBot = new JSplitPane();
 		okAndCancel = new JSplitPane();

@@ -1,6 +1,5 @@
 package views.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,9 +14,6 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
-import java.awt.Color;
-import javax.swing.UIManager;
 import java.awt.FlowLayout;
 
 public class EventDetails extends JFrame {

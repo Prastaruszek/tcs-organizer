@@ -4,7 +4,6 @@ import models.DisplayState;
 import models.Organizer;
 
 import java.awt.event.ActionEvent;
-import java.text.DateFormat;
 
 /**
  * Created with IntelliJ IDEA.
