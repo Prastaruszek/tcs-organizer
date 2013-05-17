@@ -118,26 +118,36 @@ public class Calendar implements Observer {
 				System.out.println("Export clicked");
 			}
 		});
+		
+		JButton btnChangeUser = new JButton("Change User");
+		btnChangeUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Login().setVisible(true);
+			}
+		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addComponent(btnAddEvent, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+				.addComponent(btnAddEvent, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
 				.addComponent(btnSettings, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
 				.addComponent(btnExport, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
 				.addComponent(btnImport, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+				.addComponent(btnChangeUser, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
 		);
 		gl_panel_1.setVerticalGroup(
-                gl_panel_1.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_panel_1.createSequentialGroup()
-                                .addComponent(btnAddEvent)
-                                .addGap(18)
-                                .addComponent(btnSettings)
-                                .addGap(18)
-                                .addComponent(btnImport)
-                                .addGap(18)
-                                .addComponent(btnExport)
-                                .addGap(158))
-        );
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addComponent(btnAddEvent)
+					.addGap(18)
+					.addComponent(btnSettings)
+					.addGap(18)
+					.addComponent(btnImport)
+					.addGap(18)
+					.addComponent(btnExport)
+					.addGap(18)
+					.addComponent(btnChangeUser)
+					.addGap(145))
+		);
 		panel_1.setLayout(gl_panel_1);
 		
 		JLabel lblVelocity = new JLabel("Velocity: 9000");

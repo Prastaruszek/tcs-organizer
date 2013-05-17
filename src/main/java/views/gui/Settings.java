@@ -50,6 +50,7 @@ public class Settings extends JFrame {
 	 */
 	public Settings() {
 		setTitle("Settings");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 343);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -100,7 +101,8 @@ public class Settings extends JFrame {
 		pwdPassword.setText("password");
 		
 		String[] options = {"option1", "option2", "option3"};
-		JComboBox<String> comboBox = new JComboBox<String>(options);
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox comboBox = new JComboBox(options);
 		
 		final JToggleButton tglbtnSetting = new JToggleButton("off");
 		tglbtnSetting.addActionListener(new ActionListener() {
