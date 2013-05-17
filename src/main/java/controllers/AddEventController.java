@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import models.Event;
 import models.EventSet;
+import models.Organizer;
 
 import views.gui.AddEvent;
 
@@ -17,7 +18,9 @@ public class AddEventController extends Controller {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	//	Event event = new Event(addEvent.
+		Event event = new Event(addEvent.getEventTitle(),addEvent.getEventComment(),
+				addEvent.getStartCalendar(),addEvent.getEndCalendar(),
+				Organizer.getInstance().getCurrentUser().getUserProfile());
 	}
 
 }

@@ -1,34 +1,47 @@
 package views.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
-import javax.swing.JTable;
-import java.awt.GridLayout;
-import javax.swing.JSplitPane;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JTextArea;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.UIManager;
+
+import controllers.DatePickerController;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.GregorianCalendar;
 
 public class AddEvent extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtfldTitle;
 	private JTextArea txtrComment;
+	private GregorianCalendar endCalendar;
+	public GregorianCalendar getStartCalendar() {
+		return startCalendar;
+	}
+	private GregorianCalendar startCalendar;
+	public GregorianCalendar getEndCalendar() {
+		return endCalendar;
+	}
 
 	/**
 	 * Launch the application.
@@ -51,7 +64,6 @@ public class AddEvent extends JFrame {
 	 */
 	public AddEvent() {
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 397, 529);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -96,9 +108,9 @@ public class AddEvent extends JFrame {
 					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 				.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-				.addComponent(txtrComment, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 				.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+				.addComponent(txtrComment, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -119,7 +131,7 @@ public class AddEvent extends JFrame {
 						.addComponent(lblImportance)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
@@ -257,52 +269,84 @@ public class AddEvent extends JFrame {
 		
 		JLabel lblEnd = new JLabel("End:");
 		
-		JLabel label_1 = new JLabel("01.01.03");
+		final JTextPane endDatePicker = JDateFactory.JDate();
+		endDatePicker.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new DatePicker(new DatePickerController() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						endCalendar = getGregorianCalendar();
+						endDatePicker.setText(dateDisplay(endCalendar));
+						endDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
+						super.actionPerformed(e);
+					}
+				}).setVisible(true);
+			}
+		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(lblEnd)
-					.addContainerGap(118, Short.MAX_VALUE))
-				.addComponent(label_1, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblEnd)
+						.addComponent(endDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(123, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(lblEnd)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label_1)
+					.addComponent(endDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
 		
 		JLabel lblStart = new JLabel("Start:");
 		
-		JLabel label = new JLabel("01.01.01");
+		final JTextPane startDatePicker = JDateFactory.JDate();
+		startDatePicker.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new DatePicker(new DatePickerController() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						startCalendar = getGregorianCalendar();
+						startDatePicker.setText(dateDisplay(startCalendar));
+						startDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
+						super.actionPerformed(e);
+					}
+				}).setVisible(true);
+			}
+		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addComponent(lblStart)
-					.addContainerGap(95, Short.MAX_VALUE))
-				.addComponent(label, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblStart)
+						.addComponent(startDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(87, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addComponent(lblStart)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(label)
+					.addComponent(startDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 	}
-	public String getTitle() {
+	public String getEventTitle() {
 		return txtfldTitle.getText();
 	}
-	public String getComment() {
+	public String getEventComment() {
 		return txtrComment.getText();
 	}
 }

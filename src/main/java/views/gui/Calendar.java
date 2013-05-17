@@ -1,5 +1,6 @@
 package views.gui;
 
+import controllers.WeekPickerController;
 import controllers.WeekPickerBackController;
 import controllers.WeekPickerNextController;
 import models.DisplayState;
@@ -21,6 +22,7 @@ import java.util.Observer;
 
 public class Calendar implements Observer {
 
+	public static final String SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF = "src/main/images/DatePickerIcon.gif";
 	private JFrame frame;
 	private JEventDisplay eventDisplay;
 	private JLabel lblThereWillBe;
@@ -159,11 +161,11 @@ public class Calendar implements Observer {
         lblThereWillBe.setPreferredSize(new Dimension(250, 25));
 		panel.add(lblThereWillBe);
 		
-		JButton btnDatePicker = new JButton(new ImageIcon("src/main/images/DatePickerIcon.gif"));
+		JButton btnDatePicker = new JButton(new ImageIcon(SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 		btnDatePicker.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("DatePicker clicked");
-				new DatePicker().setVisible(true);
+				new DatePicker(new WeekPickerController()).setVisible(true);
 			}
 		});
 		panel.add(btnDatePicker);

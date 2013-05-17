@@ -2,19 +2,19 @@ package views.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JSplitPane;
-import javax.swing.JButton;
-
-import models.Organizer;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.border.EmptyBorder;
+
+import models.Organizer;
+
 import com.toedter.calendar.JCalendar;
+
 import controllers.DatePickerController;
 
 public class DatePicker extends JFrame {
@@ -29,8 +29,8 @@ public class DatePicker extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DatePicker frame = new DatePicker();
-					frame.setVisible(true);
+					//DatePicker frame = new DatePicker();
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,7 +41,7 @@ public class DatePicker extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DatePicker() {
+	public DatePicker(DatePickerController datePickerController) {
 		setName("DatePicker");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -51,7 +51,8 @@ public class DatePicker extends JFrame {
 		
 		jCalendar = new JCalendar(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay());
 		JButton btnOk = new JButton("OK");
-		btnOk.addActionListener(new DatePickerController(jCalendar, this));
+		datePickerController.setUp(jCalendar,this);
+		btnOk.addActionListener(datePickerController);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
