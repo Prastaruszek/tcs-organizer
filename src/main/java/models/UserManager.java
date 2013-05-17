@@ -1,5 +1,8 @@
 package models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created with IntelliJ IDEA.
  * User: stnatic
@@ -21,6 +24,13 @@ public class UserManager {
         return users;
     }
 
+    public Set<String> getUsernames() {
+    	HashSet<String> names = new HashSet<>();
+    	for(User u : users)
+    		names.add(u.getUsername());
+    	return names;
+    }
+    
     public boolean add(User user) {
         return users.add(user);
     }

@@ -30,9 +30,14 @@ public class Organizer extends Observable {
         if ( currentUser == null ) {
             DisplayState state = new DisplayState();
             EventManager events = new EventManager();
-            currentUser = new User();
+            currentUser = new User("user1", "test");
             UserProfile profile = new UserProfile(state, events, currentUser);
             users.add(currentUser);
+            //test
+            users.add(new User("user2", "test"));
+            users.add(new User("user3", "test"));
+            users.add(new User("user4", "test"));
+            //end test
             currentUser.setUserProfile(profile);
         }
     }
