@@ -24,12 +24,17 @@ public class UserManager {
             currentUser = new User("user1", "test");
             UserProfile profile = new UserProfile(state, events, currentUser);
             this.add(currentUser);
-            //test
-            this.add(new User("user2", "test"));
-            this.add(new User("user3", "test"));
-            this.add(new User("user4", "test"));
-            //end test
             currentUser.setUserProfile(profile);
+            //test
+            for(int i = 2; i < 5; i++) {
+            	state = new DisplayState();
+            	events = new EventManager();
+            	User u = new User("user" + i, "test");
+            	profile = new UserProfile(state, events, u);
+            	this.add(u);
+            	u.setUserProfile(profile);
+            }
+            //end test
         }
     }
     

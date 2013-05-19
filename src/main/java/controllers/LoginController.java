@@ -26,10 +26,12 @@ public class LoginController extends Controller {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		User u = Organizer.getInstance().getUsers().validateUser(
+		Organizer organizer = Organizer.getInstance();
+		User u = organizer.getUsers().validateUser(
 				(String) username.getSelectedItem(), new String(passwd.getPassword()));
 		if(u != null) {
-			Organizer.getInstance().notifyObservers(u);
+			organizer.update();
+			organizer.notifyObservers(u.getUserProfile().getState());
 			login.dispose();
 		} else {
 			dialog.setVisible(true);
