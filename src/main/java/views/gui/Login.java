@@ -61,8 +61,7 @@ public class Login extends JFrame {
 		
 		JLabel lblUser = new JLabel("User");
 		
-		@SuppressWarnings({ "rawtypes", "unchecked" }) //just temporary
-		JComboBox comboBox = new JComboBox(Organizer.getInstance().getUsers().getUsernames());
+		JComboBox<String> comboBox = new JComboBox<String>(Organizer.getInstance().getUsers().getUsernames());
 		
 		JLabel lblPassword = new JLabel("Password");
 		
