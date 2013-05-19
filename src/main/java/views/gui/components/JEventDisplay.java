@@ -28,7 +28,7 @@ public class JEventDisplay extends JComponent{
 	private int rowCount=14;
 	private int startingHour = 8;
 	String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-	Iterable<EventRectangle> events = null;
+	Iterable<EventRectangle> events = new LinkedList<EventRectangle>();
 	List<ActionListener> actionListeners = new LinkedList<ActionListener>();
 	public JEventDisplay() {
 		// tooltip instant display
@@ -76,6 +76,7 @@ public class JEventDisplay extends JComponent{
 		for(Event event : events)
 			tmp.add(new EventRectangle(event));
 		this.events = tmp;
+		repaint();
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -228,7 +229,7 @@ public class JEventDisplay extends JComponent{
 						eventTitleShrinked+="...";
 					}
 				}
-				g.drawString(eventTitleShrinked, x + arcWidth, y + g.getFontMetrics().getHeight());
+				g.drawString(eventTitleShrinked, x + arcWidth/2, y + (g.getFontMetrics().getHeight()*2)/3);
 			}
 		}
 		public boolean contains(Point point){

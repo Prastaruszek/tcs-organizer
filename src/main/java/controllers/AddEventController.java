@@ -2,6 +2,7 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 
+import models.DisplayState;
 import models.Event;
 import models.EventSet;
 import models.Organizer;
@@ -21,10 +22,9 @@ public class AddEventController extends Controller {
 		Event event = new Event(addEvent.getEventTitle(),addEvent.getEventComment(),
 				addEvent.getStartCalendar(),addEvent.getEndCalendar(),
 				Organizer.getInstance().getCurrentUser().getUserProfile());
-		System.out.println(event.getTitle());
-		System.out.println(event.getComment());
-		System.out.println(event.getStartTime());
-		System.out.println(event.getEndTime());
+		Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().add(event);
+		Organizer.getInstance().update();
+		Organizer.getInstance().notifyObservers(Organizer.getInstance().getCurrentUser().getUserProfile().getState());
 	}
 
 }

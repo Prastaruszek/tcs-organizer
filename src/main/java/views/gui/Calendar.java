@@ -1,5 +1,6 @@
 package views.gui;
 
+import controllers.CalendarController;
 import controllers.WeekPickerController;
 import controllers.WeekPickerBackController;
 import controllers.WeekPickerNextController;
@@ -180,7 +181,7 @@ public class Calendar implements Observer {
 		});
 		panel.add(btnDatePicker);
 		
-		
+		Organizer.getInstance().addObserver(new CalendarController(eventDisplay));
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setVisible(true);
 	}

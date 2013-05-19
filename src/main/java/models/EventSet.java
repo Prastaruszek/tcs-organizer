@@ -16,8 +16,14 @@ public class EventSet extends HashSet<Event> {
         this.eventManager = eventManager;
     }
 
-    public EventSet between(Calendar startTime, Calendar endTime) {
+    public EventSet between(Calendar _startTime, Calendar _endTime) {
         EventSet ret = new EventSet(eventManager);
+        Calendar startTime = (Calendar) _startTime.clone();
+        Calendar endTime = (Calendar) _endTime.clone();
+        startTime.set(Calendar.HOUR_OF_DAY, 0);
+        startTime.set(Calendar.MINUTE, 0);
+        endTime.set(Calendar.HOUR_OF_DAY, 24);
+        endTime.set(Calendar.MINUTE, 59);
         for ( Event e : this )
             if ( e.isBetween(startTime, endTime) )
                 ret.add(e);

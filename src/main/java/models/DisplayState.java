@@ -65,4 +65,8 @@ public class DisplayState extends Model {
         String to = d.format(getLastDay().getTime());
         return from + " to " + to;
     }
+    
+    public Iterable<Event> getCurrentWeekEvents(){
+		return Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().between(firstDay, lastDay);
+    }
 }

@@ -410,7 +410,7 @@ public class AddEvent extends JFrame {
 			startCalendar.set(java.util.Calendar.HOUR_OF_DAY, h);
 			startCalendar.set(java.util.Calendar.MINUTE, m);
 		}
-		return startCalendar;
+		return (java.util.Calendar) startCalendar.clone();
 	}
 	public java.util.Calendar getEndCalendar() {
 		String time = (String) getEndTimeBox().getSelectedItem();
@@ -420,7 +420,7 @@ public class AddEvent extends JFrame {
 			endCalendar.set(java.util.Calendar.HOUR_OF_DAY, h);
 			endCalendar.set(java.util.Calendar.MINUTE, m);
 		}
-		return endCalendar;
+		return (java.util.Calendar) endCalendar.clone();
 	}
 	protected JComboBox getStartTimeBox() {
 		return startTimeBox;
