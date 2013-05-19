@@ -1,5 +1,6 @@
 package views.gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,6 +57,7 @@ public class EventDetails extends JFrame {
 	 */
 	public EventDetails() {
 		setBounds(100, 100, 500, 343);
+		setMinimumSize(new Dimension(getWidth(), getHeight()));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -140,6 +142,7 @@ public class EventDetails extends JFrame {
 		});
 		panel.add(btnClose);
 		contentPane.setLayout(gl_contentPane);
+		setVisible(true);
 	}
 	protected JLabel getLblEventEnd() {
 		return lblEventEnd;

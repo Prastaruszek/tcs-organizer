@@ -1,6 +1,7 @@
 package views.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,8 @@ import controllers.DatePickerController;
 
 public class DatePicker extends JFrame {
 
+	private static final long serialVersionUID = 6758451286754259312L;
+	
 	private JPanel contentPane;
 	private JCalendar jCalendar;
 	private JSplitPane topAndBot, okAndCancel;
@@ -76,6 +79,8 @@ public class DatePicker extends JFrame {
 		okAndCancel.setDividerLocation(100);
 		
 		pack();
+		setMinimumSize(new Dimension(getWidth(), getHeight()));
+		setVisible(true);
 	}
 	
 }

@@ -1,5 +1,6 @@
 package views.gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -12,7 +13,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
@@ -48,7 +48,8 @@ public class Settings extends JFrame {
 	public Settings() {
 		setTitle("Settings");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 456, 251);
+		setBounds(100, 100, 450, 220);
+		setMinimumSize(new Dimension(getWidth(), getHeight()));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -115,5 +116,7 @@ public class Settings extends JFrame {
 		
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);
+		System.out.println(this.getWidth()+"x"+this.getHeight());
 	}
+
 }

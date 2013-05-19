@@ -44,12 +44,13 @@ public class Calendar implements Observer {
     }
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 401);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
 		
 		JPanel panel = new JPanel();
 		
