@@ -1,7 +1,6 @@
 package models;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,24 +10,46 @@ import java.util.Set;
  */
 public class UserManager {
     UserSet users;
+    User currentUser;
 
     UserManager() {
         users = new UserSet(this);
+        initializeUser();
     }
 
+    private void initializeUser() {
+        if ( currentUser == null ) {
+            DisplayState state = new DisplayState();
+            EventManager events = new EventManager();
+            currentUser = new User("user1", "test");
+            UserProfile profile = new UserProfile(state, events, currentUser);
+            this.add(currentUser);
+            //test
+            this.add(new User("user2", "test"));
+            this.add(new User("user3", "test"));
+            this.add(new User("user4", "test"));
+            //end test
+            currentUser.setUserProfile(profile);
+        }
+    }
+    
+    public User getCurrentUser() {
+    	return currentUser;
+    }
+    
     public User validateUser(String username, String rawPassword) {
-        return users.validateUser(username, rawPassword);
+    	User u = users.validateUser(username, rawPassword);
+    	if(u != null)
+    		currentUser = u;
+        return u;
     }
-
+    
     public UserSet all() {
         return users;
     }
 
-    public Set<String> getUsernames() {
-    	HashSet<String> names = new HashSet<>();
-    	for(User u : users)
-    		names.add(u.getUsername());
-    	return names;
+    public Vector<String> getUsernames() {
+    	return users.getUsernames();
     }
     
     public boolean add(User user) {
