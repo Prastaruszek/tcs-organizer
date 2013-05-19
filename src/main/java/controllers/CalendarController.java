@@ -4,9 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import models.Event;
 import models.Organizer;
-
 import views.gui.components.JEventDisplay;
 
 public class CalendarController extends Controller implements Observer {

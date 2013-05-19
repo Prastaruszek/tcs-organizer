@@ -1,14 +1,12 @@
 package controllers;
 
-import com.toedter.calendar.JCalendar;
-import models.DisplayState;
-import models.Organizer;
-import views.gui.DatePicker;
-
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import models.DisplayState;
+import models.Organizer;
 
 /**
  * Created with IntelliJ IDEA.

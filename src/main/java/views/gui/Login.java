@@ -143,5 +143,6 @@ public class Login extends JFrame {
 		panel.add(btnCancel);
 		
 		contentPane.setLayout(gl_contentPane);
+		setVisible(true);
 	}
 }

@@ -2,8 +2,6 @@ import models.*;
 import views.gui.Calendar;
 
 import java.awt.*;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
 
 /**
  * Created with IntelliJ IDEA.

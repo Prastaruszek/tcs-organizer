@@ -18,6 +18,8 @@ import java.awt.FlowLayout;
 
 public class EventDetails extends JFrame {
 
+	private static final long serialVersionUID = 4815288079833804727L;
+	
 	private JPanel contentPane;
 	private Event event;
 	private JLabel lblEventEnd;

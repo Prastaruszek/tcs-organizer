@@ -10,7 +10,9 @@ import java.util.Vector;
  * Time: 22:48
  */
 public class UserSet extends HashSet<User> {
-    private final UserManager userManager;
+	private static final long serialVersionUID = 3451957181511705129L;
+	
+	private final UserManager userManager;
 
     public UserSet(UserManager userManager) {
         this.userManager = userManager;

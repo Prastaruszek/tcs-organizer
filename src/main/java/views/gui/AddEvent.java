@@ -30,6 +30,8 @@ import controllers.DatePickerController;
 
 public class AddEvent extends JFrame {
 
+	private static final long serialVersionUID = -1113743261857828270L;
+	
 	private JPanel contentPane;
 	private JTextField txtfldTitle;
 	private JTextArea txtrComment;
@@ -379,6 +381,7 @@ public class AddEvent extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
+		setVisible(true);
 	}
 	public String getEventTitle() {
 		return txtfldTitle.getText();

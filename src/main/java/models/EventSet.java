@@ -10,7 +10,9 @@ import java.util.HashSet;
  * Time: 22:37
  */
 public class EventSet extends HashSet<Event> {
-    private final EventManager eventManager;
+	private static final long serialVersionUID = 5541922632969721520L;
+	
+	private final EventManager eventManager;
 
     public EventSet(EventManager eventManager) {
         this.eventManager = eventManager;

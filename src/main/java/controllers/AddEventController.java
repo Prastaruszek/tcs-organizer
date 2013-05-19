@@ -2,9 +2,7 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 
-import models.DisplayState;
 import models.Event;
-import models.EventSet;
 import models.Organizer;
 
 import views.gui.AddEvent;
