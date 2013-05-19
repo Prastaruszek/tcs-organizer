@@ -4,7 +4,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.GregorianCalendar;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -17,32 +21,24 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextPane;
-import java.awt.Color;
-import javax.swing.UIManager;
 
+import controllers.AddEventController;
 import controllers.DatePickerController;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.GregorianCalendar;
 
 public class AddEvent extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtfldTitle;
 	private JTextArea txtrComment;
-	private GregorianCalendar endCalendar;
-	public GregorianCalendar getStartCalendar() {
-		return startCalendar;
-	}
-	private GregorianCalendar startCalendar;
-	public GregorianCalendar getEndCalendar() {
-		return endCalendar;
-	}
-
+	private java.util.Calendar endCalendar = GregorianCalendar.getInstance();
+	private java.util.Calendar startCalendar = GregorianCalendar.getInstance();
+	private java.util.Calendar dateUntilCalendar = GregorianCalendar.getInstance();
+	private JComboBox startTimeBox;
+	private JComboBox endTimeBox;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -70,17 +66,20 @@ public class AddEvent extends JFrame {
 		setContentPane(contentPane);
 		
 		JLabel lblTitle = new JLabel("Title: ");
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		txtfldTitle = new JTextField();
 		txtfldTitle.setColumns(10);
 		
 		JLabel lblComment = new JLabel("Comment:");
+		lblComment.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JPanel panel = new JPanel();
 		
 		JPanel panel_3 = new JPanel();
 		
 		JLabel lblImportance = new JLabel("Importance:");
+		lblImportance.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JComboBox comboBox = new JComboBox();
 		
@@ -99,10 +98,6 @@ public class AddEvent extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtfldTitle, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblComment, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(lblImportance)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
@@ -111,6 +106,10 @@ public class AddEvent extends JFrame {
 				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 				.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 				.addComponent(txtrComment, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(lblComment, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(295, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -123,7 +122,7 @@ public class AddEvent extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtrComment, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -131,12 +130,13 @@ public class AddEvent extends JFrame {
 						.addComponent(lblImportance)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		
 		JButton btnAddEvent = new JButton("Add Event");
+		btnAddEvent.addActionListener(new AddEventController(this));
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
@@ -188,8 +188,7 @@ public class AddEvent extends JFrame {
 		panel_4.setLayout(gl_panel_4);
 		
 		JLabel lblRepeatUntil = new JLabel("Repeat until:");
-		
-		JLabel lblDaymthyer = new JLabel("daymthyer");
+		lblRepeatUntil.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		JCheckBox chckbxMonday = new JCheckBox("Mon");
 		
@@ -204,6 +203,23 @@ public class AddEvent extends JFrame {
 		JCheckBox chckbxSat = new JCheckBox("Sat");
 		
 		JCheckBox chckbxSun = new JCheckBox("Sun");
+		
+		final JTextPane repeatUntilDate = JDateFactory.JDate();
+		repeatUntilDate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new DatePicker(new DatePickerController() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						dateUntilCalendar = getGregorianCalendar();
+						repeatUntilDate.setText(dateDisplay(endCalendar));
+						repeatUntilDate.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
+						super.actionPerformed(e);
+					}
+				}).setVisible(true);
+			}
+		});
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -213,7 +229,7 @@ public class AddEvent extends JFrame {
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addComponent(lblRepeatUntil)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblDaymthyer))
+							.addComponent(repeatUntilDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addComponent(chckbxMonday)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -228,15 +244,14 @@ public class AddEvent extends JFrame {
 							.addComponent(chckbxSat)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(chckbxSun)))
-					.addContainerGap(11, Short.MAX_VALUE))
+					.addContainerGap(72, Short.MAX_VALUE))
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addGap(5)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblRepeatUntil)
-						.addComponent(lblDaymthyer))
+						.addComponent(repeatUntilDate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(chckbxMonday)
@@ -246,7 +261,7 @@ public class AddEvent extends JFrame {
 						.addComponent(chckbxFri)
 						.addComponent(chckbxSat)
 						.addComponent(chckbxSun))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(22, Short.MAX_VALUE))
 		);
 		panel_3.setLayout(gl_panel_3);
 		
@@ -268,6 +283,7 @@ public class AddEvent extends JFrame {
 		);
 		
 		JLabel lblEnd = new JLabel("End:");
+		lblEnd.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		final JTextPane endDatePicker = JDateFactory.JDate();
 		endDatePicker.addMouseListener(new MouseAdapter() {
@@ -285,26 +301,37 @@ public class AddEvent extends JFrame {
 				}).setVisible(true);
 			}
 		});
+		
+		endTimeBox = new JComboBox();
+		endTimeBox.setModel(new DefaultComboBoxModel(new String[] {"00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"}));
+		endTimeBox.setSelectedIndex(17);
+		endTimeBox.setEditable(true);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblEnd)
-						.addComponent(endDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(123, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(endDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(endTimeBox, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(51, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(lblEnd)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(endDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addComponent(endTimeBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(endDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
 		
 		JLabel lblStart = new JLabel("Start:");
+		lblStart.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		final JTextPane startDatePicker = JDateFactory.JDate();
 		startDatePicker.addMouseListener(new MouseAdapter() {
@@ -322,21 +349,31 @@ public class AddEvent extends JFrame {
 				}).setVisible(true);
 			}
 		});
+		
+		startTimeBox = new JComboBox();
+		startTimeBox.setEditable(true);
+		startTimeBox.setModel(new DefaultComboBoxModel(new String[] {"00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"}));
+		startTimeBox.setSelectedIndex(16);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblStart)
-						.addComponent(startDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(87, Short.MAX_VALUE))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(startDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(startTimeBox, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(52, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addComponent(lblStart)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(startDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(startTimeBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(startDatePicker, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
@@ -348,5 +385,47 @@ public class AddEvent extends JFrame {
 	}
 	public String getEventComment() {
 		return txtrComment.getText();
+	}
+	private boolean checkIsTimeIsValid(String time){
+		if(time.length()==5&&time.charAt(2)==':'){
+			String hour = time.substring(0,2);
+			String minutes = time.substring(3,5);
+			int h,m;
+			try{
+				h = Integer.parseInt(hour);
+				m = Integer.parseInt(minutes);	
+			} catch(NumberFormatException exception){
+				return false;
+			}
+			if(h>=0&&h<=24&&m>=0&&m<=59)
+				return true;
+		}
+		return false;
+	}
+	public java.util.Calendar getStartCalendar() {
+		String time = (String) getStartTimeBox().getSelectedItem();
+		if(checkIsTimeIsValid(time)){
+			int h = Integer.parseInt(time.substring(0,2));
+			int m = Integer.parseInt(time.substring(3,5));
+			startCalendar.set(java.util.Calendar.HOUR_OF_DAY, h);
+			startCalendar.set(java.util.Calendar.MINUTE, m);
+		}
+		return startCalendar;
+	}
+	public java.util.Calendar getEndCalendar() {
+		String time = (String) getEndTimeBox().getSelectedItem();
+		if(checkIsTimeIsValid(time)){
+			int h = Integer.parseInt(time.substring(0,2));
+			int m = Integer.parseInt(time.substring(3,5));
+			endCalendar.set(java.util.Calendar.HOUR_OF_DAY, h);
+			endCalendar.set(java.util.Calendar.MINUTE, m);
+		}
+		return endCalendar;
+	}
+	protected JComboBox getStartTimeBox() {
+		return startTimeBox;
+	}
+	protected JComboBox getEndTimeBox() {
+		return endTimeBox;
 	}
 }

@@ -21,6 +21,10 @@ public class AddEventController extends Controller {
 		Event event = new Event(addEvent.getEventTitle(),addEvent.getEventComment(),
 				addEvent.getStartCalendar(),addEvent.getEndCalendar(),
 				Organizer.getInstance().getCurrentUser().getUserProfile());
+		System.out.println(event.getTitle());
+		System.out.println(event.getComment());
+		System.out.println(event.getStartTime());
+		System.out.println(event.getEndTime());
 	}
 
 }
