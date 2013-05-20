@@ -1,13 +1,17 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: stnatic
  * Date: 05.05.13
  * Time: 00:10
  */
-public class UserProfile extends Model {
-    private DisplayState state;
+public class UserProfile extends Model implements Serializable{
+	
+	private static final long serialVersionUID = -251344167894262924L;
+	private DisplayState state;
     private EventManager events;
     private User user;
     private boolean hasProvidedSchedule;

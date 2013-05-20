@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,8 +12,10 @@ import java.util.Locale;
  * Date: 09.05.13
  * Time: 22:31
  */
-public class DisplayState extends Model {
-    private final int firstDayOfWeek = Calendar.MONDAY;
+public class DisplayState extends Model implements Serializable {
+	
+	private static final long serialVersionUID = 7519930680873671772L;
+	private final int firstDayOfWeek = Calendar.MONDAY;
     private Calendar firstDay;
     private Calendar lastDay;
 

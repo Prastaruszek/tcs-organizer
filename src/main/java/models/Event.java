@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -8,8 +9,10 @@ import java.util.Calendar;
  * Date: 04.05.13
  * Time: 22:52
  */
-public class Event extends Model {
-    private EventGroup parent;
+public class Event extends Model implements Serializable {
+	
+	private static final long serialVersionUID = -4422979245490541800L;
+	private EventGroup parent;
     private String comment;
     private Calendar startTime;
     private Calendar endTime;

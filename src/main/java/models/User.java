@@ -1,13 +1,17 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: stnatic
  * Date: 15.05.13
  * Time: 22:48
  */
-public class User extends Model {
-    private String username;
+public class User extends Model implements Serializable{
+	
+	private static final long serialVersionUID = 7429787799167627798L;
+	private String username;
     private String password;
     private UserProfile userProfile;
     

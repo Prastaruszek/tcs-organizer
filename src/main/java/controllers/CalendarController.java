@@ -11,6 +11,7 @@ public class CalendarController extends Controller implements Observer {
 	JEventDisplay display;
 	public CalendarController(JEventDisplay eventDisplay) {
 		display=eventDisplay;
+		update(null, null);
 	}
 
 	@Override

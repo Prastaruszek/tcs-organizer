@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -8,8 +9,10 @@ import java.util.Calendar;
  * Date: 16.05.13
  * Time: 21:10
  */
-public class EventManager {
-    private final EventSet events;
+public class EventManager implements Serializable{
+	
+	private static final long serialVersionUID = -2897014193380647665L;
+	private final EventSet events;
 
     public EventManager() {
         this.events = new EventSet(this);

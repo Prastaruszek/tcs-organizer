@@ -18,6 +18,8 @@ import models.Event;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -44,11 +46,13 @@ public class Calendar implements Observer {
     }
 
 	/**
-	 * Initialise the contents of the frame.
+	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		Organizer.getInstance();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 401);
+		frame.setBounds(100, 100, 800, 430);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
 		
@@ -104,7 +108,6 @@ public class Calendar implements Observer {
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Settings clicked");
 				new Settings().setVisible(true);
 			}
 		});
@@ -181,8 +184,16 @@ public class Calendar implements Observer {
 			}
 		});
 		panel.add(btnDatePicker);
+		CalendarController calendarController = new CalendarController(eventDisplay);
+		Organizer.getInstance().addObserver(calendarController);
 		
-		Organizer.getInstance().addObserver(new CalendarController(eventDisplay));
+		frame.addWindowListener(new WindowAdapter() {
+	        public void windowClosing(WindowEvent e) {
+	        	Organizer.getInstance().saveToFile();
+	        }
+
+	    });
+		
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setVisible(true);
 	}

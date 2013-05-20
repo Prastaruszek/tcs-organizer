@@ -50,6 +50,7 @@ public class DatePicker extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
+		setResizable(false);
 		setContentPane(contentPane);
 		
 		jCalendar = new JCalendar(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay());
@@ -64,9 +65,10 @@ public class DatePicker extends JFrame {
 				dispose();
 			}
 		});
-		
 		topAndBot = new JSplitPane();
+		topAndBot.setEnabled(false);
 		okAndCancel = new JSplitPane();
+		okAndCancel.setEnabled(false);
 		
 		contentPane.add(topAndBot, BorderLayout.CENTER);
 		
