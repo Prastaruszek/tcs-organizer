@@ -129,7 +129,7 @@ public class Calendar implements Observer {
 		JButton btnChangeUser = new JButton("Change User");
 		btnChangeUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Login().setVisible(true);
+				new Login(null).setVisible(true);
 			}
 		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);

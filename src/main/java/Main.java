@@ -1,7 +1,10 @@
 import models.*;
 import views.gui.Calendar;
+import views.gui.Login;
 
 import java.awt.*;
+
+import controllers.Callback;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,9 +21,14 @@ public class Main {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Calendar window = new Calendar();
-                organizer.addObserver(window);
-                window.setVisibility(true);
+            	new Login(new Callback() {
+					@Override
+					public void call(Object... args) {
+						Calendar window = new Calendar();
+		                organizer.addObserver(window);
+		                window.setVisibility(true);
+					}
+            	}).setVisible(true);
             }
         });
     }
