@@ -1,9 +1,6 @@
 package forms;
 
-import models.Event;
-import models.EventGroup;
-import models.EventManager;
-import models.Organizer;
+import models.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Calendar;
@@ -24,6 +21,8 @@ public final class EventForm extends ModelForm<Event> {
 
     @Override
     public boolean isValid() {
+        clean();
+
         if ( parent == null )
             return false;
         if ( comment == null )
@@ -38,7 +37,9 @@ public final class EventForm extends ModelForm<Event> {
         if ( !startTime.before(endTime) )
         	return false;
 
-        for(Event event : Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all()){
+        EventSet events = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all();
+        events.remove(instance);
+        for(Event event : events ){
             if(event.isBetween(startTime,endTime))
                 return false;
             if(event.getStartTime().before(endTime)&&event.getStartTime().after(endTime))
@@ -46,7 +47,6 @@ public final class EventForm extends ModelForm<Event> {
             if(event.getStartTime().before(startTime)&&event.getStartTime().after(startTime))
                 return false;
         }
-        clean();
 
         if ( instance == null ) {
             setInstance(new Event(
@@ -57,7 +57,8 @@ public final class EventForm extends ModelForm<Event> {
                 Organizer.getInstance().getCurrentUser().getUserProfile()
             ));
         } else {
-            throw new NotImplementedException();
+            instance.setEndTime(endTime);
+            instance.setStartTime(startTime);
         }
 
         return true;
@@ -65,11 +66,15 @@ public final class EventForm extends ModelForm<Event> {
 
     @SuppressWarnings("unused")
     private void cleanStartTime() {
+        if ( startTime == null )
+            return;
         startTime.set(Calendar.SECOND, 0);
     }
 
     @SuppressWarnings("unused")
     private void cleanEndTime() {
+        if ( endTime == null )
+            return;
         endTime.set(Calendar.SECOND, 0);
     }
 
