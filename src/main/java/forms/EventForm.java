@@ -10,13 +10,17 @@ public final class EventForm extends ModelForm<Event> {
     private String comment;
     private Calendar startTime;
     private Calendar endTime;
+    private UserProfile profile;
 
-    public EventForm(Event instance) {
-
+    public EventForm(Event instance, UserProfile profile) {
+        if ( profile == null )
+            throw new NullPointerException("Profile cannot be null");
+        this.instance = instance;
+        this.profile = profile;
     }
 
-    public EventForm() {
-        this(null);
+    public EventForm(UserProfile profile) {
+        this(null, profile);
     }
 
     @Override
@@ -37,7 +41,7 @@ public final class EventForm extends ModelForm<Event> {
         if ( !startTime.before(endTime) )
         	return false;
 
-        EventSet events = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all();
+        EventSet events = profile.getEvents().all();
         events.remove(instance);
         for(Event event : events ){
             if(event.isBetween(startTime,endTime))
@@ -54,9 +58,13 @@ public final class EventForm extends ModelForm<Event> {
                 comment,
                 startTime,
                 endTime,
-                Organizer.getInstance().getCurrentUser().getUserProfile()
+                profile
             ));
         } else {
+            if ( instance.getProfile() != profile )
+                return false;
+            if ( instance.getParent() != parent )
+                return false;
             instance.setEndTime(endTime);
             instance.setStartTime(startTime);
         }
@@ -81,7 +89,7 @@ public final class EventForm extends ModelForm<Event> {
     @Override
     public Event save() throws ValidationException {
         super.save();
-        EventManager manager = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents();
+        EventManager manager = profile.getEvents();
         manager.add(getInstance());
         return getInstance();
     }

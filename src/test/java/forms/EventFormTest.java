@@ -1,7 +1,9 @@
 package forms;
 
+import factories.UserProfileFactory;
 import models.Event;
 import models.EventGroup;
+import models.UserProfile;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +27,7 @@ public class EventFormTest {
 
     @Before
     public void setUp() throws Exception {
-        form = new EventForm();
+        form = new EventForm(UserProfileFactory.create());
         EventGroup group = new EventGroup("Title");
         startTime = new GregorianCalendar();
         startTime.set(Calendar.SECOND, 20);
