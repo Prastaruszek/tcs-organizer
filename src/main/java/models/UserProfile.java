@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 
+import views.gui.Calendar;
+
 /**
  * Created with IntelliJ IDEA.
  * User: stnatic
@@ -16,6 +18,7 @@ public class UserProfile extends Model implements Serializable{
     private User user;
     private boolean hasProvidedSchedule;
     private String filesPath;
+    private String iconPath;
 
     public UserProfile() {}
 
@@ -24,6 +27,7 @@ public class UserProfile extends Model implements Serializable{
         this.events = events;
         this.user = user;
         this.filesPath = System.getProperty("user.home") + "/.organiser/" + this.user.getUsername() + "/";
+        this.iconPath = Calendar.DEFAULT_USER_ICON;
     }
 
     public boolean hasProvidedSchedule() {
@@ -47,10 +51,18 @@ public class UserProfile extends Model implements Serializable{
     }
     
     public void setPath(String newPath) {
-    	filesPath = newPath;
+    	this.filesPath = newPath;
     }
     
     public String getPath() {
     	return filesPath;
+    }
+    
+    public String getIconPath() {
+    	return iconPath;
+    }
+    
+    public void setIconPath(String path) {
+    	this.iconPath = path;
     }
 }

@@ -8,6 +8,7 @@ import models.DisplayState;
 import models.Organizer;
 import views.gui.components.JEventDisplay;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -20,15 +21,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Calendar implements Observer {
 
 	public static final String SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF = "src/main/images/DatePickerIcon.gif";
+	public static final String DEFAULT_USER_ICON = "src/main/images/DefaultUserIcon.png";
 	private JFrame frame;
 	private JEventDisplay eventDisplay;
 	private JLabel lblThereWillBe;
+	private JLabel lblLogin;
+	private JLabel lblUsername;
+	private JLabel lblUserPic;
 	
     public JEventDisplay getEventDisplay() {
 		return eventDisplay;
@@ -67,6 +75,22 @@ public class Calendar implements Observer {
 			}
 		});
 		eventDisplay.setToolTipText("");
+		
+		BufferedImage icon;
+		try {
+			icon = ImageIO.read(new File(Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath()));
+			lblUserPic = new JLabel(new ImageIcon(icon));
+		} catch (Exception e) {
+			try {
+				icon = ImageIO.read(new File(Calendar.DEFAULT_USER_ICON));
+				lblUserPic = new JLabel(new ImageIcon(icon));
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		lblLogin = new JLabel("You are logged in as :");
+		lblUsername = new JLabel(Organizer.getInstance().getCurrentUser().getUsername());
 		
 		JPanel panel_1 = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -135,15 +159,31 @@ public class Calendar implements Observer {
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addComponent(btnAddEvent, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-				.addComponent(btnSettings, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-				.addComponent(btnExport, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-				.addComponent(btnImport, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-				.addComponent(btnChangeUser, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+				.addComponent(lblLogin, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+				.addComponent(btnAddEvent, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+				.addComponent(btnSettings, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+				.addComponent(btnExport, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+				.addComponent(btnImport, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+				.addComponent(btnChangeUser, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblUserPic)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
+					.addComponent(lblLogin)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(18)
+							.addComponent(lblUserPic))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(34)
+							.addComponent(lblUsername)))
+					.addGap(18)
 					.addComponent(btnAddEvent)
 					.addGap(18)
 					.addComponent(btnSettings)
