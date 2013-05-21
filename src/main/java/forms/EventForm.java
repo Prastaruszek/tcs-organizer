@@ -34,6 +34,7 @@ public final class EventForm extends ModelForm<Event> {
             return false;
 
         /* TODO: add validation */
+        clean();
 
         if ( instance == null ) {
             setInstance(new Event(
@@ -46,7 +47,18 @@ public final class EventForm extends ModelForm<Event> {
         } else {
             throw new NotImplementedException();
         }
+
         return true;
+    }
+
+    @SuppressWarnings("unused")
+    private void cleanStartTime() {
+        startTime.set(Calendar.SECOND, 0);
+    }
+
+    @SuppressWarnings("unused")
+    private void cleanEndTime() {
+        endTime.set(Calendar.SECOND, 0);
     }
 
     @Override
