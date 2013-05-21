@@ -13,8 +13,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+
+import controllers.SettingsController;
+
+import models.Organizer;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -23,7 +29,7 @@ public class Settings extends JFrame {
 	private static final long serialVersionUID = -6483555840304512880L;
 	
 	private JPanel contentPane;
-	private JLabel chosenFolder = new JLabel(System.getProperty("user.home"));
+	private JTextField chosenFolder = new JTextField(Organizer.getInstance().getCurrentUser().getUserProfile().getPath());
 	private JLabel folderLabel = new JLabel("Data folder:");
 	
 	/**
@@ -61,13 +67,10 @@ public class Settings extends JFrame {
 				file.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				if(file.showDialog(Settings.this, "Choose") == JFileChooser.APPROVE_OPTION) {
 					chosenFolder.setText(file.getSelectedFile().getAbsolutePath());
-					System.out.println("You chose wisely.");
-				} else {
-					System.out.println("You have failed me.");
 				}
 			}
 		});
-		chosenFolder.setText(System.getProperty("user.home"));
+		chosenFolder.setEditable(false);
 		
 		JPanel panel = new JPanel();
 		
@@ -98,12 +101,7 @@ public class Settings extends JFrame {
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnOK = new JButton("OK");
-		btnOK.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("saving...");
-				dispose();
-			}
-		});
+		btnOK.addActionListener(new SettingsController(this));
 		panel.add(btnOK);
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -116,7 +114,10 @@ public class Settings extends JFrame {
 		
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);
-		System.out.println(this.getWidth()+"x"+this.getHeight());
+	}
+	
+	public String getPath() {
+		return chosenFolder.getText();
 	}
 
 }

@@ -1,5 +1,6 @@
 package models;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -23,9 +24,10 @@ public class Organizer extends Observable {
     public void saveToFile(){
     	try {
     		Files.deleteIfExists(Paths.get("save/" + savePath));
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save/" + savePath));
-			oos.writeObject(users);
-			oos.close();
+    		new File("save/").mkdirs();
+    		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save/" + savePath));
+    		oos.writeObject(users);
+    		oos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

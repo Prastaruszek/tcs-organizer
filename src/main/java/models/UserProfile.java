@@ -15,6 +15,7 @@ public class UserProfile extends Model implements Serializable{
     private EventManager events;
     private User user;
     private boolean hasProvidedSchedule;
+    private String filesPath;
 
     public UserProfile() {}
 
@@ -22,6 +23,7 @@ public class UserProfile extends Model implements Serializable{
         this.state = state;
         this.events = events;
         this.user = user;
+        this.filesPath = System.getProperty("user.home") + "/.organiser/" + this.user.getUsername() + "/";
     }
 
     public boolean hasProvidedSchedule() {
@@ -42,5 +44,13 @@ public class UserProfile extends Model implements Serializable{
 
     public User getUser() {
         return user;
+    }
+    
+    public void setPath(String newPath) {
+    	filesPath = newPath;
+    }
+    
+    public String getPath() {
+    	return filesPath;
     }
 }
