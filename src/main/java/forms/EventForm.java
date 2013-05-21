@@ -37,7 +37,15 @@ public final class EventForm extends ModelForm<Event> {
         	return false;
         if ( !startTime.before(endTime) )
         	return false;
-        
+
+        for(Event event : Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all()){
+            if(event.isBetween(startTime,endTime))
+                return false;
+            if(event.getStartTime().before(endTime)&&event.getStartTime().after(endTime))
+                return false;
+            if(event.getStartTime().before(startTime)&&event.getStartTime().after(startTime))
+                return false;
+        }
         clean();
 
         if ( instance == null ) {
