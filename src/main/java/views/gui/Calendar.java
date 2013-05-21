@@ -251,7 +251,7 @@ public class Calendar implements Observer {
     		DisplayState state = (DisplayState) arg;
     		lblThereWillBe.setText(state.getRangeDisplay());
     	}
-        lblVelocity.setText(Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
+        lblVelocity.setText("Velocity: " + Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
     }
     
 	protected JLabel getLblThereWillBe() {
