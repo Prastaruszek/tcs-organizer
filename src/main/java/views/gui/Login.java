@@ -19,7 +19,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import models.Organizer;
-import controllers.Callback;
 import controllers.LoginController;
 
 public class Login extends JFrame {
@@ -35,7 +34,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login(null);
+					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,8 +46,8 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login(Callback cb) {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	public Login() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 250);
 		setResizable(false);
 		setTitle("User manager");
@@ -74,12 +73,12 @@ public class Login extends JFrame {
 		});
 		
 		pwdPasswd = new JPasswordField();
-		pwdPasswd.addActionListener(new LoginController(this, comboBox, pwdPasswd, dialog, cb));
+		pwdPasswd.addActionListener(new LoginController(this, comboBox, pwdPasswd, dialog));
 		
 		JPanel panel = new JPanel();
 		
 		JButton btnLogIn = new JButton("Log in");
-		btnLogIn.addActionListener(new LoginController(this, comboBox, pwdPasswd, dialog, cb));
+		btnLogIn.addActionListener(new LoginController(this, comboBox, pwdPasswd, dialog));
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -116,7 +115,7 @@ public class Login extends JFrame {
 		
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Close");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

@@ -150,10 +150,11 @@ public class Calendar implements Observer {
 			}
 		});
 		
-		JButton btnChangeUser = new JButton("Change User");
+		JButton btnChangeUser = new JButton("Log out");
 		btnChangeUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Login(null).setVisible(true);
+				new Login().setVisible(true);
+				frame.dispose();
 			}
 		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
@@ -228,10 +229,15 @@ public class Calendar implements Observer {
 		Organizer.getInstance().addObserver(calendarController);
 		
 		frame.addWindowListener(new WindowAdapter() {
+			@Override
 	        public void windowClosing(WindowEvent e) {
 	        	Organizer.getInstance().saveToFile();
 	        }
-
+	        
+			@Override
+	        public void windowClosed(WindowEvent e) {
+				Organizer.getInstance().saveToFile();
+			}
 	    });
 		
 		frame.getContentPane().setLayout(groupLayout);
