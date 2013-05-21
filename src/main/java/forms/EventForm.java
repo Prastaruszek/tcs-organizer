@@ -65,8 +65,6 @@ public final class EventForm extends ModelForm<Event> {
                 return false;
             if ( instance.getParent() != parent )
                 return false;
-            instance.setEndTime(endTime);
-            instance.setStartTime(startTime);
         }
 
         return true;
@@ -88,9 +86,15 @@ public final class EventForm extends ModelForm<Event> {
 
     @Override
     public Event save() throws ValidationException {
+        boolean isCreate = instance == null;
         super.save();
-        EventManager manager = profile.getEvents();
-        manager.add(getInstance());
+        if ( isCreate ) {
+            EventManager manager = profile.getEvents();
+            manager.add(getInstance());
+        } else {
+            instance.setEndTime(endTime);
+            instance.setStartTime(startTime);
+        }
         return getInstance();
     }
 
