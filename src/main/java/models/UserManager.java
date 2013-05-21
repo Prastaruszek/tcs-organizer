@@ -47,13 +47,7 @@ public class UserManager implements Serializable{
     }
     
     public User getByUsername(String username){
-    	User res = null;
-    	for(User u : users)
-    		if(u.getUsername().equals(username)){
-    			res = u;
-    			break;
-    		}
-    	return res;
+    	return users.getByUsername(username);
     }
     
     public UserSet all() {

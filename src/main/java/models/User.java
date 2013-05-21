@@ -14,12 +14,12 @@ public class User extends Model implements Serializable{
 	
 	private static final long serialVersionUID = 7429787799167627798L;
 	private String username;
-    private String hashedPass;
+    private String password;
     private UserProfile userProfile;
     
     public User(String username, String rawPass) {
     	this.username = username;
-    	this.hashedPass = hashIt(rawPass);
+    	this.password = hashIt(rawPass);
     }
     
     public String getUsername() {
@@ -35,17 +35,17 @@ public class User extends Model implements Serializable{
     }
     
     public boolean hasPassword(String rawPass){
-    	if(hashedPass == null || hashedPass.equals(hashIt(rawPass)))
+    	if(password == null || password.equals(hashIt(rawPass)))
     		return true;
     	return false;
     }
     
     public void setPassword(String rawPass){
-    	hashedPass = hashIt(rawPass);
+    	password = hashIt(rawPass);
     }
     
     public String getPassword(){
-    	return hashedPass;
+    	return password;
     }
     
     public static String hashIt(String rawPass) {
@@ -60,9 +60,9 @@ public class User extends Model implements Serializable{
     
     private static String byteArrayToHexString(byte[] b) {
     	 String result = "";
-    	 for (int i=0; i < b.length; i++) {
-    		 result += Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
-    	 }
+        for (byte aB : b) {
+            result += Integer.toString((aB & 0xff) + 0x100, 16).substring(1);
+        }
     	 return result;
     }
     
@@ -71,7 +71,7 @@ public class User extends Model implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((hashedPass == null) ? 0 : hashedPass.hashCode());
+				+ ((password == null) ? 0 : password.hashCode());
 		result = prime * result
 				+ ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -86,10 +86,10 @@ public class User extends Model implements Serializable{
 		if (!(obj instanceof User))
 			return false;
 		User other = (User) obj;
-		if (hashedPass == null) {
-			if (other.hashedPass != null)
+		if (password == null) {
+			if (other.password != null)
 				return false;
-		} else if (!hashedPass.equals(other.hashedPass))
+		} else if (!password.equals(other.password))
 			return false;
 		if (username == null) {
 			if (other.username != null)
