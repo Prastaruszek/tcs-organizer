@@ -35,9 +35,7 @@ public class User extends Model implements Serializable{
     }
     
     public boolean hasPassword(String rawPass){
-    	if(password == null || password.equals(hashIt(rawPass)))
-    		return true;
-    	return false;
+        return password.equals(hashIt(rawPass));
     }
     
     public void setPassword(String rawPass){
