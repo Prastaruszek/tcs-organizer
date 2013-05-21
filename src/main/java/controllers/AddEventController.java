@@ -33,7 +33,7 @@ public class AddEventController extends Controller {
             event = form.save();
         } catch (ValidationException error) {
         	new JOptionPane("Invalid event.",
-    				JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION).setVisible(true);
+    				JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION).createDialog(addEvent,"Error").setVisible(true);
         }
         Organizer.getInstance().update();
         Organizer.getInstance().notifyObservers(Organizer.getInstance().getCurrentUser().getUserProfile().getState());
