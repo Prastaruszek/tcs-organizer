@@ -198,7 +198,7 @@ public class Calendar implements Observer {
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		JLabel lblVelocity = new JLabel("Velocity: 9000");
+		JLabel lblVelocity = new JLabel("Velocity: " + Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
 		lblVelocity.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel_2.add(lblVelocity);
 		

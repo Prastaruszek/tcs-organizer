@@ -19,6 +19,7 @@ public class UserProfile extends Model implements Serializable{
     private boolean hasProvidedSchedule;
     private String filesPath;
     private String iconPath;
+    private Integer velocity;
 
     public UserProfile() {}
 
@@ -28,6 +29,7 @@ public class UserProfile extends Model implements Serializable{
         this.user = user;
         this.filesPath = System.getProperty("user.home") + "/.organiser/" + this.user.getUsername() + "/";
         this.iconPath = Calendar.DEFAULT_USER_ICON;
+        this.velocity = 9000;
     }
 
     public boolean hasProvidedSchedule() {
@@ -64,5 +66,13 @@ public class UserProfile extends Model implements Serializable{
     
     public void setIconPath(String path) {
     	this.iconPath = path;
+    }
+    
+    public void setVelocity(Integer v) {
+    	this.velocity = v;
+    }
+    
+    public Integer getVelocity() {
+    	return velocity;
     }
 }

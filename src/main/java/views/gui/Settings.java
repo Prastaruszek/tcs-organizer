@@ -31,6 +31,7 @@ public class Settings extends JFrame {
 	private JPanel contentPane;
 	private JTextField chosenFolder = new JTextField(Organizer.getInstance().getCurrentUser().getUserProfile().getPath());
 	private JLabel folderLabel = new JLabel("Data folder:");
+	private final JTextField editVelocity = new JTextField();
 	
 	/**
 	 * Launch the application.
@@ -52,6 +53,7 @@ public class Settings extends JFrame {
 	 * Create the frame.
 	 */
 	public Settings() {
+		editVelocity.setColumns(10);
 		setTitle("Settings");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 220);
@@ -74,17 +76,25 @@ public class Settings extends JFrame {
 		
 		JPanel panel = new JPanel();
 		
+		JLabel lblVelocity = new JLabel("Velocity");
+		
+		editVelocity.setText(Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(folderLabel)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(folderLabel)
+								.addComponent(lblVelocity))
 							.addGap(62)
-							.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -94,7 +104,11 @@ public class Settings extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(folderLabel)
 						.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblVelocity)
+						.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 		);
 		
@@ -119,5 +133,8 @@ public class Settings extends JFrame {
 	public String getPath() {
 		return chosenFolder.getText();
 	}
-
+	
+	public Integer getVelocity() {
+		return Integer.parseInt(editVelocity.getText());
+	}
 }

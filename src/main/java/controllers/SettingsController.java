@@ -15,6 +15,7 @@ public class SettingsController extends Controller {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Organizer.getInstance().getCurrentUser().getUserProfile().setPath(ref.getPath());
+		Organizer.getInstance().getCurrentUser().getUserProfile().setVelocity(ref.getVelocity());
 		ref.dispose();
 	}
 	
