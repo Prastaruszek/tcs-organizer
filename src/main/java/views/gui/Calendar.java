@@ -37,6 +37,7 @@ public class Calendar implements Observer {
 	private JLabel lblLogin;
 	private JLabel lblUsername;
 	private JLabel lblUserPic;
+	private JLabel lblVelocity;
 	
     public JEventDisplay getEventDisplay() {
 		return eventDisplay;
@@ -198,7 +199,7 @@ public class Calendar implements Observer {
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		JLabel lblVelocity = new JLabel("Velocity: " + Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
+		lblVelocity = new JLabel("Velocity: " + Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
 		lblVelocity.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel_2.add(lblVelocity);
 		
@@ -246,10 +247,13 @@ public class Calendar implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        DisplayState state = (DisplayState) arg;
-        lblThereWillBe.setText(state.getRangeDisplay());
+    	if(arg != null) {
+    		DisplayState state = (DisplayState) arg;
+    		lblThereWillBe.setText(state.getRangeDisplay());
+    	}
+        lblVelocity.setText(Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
     }
-
+    
 	protected JLabel getLblThereWillBe() {
 		return lblThereWillBe;
 	}

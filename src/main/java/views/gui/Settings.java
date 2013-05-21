@@ -135,6 +135,10 @@ public class Settings extends JFrame {
 	}
 	
 	public Integer getVelocity() {
-		return Integer.parseInt(editVelocity.getText());
+		try {
+			return Integer.parseInt(editVelocity.getText());
+		} catch (Exception e) {
+			return Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity();
+		}
 	}
 }

@@ -41,19 +41,13 @@ public class UserManager implements Serializable{
     
     public User validateUser(String username, String rawPassword) {
     	User res = getByUsername(username);
-    	if(res != null && res.hasPassword(User.hashIt(rawPassword)))
+    	if(res != null && res.hasPassword(rawPassword))
     		return res;
     	else return null;
     }
     
     public User getByUsername(String username){
-    	User res = null;
-    	for(User u : users)
-    		if(u.getUsername().equals(username)){
-    			res = u;
-    			break;
-    		}
-    	return res;
+    	return users.getByUsername(username);
     }
     
     public UserSet all() {
