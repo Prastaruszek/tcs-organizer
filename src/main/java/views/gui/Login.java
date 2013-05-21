@@ -4,21 +4,23 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import models.Organizer;
+import controllers.DeleteUserController;
 import controllers.LoginController;
 
 public class Login extends JFrame {
@@ -26,6 +28,7 @@ public class Login extends JFrame {
 	private static final long serialVersionUID = -6145788675663931852L;
 	private JPanel contentPane;
 	private JPasswordField pwdPasswd;
+	private JComboBox<String> userList;
 
 	/**
 	 * Launch the application.
@@ -55,17 +58,13 @@ public class Login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JOptionPane alert = new JOptionPane("The password is invalid!",
-				JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION);
-		JDialog dialog = alert.createDialog(this, "Error");
-		
 		JLabel lblUser = new JLabel("User");
 		
-		JComboBox<String> comboBox = new JComboBox<String>(Organizer.getInstance().getUsers().getUsernames());
+		userList = new JComboBox<String>(Organizer.getInstance().getUsers().getUsernames());
 		
 		JLabel lblPassword = new JLabel("Password");
 		
-		comboBox.addActionListener(new ActionListener() {
+		userList.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				pwdPasswd.requestFocusInWindow();
@@ -73,12 +72,12 @@ public class Login extends JFrame {
 		});
 		
 		pwdPasswd = new JPasswordField();
-		pwdPasswd.addActionListener(new LoginController(this, comboBox, pwdPasswd, dialog));
+		pwdPasswd.addActionListener(new LoginController(this, userList, pwdPasswd));
 		
 		JPanel panel = new JPanel();
 		
 		JButton btnLogIn = new JButton("Log in");
-		btnLogIn.addActionListener(new LoginController(this, comboBox, pwdPasswd, dialog));
+		btnLogIn.addActionListener(new LoginController(this, userList, pwdPasswd));
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -91,7 +90,7 @@ public class Login extends JFrame {
 					.addGap(21)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(pwdPasswd)
-						.addComponent(comboBox, 0, 166, Short.MAX_VALUE))
+						.addComponent(userList, 0, 166, Short.MAX_VALUE))
 					.addGap(18)
 					.addComponent(btnLogIn, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -103,7 +102,7 @@ public class Login extends JFrame {
 					.addGap(21)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUser)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(userList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnLogIn))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
@@ -132,16 +131,28 @@ public class Login extends JFrame {
 		panel.add(btnNewUser);
 		
 		JButton btnDeleteUser = new JButton("Delete user");
-		btnDeleteUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Delete user clicked");
-				//TODO user deleting form
-			}
-		});
+		btnDeleteUser.addActionListener(new DeleteUserController(this, userList, pwdPasswd));
 		panel.add(btnDeleteUser);
 		panel.add(btnCancel);
 		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+	        public void windowClosing(WindowEvent e) {
+	        	Organizer.getInstance().saveToFile();
+	        }
+	        
+			@Override
+	        public void windowClosed(WindowEvent e) {
+				Organizer.getInstance().saveToFile();
+			}
+	    });
+		
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);
+	}
+	
+	public void updateUserList() {
+		userList.setModel(new DefaultComboBoxModel<String>(
+				Organizer.getInstance().getUsers().getUsernames()));
 	}
 }

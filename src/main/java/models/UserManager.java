@@ -39,12 +39,14 @@ public class UserManager implements Serializable{
     	return currentUser;
     }
     
+    public void setCurrentUser(User user) {
+    	currentUser = user;
+    }
+    
     public User validateUser(String username, String rawPassword) {
     	User res = getByUsername(username);
-    	if(res != null && res.hasPassword(rawPassword)) {
-            currentUser = res;
+    	if(res != null && res.hasPassword(rawPassword))
     		return res;
-        }
     	return null;
     }
     
@@ -62,5 +64,13 @@ public class UserManager implements Serializable{
     
     public boolean add(User user) {
         return users.add(user);
+    }
+    
+    public boolean remove(String username, String rawPassword) {
+    	User user = validateUser(username, rawPassword);
+    	if(user == null)
+    		return false;
+    	users.remove(user);
+    	return true;
     }
 }
