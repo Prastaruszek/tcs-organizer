@@ -9,6 +9,7 @@ import models.EventGroup;
 import models.Organizer;
 
 import views.gui.AddEvent;
+import views.gui.InvalidEventDialog;
 
 public class AddEventController extends Controller {
 	protected AddEvent addEvent;
@@ -30,7 +31,7 @@ public class AddEventController extends Controller {
         try {
             event = form.save();
         } catch (ValidationException error) {
-            error.printStackTrace();
+            new InvalidEventDialog().setVisible(true);
         }
         Organizer.getInstance().update();
         Organizer.getInstance().notifyObservers(Organizer.getInstance().getCurrentUser().getUserProfile().getState());

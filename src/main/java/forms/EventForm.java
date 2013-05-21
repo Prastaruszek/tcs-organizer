@@ -33,7 +33,11 @@ public final class EventForm extends ModelForm<Event> {
         if ( endTime == null )
             return false;
 
-        /* TODO: add validation */
+        if ( parent.getTitle().isEmpty())
+        	return false;
+        if ( !startTime.before(endTime) )
+        	return false;
+        
         clean();
 
         if ( instance == null ) {
