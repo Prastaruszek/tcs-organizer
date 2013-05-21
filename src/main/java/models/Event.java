@@ -18,9 +18,9 @@ public class Event extends Model implements Serializable {
     private Calendar endTime;
     private UserProfile profile;
 
-    public Event(String title, String comment, Calendar startTime, Calendar endTime, UserProfile profile) {
+    public Event(EventGroup parent, String comment, Calendar startTime, Calendar endTime, UserProfile profile) {
         this.profile = profile;
-        this.parent = new EventGroup(title);
+        this.parent = parent;
         this.comment = comment;
         this.startTime = startTime;
         this.endTime = endTime;

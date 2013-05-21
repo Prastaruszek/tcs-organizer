@@ -1,6 +1,7 @@
 package factories;
 
 import models.Event;
+import models.EventGroup;
 
 import java.util.GregorianCalendar;
 
@@ -17,6 +18,7 @@ public class EventFactory {
         GregorianCalendar startTime = new GregorianCalendar();
         GregorianCalendar endTime = (GregorianCalendar) startTime.clone();
         endTime.add(GregorianCalendar.HOUR, 1);
-        return new Event("Title", "Comment", startTime, endTime, UserProfileFactory.create());
+        EventGroup group = new EventGroup("Title");
+        return new Event(group, "Comment", startTime, endTime, UserProfileFactory.create());
     }
 }

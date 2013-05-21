@@ -3,12 +3,6 @@ package models;
 import java.util.HashSet;
 import java.util.Vector;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 15.05.13
- * Time: 22:48
- */
 public class UserSet extends HashSet<User> {
 	private static final long serialVersionUID = 3451957181511705129L;
 	

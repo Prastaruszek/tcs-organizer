@@ -3,12 +3,6 @@ package models;
 import java.io.Serializable;
 import java.util.Vector;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 16.05.13
- * Time: 21:04
- */
 public class UserManager implements Serializable{
 
 	private static final long serialVersionUID = 6782682832616034376L;
