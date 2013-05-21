@@ -26,7 +26,10 @@ public class UserSet extends HashSet<User> {
     }
 
     public UserSet all() {
-        return this;
+        UserSet ret = new UserSet(userManager);
+        for ( User u : this )
+            ret.add(u);
+        return ret;
     }
     
     public Vector<String> getUsernames() {

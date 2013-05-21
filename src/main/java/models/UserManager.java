@@ -53,7 +53,7 @@ public class UserManager implements Serializable{
     }
     
     public UserSet all() {
-        return users;
+        return users.all();
     }
 
     public Vector<String> getUsernames() {

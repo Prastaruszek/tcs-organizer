@@ -18,6 +18,10 @@ public class EventManager implements Serializable{
         this.events = new EventSet(this);
     }
 
+    public EventSet all() {
+        return events.all();
+    }
+
     public EventSet between(Calendar startTime, Calendar endTime) {
         return events.between(startTime, endTime);
     }

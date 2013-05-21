@@ -33,6 +33,9 @@ public class EventSet extends HashSet<Event> {
     }
 
     public EventSet all() {
-        return this;
+        EventSet ret = new EventSet(eventManager);
+        for ( Event e : this )
+            ret.add(e);
+        return ret;
     }
 }
