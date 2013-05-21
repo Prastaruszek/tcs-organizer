@@ -12,18 +12,22 @@ public class UserSet extends HashSet<User> {
         this.userManager = userManager;
     }
 
-    public User validateUser(String username, String rawPassword) {
-    	for(User u : this)
-    		if(u.equals(new User(username, rawPassword)))
-    			return u;
-        return null;
-    }
-
     public UserSet all() {
         UserSet ret = new UserSet(userManager);
         for ( User u : this )
             ret.add(u);
         return ret;
+    }
+    
+    public User getByUsername(String username){
+    	User res = null;
+    	for(User u : this){
+    		if(u.getUsername().equals(username)){
+    			res = u;
+    			break;
+    		}
+    	}
+    	return res;
     }
     
     public Vector<String> getUsernames() {
