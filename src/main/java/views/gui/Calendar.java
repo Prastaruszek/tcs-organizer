@@ -77,18 +77,11 @@ public class Calendar implements Observer {
 		});
 		eventDisplay.setToolTipText("");
 		
-		BufferedImage icon;
-		try {
-			icon = ImageIO.read(new File(Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath()));
-			lblUserPic = new JLabel(new ImageIcon(icon));
-		} catch (Exception e) {
-			try {
-				icon = ImageIO.read(new File(Calendar.DEFAULT_USER_ICON));
-				lblUserPic = new JLabel(new ImageIcon(icon));
-			} catch (IOException e2) {
-				e2.printStackTrace();
-			}
-		}
+		lblUserPic = new JLabel("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" /></html>");
+		
+		File icon = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath());
+		if(icon.canRead())
+			lblUserPic.setText("<html><img src=\"file:"+icon+"\" width=70 height=70 /></html>");
 		
 		lblLogin = new JLabel("You are logged in as :");
 		lblUsername = new JLabel(Organizer.getInstance().getCurrentUser().getUsername());
@@ -252,6 +245,13 @@ public class Calendar implements Observer {
     		lblThereWillBe.setText(state.getRangeDisplay());
     	}
         lblVelocity.setText("Velocity: " + Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
+        
+		lblUserPic.setText("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" /></html>");
+        
+		File icon = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath());
+		if(icon.canRead())
+			lblUserPic.setText("<html><img src=\"file:"+icon+"\" width=70 height=70 /></html>");
+
     }
     
 	protected JLabel getLblThereWillBe() {

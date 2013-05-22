@@ -23,6 +23,7 @@ import models.Organizer;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 public class Settings extends JFrame {
 
@@ -32,6 +33,8 @@ public class Settings extends JFrame {
 	private JTextField chosenFolder = new JTextField(Organizer.getInstance().getCurrentUser().getUserProfile().getPath());
 	private JLabel folderLabel = new JLabel("Data folder:");
 	private final JTextField editVelocity = new JTextField();
+	private JLabel lblIcon = new JLabel("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" width=70 height=70 /></html>");
+	private String newPath = Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath();
 	
 	/**
 	 * Launch the application.
@@ -56,7 +59,7 @@ public class Settings extends JFrame {
 		editVelocity.setColumns(10);
 		setTitle("Settings");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 220);
+		setBounds(100, 100, 453, 250);
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -80,35 +83,70 @@ public class Settings extends JFrame {
 		
 		editVelocity.setText(Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
 		
+		File icon = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath());
+		
+		if(icon.canRead()) 
+			lblIcon = new JLabel("<html><img src=\"file:"+icon+"\" width=70 height=70 /></html>");
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+							.addContainerGap())
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(folderLabel)
 								.addComponent(lblVelocity))
-							.addGap(62)
+							.addGap(53)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap())
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+									.addComponent(lblIcon)
+									.addGap(42))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+									.addContainerGap())))))
 		);
+		lblIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser file = new JFileChooser();
+				if(file.showDialog(Settings.this, "Choose") == JFileChooser.APPROVE_OPTION) {
+					String tmpPath = file.getSelectedFile().getAbsolutePath();
+					
+					File newIcon = new File(tmpPath);
+					if(newIcon.canRead() == false)
+						return;
+					
+					lblIcon.setText("<html><img src=\"file:"+newIcon+"\" width=70 height=70 /></html>");
+					
+					newPath = new String(tmpPath);
+				}
+			}
+		});
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblIcon, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(40))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(29)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblVelocity)
+								.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(folderLabel)
-						.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblVelocity)
-						.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+						.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(folderLabel))
+					.addGap(31)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 		);
 		
@@ -140,5 +178,9 @@ public class Settings extends JFrame {
 		} catch (Exception e) {
 			return Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity();
 		}
+	}
+	
+	public String getIconPath() {
+		return newPath;
 	}
 }
