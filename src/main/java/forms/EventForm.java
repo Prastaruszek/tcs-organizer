@@ -36,20 +36,29 @@ public final class EventForm extends ModelForm<Event> {
         if ( endTime == null )
             return false;
 
-        if ( parent.getTitle().isEmpty())
+        if ( parent.getTitle().isEmpty()) {
+            this.getErrors().appendError("__all__", "Title is required");
         	return false;
-        if ( !startTime.before(endTime) )
+        }
+        if ( !startTime.before(endTime) ) {
+            this.getErrors().appendError("__all__", "End time has to be after start time");
         	return false;
+        }
 
         EventSet events = profile.getEvents().all();
         events.remove(instance);
         for(Event event : events ){
+            boolean overlap = false;
             if(event.isBetween(startTime,endTime))
-                return false;
+                overlap = true;
             if(event.getStartTime().before(endTime)&&event.getStartTime().after(endTime))
-                return false;
+                overlap = true;
             if(event.getStartTime().before(startTime)&&event.getStartTime().after(startTime))
+                overlap = true;
+            if ( overlap ) {
+                this.getErrors().appendError("__all__", "Event overlaps existing one");
                 return false;
+            }
         }
 
         if ( instance == null ) {
