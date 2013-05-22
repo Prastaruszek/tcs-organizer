@@ -12,7 +12,7 @@ import java.util.Calendar;
 public class Event extends Model implements Serializable {
 	
 	private static final long serialVersionUID = -4422979245490541800L;
-	private EventGroup parent;
+    private EventGroup parent;
     private String comment;
     private Calendar startTime;
     private Calendar endTime;
@@ -52,6 +52,14 @@ public class Event extends Model implements Serializable {
 
     public String getTitle() {
         return this.parent.getTitle();
+    }
+
+    public UserProfile getProfile() {
+        return profile;
+    }
+
+    public EventGroup getParent() {
+        return parent;
     }
 
     public Event save() {

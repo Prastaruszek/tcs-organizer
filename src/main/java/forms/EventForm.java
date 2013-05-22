@@ -1,9 +1,6 @@
 package forms;
 
-import models.Event;
-import models.EventGroup;
-import models.EventManager;
-import models.Organizer;
+import models.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Calendar;
@@ -13,17 +10,23 @@ public final class EventForm extends ModelForm<Event> {
     private String comment;
     private Calendar startTime;
     private Calendar endTime;
+    private UserProfile profile;
 
-    public EventForm(Event instance) {
-
+    public EventForm(Event instance, UserProfile profile) {
+        if ( profile == null )
+            throw new NullPointerException("Profile cannot be null");
+        this.instance = instance;
+        this.profile = profile;
     }
 
-    public EventForm() {
-        this(null);
+    public EventForm(UserProfile profile) {
+        this(null, profile);
     }
 
     @Override
     public boolean isValid() {
+        clean();
+
         if ( parent == null )
             return false;
         if ( comment == null )
@@ -38,7 +41,9 @@ public final class EventForm extends ModelForm<Event> {
         if ( !startTime.before(endTime) )
         	return false;
 
-        for(Event event : Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all()){
+        EventSet events = profile.getEvents().all();
+        events.remove(instance);
+        for(Event event : events ){
             if(event.isBetween(startTime,endTime))
                 return false;
             if(event.getStartTime().before(endTime)&&event.getStartTime().after(endTime))
@@ -46,7 +51,6 @@ public final class EventForm extends ModelForm<Event> {
             if(event.getStartTime().before(startTime)&&event.getStartTime().after(startTime))
                 return false;
         }
-        clean();
 
         if ( instance == null ) {
             setInstance(new Event(
@@ -54,10 +58,13 @@ public final class EventForm extends ModelForm<Event> {
                 comment,
                 startTime,
                 endTime,
-                Organizer.getInstance().getCurrentUser().getUserProfile()
+                profile
             ));
         } else {
-            throw new NotImplementedException();
+            if ( instance.getProfile() != profile )
+                return false;
+            if ( instance.getParent() != parent )
+                return false;
         }
 
         return true;
@@ -65,19 +72,29 @@ public final class EventForm extends ModelForm<Event> {
 
     @SuppressWarnings("unused")
     private void cleanStartTime() {
+        if ( startTime == null )
+            return;
         startTime.set(Calendar.SECOND, 0);
     }
 
     @SuppressWarnings("unused")
     private void cleanEndTime() {
+        if ( endTime == null )
+            return;
         endTime.set(Calendar.SECOND, 0);
     }
 
     @Override
     public Event save() throws ValidationException {
+        boolean isCreate = instance == null;
         super.save();
-        EventManager manager = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents();
-        manager.add(getInstance());
+        if ( isCreate ) {
+            EventManager manager = profile.getEvents();
+            manager.add(getInstance());
+        } else {
+            instance.setEndTime(endTime);
+            instance.setStartTime(startTime);
+        }
         return getInstance();
     }
 

@@ -10,21 +10,24 @@ import models.Event;
 import models.EventGroup;
 import models.Organizer;
 
+import models.UserProfile;
 import views.gui.AddEvent;
 
 public class AddEventController extends Controller {
 	protected AddEvent addEvent;
-	
-	public AddEventController(AddEvent addEvent) {
+    private UserProfile profile;
+
+    public AddEventController(AddEvent addEvent) {
 		super();
 		this.addEvent = addEvent;
+        this.profile = Organizer.getInstance().getCurrentUser().getUserProfile();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
         Event event;
         EventGroup group = new EventGroup(addEvent.getEventTitle());
-        EventForm form = new EventForm();
+        EventForm form = new EventForm(profile);
         form.setStartTime(addEvent.getStartCalendar());
         form.setEndTime(addEvent.getEndCalendar());
         form.setComment(addEvent.getEventComment());
@@ -36,7 +39,7 @@ public class AddEventController extends Controller {
     				JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION).createDialog(addEvent,"Error").setVisible(true);
         }
         Organizer.getInstance().update();
-        Organizer.getInstance().notifyObservers(Organizer.getInstance().getCurrentUser().getUserProfile().getState());
+        Organizer.getInstance().notifyObservers(profile.getState());
     }
 
 }

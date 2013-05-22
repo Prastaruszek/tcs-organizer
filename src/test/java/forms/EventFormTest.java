@@ -1,13 +1,18 @@
 package forms;
 
+import factories.UserProfileFactory;
 import models.Event;
 import models.EventGroup;
+import models.UserProfile;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,21 +21,65 @@ import static org.junit.Assert.assertEquals;
  * Time: 16:23
  */
 public class EventFormTest {
-    @Test
-    public void testSave() throws Exception {
-        EventForm form = new EventForm();
+    private EventForm form;
+    private Calendar endTime;
+    private Calendar startTime;
+
+    @Before
+    public void setUp() throws Exception {
+        form = new EventForm(UserProfileFactory.create());
         EventGroup group = new EventGroup("Title");
-        Calendar startTime = new GregorianCalendar();
+        startTime = new GregorianCalendar();
         startTime.set(Calendar.SECOND, 20);
-        Calendar endTime = new GregorianCalendar();
+        endTime = new GregorianCalendar();
         endTime.add(Calendar.HOUR, 2);
         endTime.set(Calendar.SECOND, 30);
         form.setStartTime(startTime);
         form.setEndTime(endTime);
         form.setParent(group);
         form.setComment("");
+    }
+
+    @Test
+    public void testSaveCleansDateInstances() throws Exception {
         Event e = form.save();
         assertEquals(e.getStartTime().get(Calendar.SECOND), 0);
         assertEquals(e.getEndTime().get(Calendar.SECOND), 0);
+    }
+
+    @Test(expected = ValidationException.class)
+    public void testSaveThrowsValidationExceptionWhenStartTimeAfterEndTime() throws Exception {
+        endTime = new GregorianCalendar();
+        endTime.add(Calendar.HOUR, -2);
+        form.setEndTime(endTime);
+        Event e = form.save();
+    }
+
+    @Test(expected = ValidationException.class)
+    public void testSaveThrowsValidationExceptionForOverlappingEvents() throws Exception {
+        try {
+            Event e = form.save();
+        } catch ( ValidationException e ) {
+            fail("First save should be successful");
+        }
+
+        form.setInstance(null);
+        Calendar start = new GregorianCalendar();
+        start.add(Calendar.HOUR, 1);
+        Calendar end = new GregorianCalendar();
+        start.add(Calendar.HOUR, 3);
+        form.setStartTime(start);
+        form.setEndTime(end);
+        Event e = form.save();
+    }
+
+    @Test
+    public void testModifiesExistingInstance() throws Exception {
+        Event e = form.save();
+        try {
+            e = form.save();
+        } catch ( ValidationException ex ) {
+            fail("Instance should be updated");
+        }
     }
 }
