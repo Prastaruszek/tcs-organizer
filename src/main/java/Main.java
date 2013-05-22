@@ -1,5 +1,5 @@
 import models.*;
-import views.gui.Login;
+import views.gui.LoginManager;
 
 import java.awt.*;
 
@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-            	new Login().setVisible(true);
+            	new LoginManager().setVisible(true);
             }
         });
     }

@@ -7,14 +7,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 import models.Organizer;
-import views.gui.Login;
+import views.gui.LoginManager;
 
 public class DeleteUserController extends Controller {
-	private Login login;
+	private LoginManager login;
 	private JComboBox<String> username;
 	private JPasswordField passwd;
 	
-	public DeleteUserController(Login login, JComboBox<String> username, 
+	public DeleteUserController(LoginManager login, JComboBox<String> username, 
 			JPasswordField passwd) {
 		this.login = login;
 		this.username = username;
@@ -32,7 +32,7 @@ public class DeleteUserController extends Controller {
 		boolean removed = organizer.getUsers().remove(
 				(String) username.getSelectedItem(), new String(passwd.getPassword()));
 		if(removed) {
-			alert = new JOptionPane("User '" + username.getSelectedItem() + "' has been removed!",
+			alert = new JOptionPane("User '" + username.getSelectedItem() + "' has been deleted!",
 					JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
 			login.updateUserList();
 			passwd.setText("");

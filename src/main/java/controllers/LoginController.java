@@ -9,14 +9,14 @@ import javax.swing.JPasswordField;
 import models.Organizer;
 import models.User;
 import views.gui.Calendar;
-import views.gui.Login;
+import views.gui.LoginManager;
 
 public class LoginController extends Controller {
-	private Login login;
+	private LoginManager login;
 	private JComboBox<String> username;
 	private JPasswordField passwd;
 	
-	public LoginController(Login login, JComboBox<String> username, 
+	public LoginController(LoginManager login, JComboBox<String> username, 
 			JPasswordField passwd) {
 		this.login = login;
 		this.username = username;

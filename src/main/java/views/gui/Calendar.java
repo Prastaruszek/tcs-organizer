@@ -147,7 +147,7 @@ public class Calendar implements Observer {
 		JButton btnChangeUser = new JButton("Log out");
 		btnChangeUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Login().setVisible(true);
+				new LoginManager().setVisible(true);
 				frame.dispose();
 			}
 		});

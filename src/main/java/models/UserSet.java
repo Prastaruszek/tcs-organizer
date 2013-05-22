@@ -31,9 +31,10 @@ public class UserSet extends HashSet<User> {
     }
     
     public Vector<String> getUsernames() {
-    	User currentUser = Organizer.getInstance().getCurrentUser();
+    	User currentUser = userManager.getCurrentUser();
     	Vector<String> names = new Vector<>(this.size());
-    	names.add(currentUser.getUsername());
+    	if(currentUser != null)
+    		names.add(currentUser.getUsername());
     	for(User u : this)
     		if(!u.equals(currentUser))
     			names.add(u.getUsername());

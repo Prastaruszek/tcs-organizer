@@ -11,28 +11,15 @@ public class UserManager implements Serializable{
 
     UserManager() {
         users = new UserSet(this);
-        initializeUser();
     }
 
-    private void initializeUser() {
-        if ( currentUser == null ) {
-            DisplayState state = new DisplayState();
-            EventManager events = new EventManager();
-            currentUser = new User("user1", "test");
-            UserProfile profile = new UserProfile(state, events, currentUser);
-            this.add(currentUser);
-            currentUser.setUserProfile(profile);
-            //test
-            for(int i = 2; i < 5; i++) {
-            	state = new DisplayState();
-            	events = new EventManager();
-            	User u = new User("user" + i, "test");
-            	profile = new UserProfile(state, events, u);
-            	this.add(u);
-            	u.setUserProfile(profile);
-            }
-            //end test
-        }
+    public void initializeUser(String username, String rawPassword) {
+    	User user = new User(username, rawPassword);
+        DisplayState state = new DisplayState();
+        EventManager events = new EventManager();
+        UserProfile profile = new UserProfile(state, events, user);
+        user.setUserProfile(profile);
+        this.add(user);
     }
     
     public User getCurrentUser() {
@@ -70,6 +57,8 @@ public class UserManager implements Serializable{
     	User user = validateUser(username, rawPassword);
     	if(user == null)
     		return false;
+    	if(user == currentUser)
+    		currentUser = null;
     	users.remove(user);
     	return true;
     }
