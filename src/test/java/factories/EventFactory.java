@@ -5,12 +5,6 @@ import models.EventGroup;
 
 import java.util.GregorianCalendar;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 05.05.13
- * Time: 00:40
- */
 public class EventFactory {
     private static Class<?> klass = Event.class;
 

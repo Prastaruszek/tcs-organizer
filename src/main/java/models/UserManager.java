@@ -32,7 +32,8 @@ public class UserManager implements Serializable{
     
     public User validateUser(String username, String rawPassword) {
     	User res = getByUsername(username);
-    	if(res != null && res.hasPassword(rawPassword))
+        System.out.println(res);
+        if(res != null && res.hasPassword(rawPassword))
     		return res;
     	return null;
     }
