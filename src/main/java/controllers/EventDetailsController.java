@@ -14,7 +14,7 @@ public class EventDetailsController extends Controller {
 	}
 	
 	public void removeEvent(Event e){
-		Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().removeEvent(e);
+		e.delete();
 		Organizer.getInstance().update();
 		Organizer.getInstance().notifyObservers(Organizer.getInstance().getCurrentUser().getUserProfile().getState());
 	}

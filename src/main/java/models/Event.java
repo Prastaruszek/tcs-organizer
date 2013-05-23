@@ -63,6 +63,10 @@ public class Event extends Model implements Serializable {
         return this;
     }
 
+    public void delete() {
+        profile.getEvents().removeEvent(this);
+    }
+
     public long duration() {
         return (endTime.getTimeInMillis()-startTime.getTimeInMillis())/1000;
     }
