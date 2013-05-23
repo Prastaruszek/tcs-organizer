@@ -78,5 +78,8 @@ public class EventTest {
         event = EventFactory.create();
         event.setEndTime(null);
         assertFalse(event.isBetween(after, before));
+
+        event = EventFactory.create();
+        assertTrue(event.isBetween(event.getStartTime(), event.getEndTime()));
     }
 }

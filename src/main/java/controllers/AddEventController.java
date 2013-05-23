@@ -2,7 +2,7 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import forms.EventForm;
 import forms.ValidationException;
@@ -36,8 +36,10 @@ public class AddEventController extends Controller {
             event = form.save();
         } catch (ValidationException error) {
             String errorMesssages = form.getErrorsDisplay();
-        	new JOptionPane(errorMesssages,
-    				JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION).createDialog(addEvent,"Error").setVisible(true);
+        	JDialog errors = new JOptionPane(errorMesssages,
+    				JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION).createDialog(addEvent, "Error");
+            errors.pack();
+            errors.setVisible(true);
         }
         Organizer.getInstance().update();
         Organizer.getInstance().notifyObservers(profile.getState());

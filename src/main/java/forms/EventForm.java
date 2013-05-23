@@ -35,28 +35,32 @@ public final class EventForm extends ModelForm<Event> {
         if ( endTime == null )
             return false;
 
+        boolean valid = true;
+
         if ( parent.getTitle().isEmpty()) {
-            this.getErrors().appendError("__all__", "Title is required");
-        	return false;
+            this.getErrors().appendError("Title", "Cannot be empty");
+        	valid = false;
         }
         if ( !startTime.before(endTime) ) {
-            this.getErrors().appendError("__all__", "End time has to be after start time");
-        	return false;
+            this.getErrors().appendError("General", "End time has to be after start time");
+            valid = false;
         }
 
         EventSet events = profile.getEvents().all();
-        events.remove(instance);
-        for(Event event : events ){
+        for ( Event event : events ) {
+            if ( event == instance )
+                continue;
             boolean overlap = false;
             if(event.isBetween(startTime,endTime))
                 overlap = true;
-            if(event.getStartTime().before(endTime)&&event.getStartTime().after(endTime))
+            if(event.getStartTime().before(endTime)&&event.getEndTime().after(endTime))
                 overlap = true;
-            if(event.getStartTime().before(startTime)&&event.getStartTime().after(startTime))
+            if(event.getStartTime().before(startTime)&&event.getEndTime().after(startTime))
                 overlap = true;
             if ( overlap ) {
-                this.getErrors().appendError("__all__", "Event overlaps existing one");
-                return false;
+                this.getErrors().appendError("General", "Event overlaps existing one");
+                valid =  false;
+                break;
             }
         }
 
@@ -75,7 +79,7 @@ public final class EventForm extends ModelForm<Event> {
                 return false;
         }
 
-        return true;
+        return valid;
     }
 
     @SuppressWarnings("unused")

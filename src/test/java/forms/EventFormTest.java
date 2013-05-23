@@ -53,7 +53,7 @@ public class EventFormTest {
         Event e = form.save();
     }
 
-    @Test(expected = ValidationException.class)
+    @Test
     public void testSaveThrowsValidationExceptionForOverlappingEvents() throws Exception {
         try {
             Event e = form.save();
@@ -65,10 +65,25 @@ public class EventFormTest {
         Calendar start = new GregorianCalendar();
         start.add(Calendar.HOUR, 1);
         Calendar end = new GregorianCalendar();
-        start.add(Calendar.HOUR, 3);
+        end.add(Calendar.HOUR, 3);
         form.setStartTime(start);
         form.setEndTime(end);
-        Event e = form.save();
+        try {
+            Event e = form.save();
+            fail("Events are overlapping");
+        } catch ( ValidationException e ) {
+        }
+        start = new GregorianCalendar();
+        start.add(Calendar.HOUR, -1);
+        end = new GregorianCalendar();
+        end.add(Calendar.HOUR, 1);
+        form.setStartTime(start);
+        form.setEndTime(end);
+        try {
+            Event e = form.save();
+            fail("Events are overlapping");
+        } catch ( ValidationException e ) {
+        }
     }
 
     @Test

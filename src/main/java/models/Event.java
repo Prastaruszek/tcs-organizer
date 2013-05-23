@@ -78,7 +78,8 @@ public class Event extends Model implements Serializable {
     
     public String toString(){
     	String res = "Event[";
-    	res += comment;
+    	res += startTime.getTime();
+    	res += endTime.getTime();
     	res += "]";
     	return res;
     }
