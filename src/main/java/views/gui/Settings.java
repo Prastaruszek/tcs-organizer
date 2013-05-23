@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controllers.SettingsController;
 
@@ -116,11 +117,13 @@ public class Settings extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JFileChooser file = new JFileChooser();
+                file.setAcceptAllFileFilterUsed(false);
+                file.setFileFilter(new FileNameExtensionFilter("(*.png, *.jpg, *.gif)", "png", "jpg", "gif"));
 				if(file.showDialog(Settings.this, "Choose") == JFileChooser.APPROVE_OPTION) {
 					String tmpPath = file.getSelectedFile().getAbsolutePath();
 					
 					File newIcon = new File(tmpPath);
-					if(newIcon.canRead() == false)
+					if ( !newIcon.canRead() )
 						return;
 					
 					lblIcon.setText("<html><img src=\"file:"+newIcon+"\" width=70 height=70 /></html>");
