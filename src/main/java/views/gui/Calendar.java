@@ -23,6 +23,8 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Calendar implements Observer {
 
@@ -196,26 +198,24 @@ public class Calendar implements Observer {
 		JButton btnPrevious = new JButton("Previous");
 		btnPrevious.addActionListener(new WeekPickerBackController());
 		panel.add(btnPrevious);
-		
-		JButton btnNext = new JButton("Next");
-		btnNext.addActionListener(new WeekPickerNextController());
-		panel.add(btnNext);
 
         // TODO: find better way to provide initial value
 		lblThereWillBe = new JLabel(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getRangeDisplay(), JLabel.CENTER);
+		lblThereWillBe.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+                new DatePicker(new WeekPickerController()).setVisible(true);
+			}
+		});
         lblThereWillBe.setOpaque(true);
         lblThereWillBe.setBackground(Color.WHITE);
         lblThereWillBe.setPreferredSize(new Dimension(250, 25));
 		panel.add(lblThereWillBe);
-		
-		JButton btnDatePicker = new JButton(new ImageIcon(SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
-		btnDatePicker.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("DatePicker clicked");
-				new DatePicker(new WeekPickerController()).setVisible(true);
-			}
-		});
-		panel.add(btnDatePicker);
+
+
+		JButton btnNext = new JButton("Next");
+		btnNext.addActionListener(new WeekPickerNextController());
+		panel.add(btnNext);
 		CalendarController calendarController = new CalendarController(eventDisplay);
 		Organizer.getInstance().addObserver(calendarController);
 		
@@ -233,13 +233,15 @@ public class Calendar implements Observer {
 		
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setVisible(true);
+        update(null,Organizer.getInstance().getCurrentUser().getUserProfile().getState());
 	}
 
     @Override
     public void update(Observable o, Object arg) {
     	if(arg != null) {
     		DisplayState state = (DisplayState) arg;
-    		lblThereWillBe.setText(state.getRangeDisplay());
+    		lblThereWillBe.setText("<html>"+state.getRangeDisplay()+
+                    "<img src=\"file:"+new File(SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF)+"\" /></html>");
     	}
         lblVelocity.setText("Velocity: " + Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
         

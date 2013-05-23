@@ -27,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 import controllers.AddEventController;
 import controllers.DatePickerController;
+import models.Organizer;
 
 public class AddEvent extends JFrame {
 
@@ -35,9 +36,9 @@ public class AddEvent extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtfldTitle;
 	private JTextArea txtrComment;
-	private java.util.Calendar endCalendar = GregorianCalendar.getInstance();
-	private java.util.Calendar startCalendar = GregorianCalendar.getInstance();
-	private java.util.Calendar dateUntilCalendar = GregorianCalendar.getInstance();
+	private java.util.Calendar endCalendar;
+	private java.util.Calendar startCalendar;
+    private java.util.Calendar dateUntilCalendar;
 	private JComboBox startTimeBox;
 	private JComboBox endTimeBox;
 	
@@ -61,7 +62,10 @@ public class AddEvent extends JFrame {
 	 * Create the frame.
 	 */
 	public AddEvent() {
-		setResizable(false);
+        endCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
+        startCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
+        dateUntilCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
+        setResizable(false);
 		setBounds(100, 100, 397, 529);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -139,6 +143,12 @@ public class AddEvent extends JFrame {
 		
 		JButton btnAddEvent = new JButton("Add Event");
 		btnAddEvent.addActionListener(new AddEventController(this));
+        btnAddEvent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+            }
+        });
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
@@ -206,7 +216,7 @@ public class AddEvent extends JFrame {
 		
 		JCheckBox chckbxSun = new JCheckBox("Sun");
 		
-		final JTextPane repeatUntilDate = JDateFactory.JDate();
+		final JTextPane repeatUntilDate = JDateFactory.JDate(dateUntilCalendar);
 		repeatUntilDate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -287,7 +297,7 @@ public class AddEvent extends JFrame {
 		JLabel lblEnd = new JLabel("End:");
 		lblEnd.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		final JTextPane endDatePicker = JDateFactory.JDate();
+		final JTextPane endDatePicker = JDateFactory.JDate(endCalendar);
 		endDatePicker.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -335,7 +345,7 @@ public class AddEvent extends JFrame {
 		JLabel lblStart = new JLabel("Start:");
 		lblStart.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		final JTextPane startDatePicker = JDateFactory.JDate();
+		final JTextPane startDatePicker = JDateFactory.JDate(startCalendar);
 		startDatePicker.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
