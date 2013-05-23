@@ -82,8 +82,8 @@ public abstract class ModelForm<T> {
                     sb.append("</li>");
                     sb.append("</ul>");
                 }
-                sb.append("</html>");
             }
+            sb.append("</html>");
             System.out.println(sb.toString());
             return sb.toString();
         }
