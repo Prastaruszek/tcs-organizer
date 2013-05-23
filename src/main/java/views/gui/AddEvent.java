@@ -143,12 +143,6 @@ public class AddEvent extends JFrame {
 		
 		JButton btnAddEvent = new JButton("Add Event");
 		btnAddEvent.addActionListener(new AddEventController(this));
-        btnAddEvent.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                dispose();
-            }
-        });
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {

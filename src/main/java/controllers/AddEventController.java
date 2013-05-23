@@ -34,6 +34,7 @@ public class AddEventController extends Controller {
         form.setParent(group);
         try {
             event = form.save();
+            addEvent.dispose();
         } catch (ValidationException error) {
             String errorMesssages = form.getErrorsDisplay();
         	JDialog errors = new JOptionPane(errorMesssages,
