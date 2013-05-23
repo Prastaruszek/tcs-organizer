@@ -3,12 +3,6 @@ package models;
 import java.io.Serializable;
 import java.util.Calendar;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 04.05.13
- * Time: 22:52
- */
 public class Event extends Model implements Serializable {
 	
 	private static final long serialVersionUID = -4422979245490541800L;
@@ -80,5 +74,12 @@ public class Event extends Model implements Serializable {
             return false;
         return (eventStart.equals(startTime) || eventStart.after(startTime)) &&
                (eventEnd.equals(endTime) || eventEnd.before(endTime));
+    }
+    
+    public String toString(){
+    	String res = "Event[";
+    	res += comment;
+    	res += "]";
+    	return res;
     }
 }

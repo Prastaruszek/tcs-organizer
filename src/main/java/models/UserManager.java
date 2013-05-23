@@ -63,4 +63,12 @@ public class UserManager implements Serializable{
     	users.remove(user);
     	return true;
     }
+    
+    public String toString(){
+    	String res = "UserManager[";
+    	res += "current:" + currentUser + ", ";
+    	res += users;
+    	res += "]";
+    	return res;
+    }
 }

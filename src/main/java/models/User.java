@@ -96,4 +96,12 @@ public class User extends Model implements Serializable{
 			return false;
 		return true;
 	}
+	
+	public String toString(){
+		String res = "User[";
+		res += ("name:" + username + ", ");
+		res += userProfile;
+		res += "]";
+		return res;
+	}
 }

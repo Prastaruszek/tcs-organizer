@@ -6,16 +6,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 09.05.13
- * Time: 22:31
- */
 public class DisplayState extends Model implements Serializable {
 	
 	private static final long serialVersionUID = 7519930680873671772L;
-	private final int firstDayOfWeek = Calendar.MONDAY;
+	private static final int firstDayOfWeek = Calendar.MONDAY;
     private Calendar firstDay;
     private Calendar lastDay;
 
@@ -72,4 +66,5 @@ public class DisplayState extends Model implements Serializable {
     public Iterable<Event> getCurrentWeekEvents(){
 		return Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().between(firstDay, lastDay);
     }
+    
 }
