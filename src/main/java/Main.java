@@ -3,12 +3,6 @@ import views.gui.LoginManager;
 
 import java.awt.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 14.05.13
- * Time: 14:35
- */
 public class Main {
     /**
      * Launch the application.

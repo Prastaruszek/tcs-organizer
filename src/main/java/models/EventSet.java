@@ -3,12 +3,6 @@ package models;
 import java.util.Calendar;
 import java.util.HashSet;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 15.05.13
- * Time: 22:37
- */
 public class EventSet extends HashSet<Event> {
 	private static final long serialVersionUID = 5541922632969721520L;
 	
@@ -37,5 +31,13 @@ public class EventSet extends HashSet<Event> {
         for ( Event e : this )
             ret.add(e);
         return ret;
+    }
+    
+    public String toString(){
+    	String res = "EventSet[";
+    	for ( Event e : this )
+            res += e;
+    	res += "]";
+    	return res;
     }
 }

@@ -75,4 +75,14 @@ public class UserProfile extends Model implements Serializable{
     public Integer getVelocity() {
     	return velocity;
     }
+    
+    public String toString(){
+    	String res = "UserProfile[";
+    	res += (state + ", ");
+    	res += (events + ", ");
+    	res += ("schedule:" + hasProvidedSchedule + ", ");
+    	res += ("velocity:" + velocity);
+    	res += "]";
+    	return res;
+    }
 }

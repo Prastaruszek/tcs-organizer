@@ -40,4 +40,12 @@ public class UserSet extends HashSet<User> {
     			names.add(u.getUsername());
     	return names;
     }
+    
+    public String toString(){
+    	String res = "UserSet[";
+    	for(User u : this)
+    		res += (u + ", ");
+    	res += "]";
+    	return res;
+    }
 }

@@ -3,12 +3,6 @@ package models;
 import java.io.Serializable;
 import java.util.Calendar;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 16.05.13
- * Time: 21:10
- */
 public class EventManager implements Serializable{
 	
 	private static final long serialVersionUID = -2897014193380647665L;
@@ -28,5 +22,12 @@ public class EventManager implements Serializable{
 
     public boolean add(Event e) {
         return events.add(e);
+    }
+    
+    public String toString(){
+    	String res = "EventMananger[";
+    	res += events;
+    	res += "]";
+    	return res;
     }
 }
