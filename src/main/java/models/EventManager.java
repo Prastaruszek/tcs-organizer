@@ -29,4 +29,8 @@ public class EventManager implements Serializable{
     public boolean add(Event e) {
         return events.add(e);
     }
+
+	public void removeEvent(Event e) {
+		events.remove(e);
+	}
 }

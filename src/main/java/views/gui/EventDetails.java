@@ -15,6 +15,9 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
+
+import controllers.EventDetailsController;
+
 import java.awt.FlowLayout;
 
 public class EventDetails extends JFrame {
@@ -27,7 +30,7 @@ public class EventDetails extends JFrame {
 	private JLabel lblEventStart;
 	private JLabel lblEventTitle;
 	private JLabel lblEventComment;
-
+	private EventDetailsController controller;
 	/**
 	 * Launch the application.
 	 */
@@ -50,6 +53,7 @@ public class EventDetails extends JFrame {
 		lblEventComment.setText(event.getComment());
 		lblEventStart.setText(event.getStartTime().getTime().toString());
 		lblEventEnd.setText(event.getEndTime().getTime().toString());
+		controller = new EventDetailsController();
 		setVisible(true);
 	}
 	/**
@@ -132,6 +136,12 @@ public class EventDetails extends JFrame {
 		panel.add(btnEdit);
 		
 		JButton btnRemove = new JButton("Remove");
+		btnRemove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controller.removeEvent(event);
+				dispose();
+			}
+		});
 		panel.add(btnRemove);
 		
 		JButton btnClose = new JButton("Close");
