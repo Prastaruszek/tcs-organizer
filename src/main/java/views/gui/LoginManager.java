@@ -1,6 +1,5 @@
 package views.gui;
 
-import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,28 +7,28 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
 
 import models.Organizer;
 import controllers.CreateUserController;
-import controllers.LoginController;
 import controllers.DeleteUserController;
+import controllers.LoginController;
 
 public class LoginManager extends JFrame {
 
 	private static final long serialVersionUID = -370406313299117919L;
-	private CardLayout layout;
-	private JPanel contentPane;
+	private JTabbedPane contentPane;
 	private JPasswordField pwdPasswd, pwdPasswd1, pwdConfPasswd1, pwdPasswd2;
 	private JComboBox<String> userList, userList2;
 
@@ -57,14 +56,12 @@ public class LoginManager extends JFrame {
 		setBounds(100, 100, 400, 250);
 		setResizable(false);
 		setTitle("User manager");
-		contentPane = new JPanel();
+		contentPane = new JTabbedPane();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		layout = new CardLayout(0, 0);
-		contentPane.setLayout(layout);
 		
 		JPanel loginCard = new JPanel();
-		contentPane.add(loginCard, "name_7565219233002");
+		contentPane.add("Login", loginCard);
 		
 		JPanel btnPanel = new JPanel();
 		
@@ -84,9 +81,6 @@ public class LoginManager extends JFrame {
 		pwdPasswd = new JPasswordField();
 		pwdPasswd.addActionListener(new LoginController(this, userList, pwdPasswd));
 		
-		JButton btnLogIn = new JButton("Log in");
-		btnLogIn.addActionListener(new LoginController(this, userList, pwdPasswd));
-		
 		GroupLayout gl_loginCard = new GroupLayout(loginCard);
 		gl_loginCard.setHorizontalGroup(
 			gl_loginCard.createParallelGroup(Alignment.LEADING)
@@ -99,9 +93,7 @@ public class LoginManager extends JFrame {
 					.addGroup(gl_loginCard.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(pwdPasswd)
 						.addComponent(userList, 0, 166, Short.MAX_VALUE))
-					.addGap(18)
-					.addComponent(btnLogIn, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(116, Short.MAX_VALUE))
 				.addComponent(btnPanel, GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
 		);
 		gl_loginCard.setVerticalGroup(
@@ -110,15 +102,17 @@ public class LoginManager extends JFrame {
 					.addGap(21)
 					.addGroup(gl_loginCard.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUser)
-						.addComponent(userList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnLogIn))
+						.addComponent(userList, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_loginCard.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPassword)
 						.addComponent(pwdPasswd, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
 					.addComponent(btnPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
+		
+		JButton btnLogIn = new JButton("Log in");
+		btnLogIn.addActionListener(new LoginController(this, userList, pwdPasswd));
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
@@ -127,21 +121,7 @@ public class LoginManager extends JFrame {
 			}
 		});
 		
-		JButton btnNewUser = new JButton("New user");
-		btnNewUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				layout.next(contentPane);
-			}
-		});
-		btnPanel.add(btnNewUser);
-		
-		JButton btnDeleteUser = new JButton("Delete user");
-		btnDeleteUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				layout.last(contentPane);
-			}
-		});
-		btnPanel.add(btnDeleteUser);
+		btnPanel.add(btnLogIn);
 		btnPanel.add(btnClose);
 		
 		loginCard.setLayout(gl_loginCard);
@@ -149,7 +129,7 @@ public class LoginManager extends JFrame {
 		//loginCard end---------------------------------------------------------------------
 		
 		JPanel createUserCard = new JPanel();
-		contentPane.add(createUserCard, "name_7571688066529");
+		contentPane.add("New user", createUserCard);
 		
 		JPanel btnPanel1 = new JPanel();
 		
@@ -162,9 +142,6 @@ public class LoginManager extends JFrame {
 		pwdPasswd1 = new JPasswordField();
 		pwdConfPasswd1 = new JPasswordField();
 		pwdConfPasswd1.addActionListener(new CreateUserController(this, username, pwdPasswd1, pwdConfPasswd1));
-		
-		JButton btnCreate1 = new JButton("Create");
-		btnCreate1.addActionListener(new CreateUserController(this, username, pwdPasswd1, pwdConfPasswd1));
 		
 		JLabel lblConfirm1 = new JLabel("Confirm");
 		
@@ -181,13 +158,10 @@ public class LoginManager extends JFrame {
 					.addGap(21)
 					.addGroup(gl_createUserCard.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(pwdConfPasswd1, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_createUserCard.createSequentialGroup()
-							.addGroup(gl_createUserCard.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(pwdPasswd1, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
-								.addComponent(username, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addComponent(btnCreate1, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(gl_createUserCard.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(pwdPasswd1, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
+							.addComponent(username, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(121, Short.MAX_VALUE))
 		);
 		gl_createUserCard.setVerticalGroup(
 			gl_createUserCard.createParallelGroup(Alignment.LEADING)
@@ -195,8 +169,7 @@ public class LoginManager extends JFrame {
 					.addGap(21)
 					.addGroup(gl_createUserCard.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUser1)
-						.addComponent(username, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCreate1))
+						.addComponent(username, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_createUserCard.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPassword1)
@@ -205,9 +178,12 @@ public class LoginManager extends JFrame {
 					.addGroup(gl_createUserCard.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblConfirm1)
 						.addComponent(pwdConfPasswd1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
 					.addComponent(btnPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
+		
+		JButton btnCreate = new JButton("Create");
+		btnCreate.addActionListener(new CreateUserController(this, username, pwdPasswd1, pwdConfPasswd1));
 		
 		JButton btnClose1 = new JButton("Close");
 		btnClose1.addActionListener(new ActionListener() {
@@ -216,22 +192,7 @@ public class LoginManager extends JFrame {
 			}
 		});
 		
-		JButton btnLogin1 = new JButton("Login");
-		btnLogin1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				layout.first(contentPane);
-			}
-		});
-		
-		JButton btnDeleteUser1 = new JButton("Delete user");
-		btnDeleteUser1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				layout.last(contentPane);
-			}
-		});
-		
-		btnPanel1.add(btnLogin1);
-		btnPanel1.add(btnDeleteUser1);
+		btnPanel1.add(btnCreate);
 		btnPanel1.add(btnClose1);
 		
 		createUserCard.setLayout(gl_createUserCard);
@@ -239,7 +200,7 @@ public class LoginManager extends JFrame {
 		//createUserCard end---------------------------------------------------------------------
 		
 		JPanel deleteUserCard = new JPanel();
-		contentPane.add(deleteUserCard, "name_7584608490106");
+		contentPane.add("Delete user", deleteUserCard);
 		
 		JPanel btnPanel2 = new JPanel();
 		
@@ -259,9 +220,6 @@ public class LoginManager extends JFrame {
 		pwdPasswd2 = new JPasswordField();
 		pwdPasswd2.addActionListener(new DeleteUserController(this, userList2, pwdPasswd2));
 		
-		JButton btnDelete2 = new JButton("Delete");
-		btnDelete2.addActionListener(new DeleteUserController(this, userList2, pwdPasswd2));
-		
 		GroupLayout gl_deleteUserCard = new GroupLayout(deleteUserCard);
 		gl_deleteUserCard.setHorizontalGroup(
 			gl_deleteUserCard.createParallelGroup(Alignment.LEADING)
@@ -274,9 +232,7 @@ public class LoginManager extends JFrame {
 					.addGroup(gl_deleteUserCard.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(pwdPasswd2)
 						.addComponent(userList2, 0, 166, Short.MAX_VALUE))
-					.addGap(18)
-					.addComponent(btnDelete2, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(116, Short.MAX_VALUE))
 				.addComponent(btnPanel2, GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
 		);
 		gl_deleteUserCard.setVerticalGroup(
@@ -285,15 +241,17 @@ public class LoginManager extends JFrame {
 					.addGap(21)
 					.addGroup(gl_deleteUserCard.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUser2)
-						.addComponent(userList2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnDelete2))
+						.addComponent(userList2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_deleteUserCard.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPassword2)
 						.addComponent(pwdPasswd2, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
 					.addComponent(btnPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
+		
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new DeleteUserController(this, userList2, pwdPasswd2));
 		
 		JButton btnClose2 = new JButton("Close");
 		btnClose2.addActionListener(new ActionListener() {
@@ -302,22 +260,7 @@ public class LoginManager extends JFrame {
 			}
 		});
 		
-		JButton btnLogin2 = new JButton("Login");
-		btnLogin2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				layout.first(contentPane);
-			}
-		});
-		
-		JButton btnNewUser2 = new JButton("New user");
-		btnNewUser2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				layout.previous(contentPane);
-			}
-		});
-		
-		btnPanel2.add(btnLogin2);
-		btnPanel2.add(btnNewUser2);
+		btnPanel2.add(btnDelete);
 		btnPanel2.add(btnClose2);
 		
 		deleteUserCard.setLayout(gl_deleteUserCard);
