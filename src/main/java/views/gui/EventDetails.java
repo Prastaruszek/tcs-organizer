@@ -30,7 +30,6 @@ public class EventDetails extends JFrame {
 	private JLabel lblEventStart;
 	private JLabel lblEventTitle;
 	private JLabel lblEventComment;
-	private EventDetailsController controller;
 	/**
 	 * Launch the application.
 	 */
@@ -53,7 +52,6 @@ public class EventDetails extends JFrame {
 		lblEventComment.setText(event.getComment());
 		lblEventStart.setText(event.getStartTime().getTime().toString());
 		lblEventEnd.setText(event.getEndTime().getTime().toString());
-		controller = new EventDetailsController();
 		setVisible(true);
 	}
 	/**
@@ -136,12 +134,7 @@ public class EventDetails extends JFrame {
 		panel.add(btnEdit);
 		
 		JButton btnRemove = new JButton("Remove");
-		btnRemove.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controller.removeEvent(event);
-				dispose();
-			}
-		});
+		btnRemove.addActionListener(new EventDetailsController(this));
 		panel.add(btnRemove);
 		
 		JButton btnClose = new JButton("Close");
@@ -153,6 +146,9 @@ public class EventDetails extends JFrame {
 		panel.add(btnClose);
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);
+	}
+	public Event getEvent() {
+		return event;
 	}
 	protected JLabel getLblEventEnd() {
 		return lblEventEnd;

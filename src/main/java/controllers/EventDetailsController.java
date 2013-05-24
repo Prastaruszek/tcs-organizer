@@ -2,20 +2,29 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 
-import models.Event;
+import javax.swing.JOptionPane;
+
+import views.gui.EventDetails;
+
 import models.Organizer;
 
 public class EventDetailsController extends Controller {
+	private EventDetails frame;
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public EventDetailsController(EventDetails frame) {
+		this.frame = frame;
 	}
 	
-	public void removeEvent(Event e){
-		e.delete();
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		JOptionPane alert = new JOptionPane("Are you sure you want to remove this event?",
+				JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
+		alert.createDialog(frame, "").setVisible(true);
+		if((int) alert.getValue() == 1)
+			return;
+		frame.getEvent().delete();
 		Organizer.getInstance().update();
 		Organizer.getInstance().notifyObservers(Organizer.getInstance().getCurrentUser().getUserProfile().getState());
+		frame.dispose();
 	}
 }
