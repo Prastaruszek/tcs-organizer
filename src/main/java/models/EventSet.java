@@ -1,5 +1,12 @@
 package models;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.HashSet;
 
@@ -8,6 +15,10 @@ public class EventSet extends HashSet<Event> {
 	
 	private final EventManager eventManager;
 
+	public EventSet(){
+		eventManager = null;
+	}
+	
     public EventSet(EventManager eventManager) {
         this.eventManager = eventManager;
     }
@@ -31,6 +42,20 @@ public class EventSet extends HashSet<Event> {
         for ( Event e : this )
             ret.add(e);
         return ret;
+    }
+    
+    public void exportEventSet(String exportPath, String name){
+    	try {
+    		String filename = exportPath + "/" + name;
+    		Files.deleteIfExists(Paths.get(filename));
+    		new File(exportPath).mkdirs();
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
+			oos.writeObject(this);
+			oos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
     }
     
     public String toString(){

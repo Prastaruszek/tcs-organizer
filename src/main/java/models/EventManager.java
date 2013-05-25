@@ -1,5 +1,7 @@
 package models;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -27,6 +29,18 @@ public class EventManager implements Serializable{
 	public void removeEvent(Event e) {
 		events.remove(e);
 	}
+	
+	public static EventSet importEventSet(String filename){
+    	EventSet res = null;
+    	try {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
+			res = (EventSet) ois.readObject();
+			ois.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return res;
+    }
    
     public String toString(){
     	String res = "EventMananger[";
