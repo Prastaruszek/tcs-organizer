@@ -1,6 +1,6 @@
 package models;
 
-import javax.swing.JCheckBox;
+import javax.swing.*;
 
 public class EventBox extends JCheckBox {
 	

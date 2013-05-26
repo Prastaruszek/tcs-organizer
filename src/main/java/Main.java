@@ -1,4 +1,4 @@
-import models.*;
+import models.Organizer;
 import views.gui.LoginManager;
 
 import java.awt.*;

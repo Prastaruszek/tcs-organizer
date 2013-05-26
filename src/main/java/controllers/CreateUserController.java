@@ -1,16 +1,12 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-import java.util.Arrays;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
 import models.Organizer;
-
 import views.gui.Calendar;
 import views.gui.LoginManager;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.Arrays;
 
 public class CreateUserController extends Controller {
 	private LoginManager login;

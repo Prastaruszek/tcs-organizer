@@ -1,19 +1,14 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JCheckBox;
-
 import models.Event;
 import models.EventBox;
 import models.EventSet;
 import models.Organizer;
-
-import controllers.Controller;
 import views.gui.ExportManager;
+
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExportManagerController extends Controller {
 

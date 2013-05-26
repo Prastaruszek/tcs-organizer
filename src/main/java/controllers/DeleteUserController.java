@@ -1,13 +1,10 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-
 import models.Organizer;
 import views.gui.LoginManager;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class DeleteUserController extends Controller {
 	private LoginManager login;

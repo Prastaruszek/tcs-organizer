@@ -1,10 +1,11 @@
 package views.gui;
 
 import controllers.CalendarController;
-import controllers.WeekPickerController;
 import controllers.WeekPickerBackController;
+import controllers.WeekPickerController;
 import controllers.WeekPickerNextController;
 import models.DisplayState;
+import models.Event;
 import models.Organizer;
 import models.User;
 import views.gui.components.JEventDisplay;
@@ -12,20 +13,11 @@ import views.gui.components.JEventDisplay;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-
-import models.Event;
-
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Calendar implements Observer {
 
@@ -129,7 +121,7 @@ public class Calendar implements Observer {
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Settings(currentUser).setVisible(true);
+				Settings.getInstance(currentUser).setVisible(true);
 			}
 		});
 		

@@ -1,12 +1,10 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.JOptionPane;
-
+import models.Organizer;
 import views.gui.EventDetails;
 
-import models.Organizer;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class EventDetailsController extends Controller {
 	private EventDetails frame;

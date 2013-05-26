@@ -1,10 +1,9 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-
 import models.Organizer;
-
 import views.gui.Settings;
+
+import java.awt.event.ActionEvent;
 
 public class SettingsController extends Controller {
 	

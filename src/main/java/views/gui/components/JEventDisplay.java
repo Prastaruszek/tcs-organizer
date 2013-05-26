@@ -1,9 +1,9 @@
 package views.gui.components;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import models.Event;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,11 +11,6 @@ import java.awt.event.MouseEvent;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.ToolTipManager;
-
-import models.Event;
 
 public class JEventDisplay extends JComponent{
 

@@ -1,10 +1,9 @@
 package views.gui;
-import javax.swing.ImageIcon;
-import javax.swing.JTextPane;
-import javax.swing.UIManager;
-import java.awt.Font;
+
 import controllers.DatePickerController;
-import java.util.GregorianCalendar;
+
+import javax.swing.*;
+import java.awt.*;
 
 public final class JDateFactory {
 	/**

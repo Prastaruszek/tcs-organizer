@@ -1,28 +1,16 @@
 package views.gui;
 
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import controllers.SettingsController;
+import models.User;
 
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import controllers.SettingsController;
-
-import models.Organizer;
-import models.User;
-
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -34,12 +22,13 @@ public class Settings extends JFrame {
 	private JPanel contentPane;
 	private JTextField chosenFolder;
 	private JLabel folderLabel;
-	private final JTextField editVelocity;
+	private JTextField editVelocity;
 	private JLabel lblIcon;
 	private String newPath;
     private User currentUser;
-	
-	/**
+    private static Settings instance;
+
+    /**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -55,10 +44,20 @@ public class Settings extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public Settings(User currentUser) {
+    private Settings(User currentUser) {
+        init(currentUser);
+    }
+
+    public static Settings getInstance(User user) {
+        if ( instance == null ) {
+            instance = new Settings(user);
+        } else {
+            instance.init(user);
+        }
+        return instance;
+    }
+
+	private void init(User currentUser) {
         this.currentUser = currentUser;
         editVelocity = new JTextField();
         editVelocity.setColumns(10);
@@ -70,7 +69,7 @@ public class Settings extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-        chosenFolder = new JTextField(Organizer.getInstance().getCurrentUser().getUserProfile().getPath());
+        chosenFolder = new JTextField(currentUser.getUserProfile().getPath());
         chosenFolder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -87,9 +86,9 @@ public class Settings extends JFrame {
 		
 		JLabel lblVelocity = new JLabel("Velocity");
 		
-		editVelocity.setText(Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
+		editVelocity.setText(currentUser.getUserProfile().getVelocity().toString());
 		
-		File icon = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath());
+		File icon = new File(currentUser.getUserProfile().getIconPath());
 
         lblIcon = new JLabel("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" width=70 height=70 /></html>");
         if(icon.canRead())
@@ -120,7 +119,7 @@ public class Settings extends JFrame {
 									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
 									.addContainerGap())))))
 		);
-        newPath = Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath();
+        newPath = currentUser.getUserProfile().getIconPath();
         lblIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -187,7 +186,7 @@ public class Settings extends JFrame {
 		try {
 			return Integer.parseInt(editVelocity.getText());
 		} catch (Exception e) {
-			return Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity();
+			return currentUser.getUserProfile().getVelocity();
 		}
 	}
 	

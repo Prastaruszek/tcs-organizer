@@ -1,12 +1,11 @@
 package controllers;
 
+import com.toedter.calendar.JCalendar;
+import views.gui.DatePicker;
+
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import views.gui.DatePicker;
-
-import com.toedter.calendar.JCalendar;
 
 public abstract class DatePickerController extends Controller {
     protected JCalendar jCalendar;

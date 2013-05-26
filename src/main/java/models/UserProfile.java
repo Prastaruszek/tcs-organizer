@@ -1,8 +1,8 @@
 package models;
 
-import java.io.Serializable;
-
 import views.gui.Calendar;
+
+import java.io.Serializable;
 
 /**
  * Created with IntelliJ IDEA.

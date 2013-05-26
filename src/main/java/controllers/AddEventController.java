@@ -1,17 +1,15 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.*;
-
 import forms.EventForm;
 import forms.ValidationException;
 import models.Event;
 import models.EventGroup;
 import models.Organizer;
-
 import models.UserProfile;
 import views.gui.AddEvent;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class AddEventController extends Controller {
 	protected AddEvent addEvent;
