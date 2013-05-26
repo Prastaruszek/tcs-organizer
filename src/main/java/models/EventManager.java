@@ -22,6 +22,10 @@ public class EventManager implements Serializable{
         return events.between(startTime, endTime);
     }
 
+    public EventSet overlapping(Calendar startTime, Calendar endTime) {
+        return events.overlapping(startTime, endTime);
+    }
+
     public boolean add(Event e) {
         return events.add(e);
     }

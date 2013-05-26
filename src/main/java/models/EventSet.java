@@ -29,13 +29,28 @@ public class EventSet extends HashSet<Event> {
         Calendar endTime = (Calendar) _endTime.clone();
         startTime.set(Calendar.HOUR_OF_DAY, 0);
         startTime.set(Calendar.MINUTE, 0);
-        endTime.set(Calendar.HOUR_OF_DAY, 24);
+        endTime.set(Calendar.HOUR_OF_DAY, 23);
         endTime.set(Calendar.MINUTE, 59);
         for ( Event e : this )
             if ( e.isBetween(startTime, endTime) )
                 ret.add(e);
         return ret;
     }
+
+    public EventSet overlapping(Calendar _startTime, Calendar _endTime) {
+        EventSet ret = new EventSet(eventManager);
+        Calendar startTime = (Calendar) _startTime.clone();
+        Calendar endTime = (Calendar) _endTime.clone();
+        startTime.set(Calendar.HOUR_OF_DAY, 0);
+        startTime.set(Calendar.MINUTE, 0);
+        endTime.set(Calendar.HOUR_OF_DAY, 23);
+        endTime.set(Calendar.MINUTE, 59);
+        for ( Event e : this )
+            if ( e.overlaps(startTime, endTime) )
+                ret.add(e);
+        return ret;
+    }
+
 
     public EventSet all() {
         EventSet ret = new EventSet(eventManager);

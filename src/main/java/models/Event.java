@@ -87,4 +87,12 @@ public class Event extends Model implements Serializable {
     	res += "]";
     	return res;
     }
+
+    public boolean overlaps(Calendar startTime, Calendar endTime) {
+        if ( isBetween(startTime, endTime) )
+            return true;
+        if ( startTime.before(getEndTime()) && getEndTime().after(getEndTime()) )
+            return true;
+        return startTime.before(getStartTime()) && endTime.after(getStartTime());
+    }
 }

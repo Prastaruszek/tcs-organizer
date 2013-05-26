@@ -64,7 +64,7 @@ public class DisplayState extends Model implements Serializable {
     }
     
     public Iterable<Event> getCurrentWeekEvents(){
-		return Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().between(firstDay, lastDay);
+		return Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().overlapping(firstDay, lastDay);
     }
     
 }

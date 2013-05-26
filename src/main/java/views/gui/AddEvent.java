@@ -24,7 +24,6 @@ import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.jmx.snmp.agent.SnmpUserDataFactory;
 import controllers.AddEventController;
 import controllers.DatePickerController;
 import models.Organizer;

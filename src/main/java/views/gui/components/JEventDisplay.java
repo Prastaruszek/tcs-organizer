@@ -193,11 +193,13 @@ public class JEventDisplay extends JComponent{
 			int endHour = event.getEndTime().get(GregorianCalendar.HOUR_OF_DAY);
 			int startingMinute = event.getStartTime().get(GregorianCalendar.MINUTE);
 			int endingMinute = event.getEndTime().get(GregorianCalendar.MINUTE);
-			startingDay=(startingDay+5)%7;
+			startingDay= (startingDay+5)%7;
 			endingDay=(endingDay+5)%7;
+            if ( endingDay < startingDay )
+                endingDay = startingDay+1;
 			Color eventFillColor = Color.RED;
 			Color eventBorderColor = Color.BLACK;
-			//System.out.println(""+startingDay+" "+endingDay+"|"+startHour+" "+endHour+"|"+startingMinute+" "+endingMinute);
+			System.out.println(""+startingDay+" "+endingDay+"|"+startHour+" "+endHour+"|"+startingMinute+" "+endingMinute);
 			for(int day=startingDay;day<=endingDay;day++){
 				int x = xOffset+colWidth*(day+1);
 				int y = rowHeight*(startHour-startingHour+1)+(int)((float)rowHeight*((float)startingMinute/60.0f));

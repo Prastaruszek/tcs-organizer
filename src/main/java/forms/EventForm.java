@@ -58,7 +58,7 @@ public final class EventForm extends ModelForm<Event> {
             if(event.getStartTime().before(startTime)&&event.getEndTime().after(startTime))
                 overlap = true;
             if ( overlap ) {
-                this.getErrors().appendError("General", "Event overlaps existing one");
+                this.getErrors().appendError("General", "Event overlaps existing one" + event.getTitle() + event.getStartTime().getTime() + event.getEndTime().getTime());
                 valid =  false;
                 break;
             }
