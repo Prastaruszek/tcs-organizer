@@ -2,23 +2,31 @@ package views.gui;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import models.Event;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JLabel;
-
 import controllers.EventDetailsController;
+import javax.swing.JLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Color;
+import java.awt.Font;
+import java.text.SimpleDateFormat;
 
-import java.awt.FlowLayout;
+import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 public class EventDetails extends JFrame {
 
@@ -26,10 +34,10 @@ public class EventDetails extends JFrame {
 	
 	private JPanel contentPane;
 	private Event event;
-	private JLabel lblEventEnd;
-	private JLabel lblEventStart;
 	private JLabel lblEventTitle;
-	private JLabel lblEventComment;
+	private JLabel lblEventStart;
+	private JLabel lblEventEnd;
+	private JTextPane txtpnEventComment;
 	/**
 	 * Launch the application.
 	 */
@@ -47,11 +55,13 @@ public class EventDetails extends JFrame {
 	}
 	public EventDetails(Event event){
 		this();
-		this.event=event;
+		this.event = event;
 		lblEventTitle.setText(event.getTitle());
-		lblEventComment.setText(event.getComment());
-		lblEventStart.setText(event.getStartTime().getTime().toString());
-		lblEventEnd.setText(event.getEndTime().getTime().toString());
+		SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm");
+		lblEventStart.setText(df.format(event.getStartTime().getTime()));
+		lblEventEnd.setText(df.format(event.getEndTime().getTime()));
+		txtpnEventComment.setText(event.getComment());
+		//TODO set priority label
 		setVisible(true);
 	}
 	/**
@@ -60,72 +70,91 @@ public class EventDetails extends JFrame {
 	public EventDetails() {
 		setBounds(100, 100, 500, 343);
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
 		
-		JLabel lblTitle = new JLabel("Title: ");
+		JLabel lblPriority = new JLabel("IV");
+		lblPriority.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPriority.setForeground(new Color(255, 255, 255));
+		lblPriority.setFont(new Font("Dialog", Font.BOLD, 26));
+		lblPriority.setBackground(new Color(51, 153, 204));
+		lblPriority.setOpaque(true);
+		lblPriority.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
-		lblEventTitle = new JLabel("Event Title");
+		lblEventTitle = new JLabel("Event title");
+		lblEventTitle.setFont(new Font("Dialog", Font.BOLD, 20));
 		
-		JLabel lblComment = new JLabel("Comment: ");
+		JLabel lblFrom = new JLabel("From:");
 		
-		lblEventComment = new JLabel("Event Comment");
+		lblEventStart = new JLabel("Event start");
+		lblEventStart.setFont(new Font("Dialog", Font.ITALIC, 12));
 		
-		JLabel lblStart = new JLabel("Start: ");
+		JLabel lblTo = new JLabel("To:");
 		
-		lblEventStart = new JLabel("Event Start");
+		lblEventEnd = new JLabel("Event end");
+		lblEventEnd.setFont(new Font("Dialog", Font.ITALIC, 12));
 		
-		JLabel lblEnd = new JLabel("End: ");
+		JLabel lblComment = new JLabel("Comment:");
 		
-		lblEventEnd = new JLabel("Event End");
+		txtpnEventComment = new JTextPane();
+		txtpnEventComment.setBackground(UIManager.getColor("TextPane.inactiveForeground"));
+		txtpnEventComment.setText("This is the comment");
+		txtpnEventComment.setEditable(false);
+		txtpnEventComment.setMargin(new Insets(5, 5, 5, 5));
+		txtpnEventComment.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK),
+							BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblStart)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblEventStart)
-					.addGap(131))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblEnd)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblEventEnd)
-					.addGap(146))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addComponent(lblTitle)
+					.addGap(12)
+					.addComponent(lblPriority, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblFrom)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblEventTitle))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addComponent(lblComment)
+							.addComponent(lblEventStart)
+							.addGap(18)
+							.addComponent(lblTo)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblEventComment)))
-					.addContainerGap(123, Short.MAX_VALUE))
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+							.addComponent(lblEventEnd)
+							.addContainerGap(182, Short.MAX_VALUE))
+						.addComponent(lblEventTitle, GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)))
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblComment)
+					.addContainerGap(412, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(txtpnEventComment, GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblTitle)
-						.addComponent(lblEventTitle))
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblPriority, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblEventTitle)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblFrom)
+								.addComponent(lblEventStart)
+								.addComponent(lblTo)
+								.addComponent(lblEventEnd))))
+					.addGap(18)
+					.addComponent(lblComment)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblComment)
-						.addComponent(lblEventComment))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblStart)
-						.addComponent(lblEventStart))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblEnd)
-						.addComponent(lblEventEnd))
-					.addPreferredGap(ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+					.addComponent(txtpnEventComment, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
 		);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -147,19 +176,8 @@ public class EventDetails extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);
 	}
+	
 	public Event getEvent() {
 		return event;
-	}
-	protected JLabel getLblEventEnd() {
-		return lblEventEnd;
-	}
-	protected JLabel getLblEventStart() {
-		return lblEventStart;
-	}
-	protected JLabel getLblEventTitle() {
-		return lblEventTitle;
-	}
-	protected JLabel getLblEventComment() {
-		return lblEventComment;
 	}
 }
