@@ -30,7 +30,7 @@ public class LoginController extends Controller {
 				(String) username.getSelectedItem(), new String(passwd.getPassword()));
 		if(u != null) {
 			organizer.getUsers().setCurrentUser(u);
-			Calendar window = new Calendar();
+			Calendar window = new Calendar(u);
 			organizer.addObserver(window);
 			window.setVisibility(true);
 			login.dispose();

@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.GregorianCalendar;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -25,9 +24,11 @@ import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import com.sun.jmx.snmp.agent.SnmpUserDataFactory;
 import controllers.AddEventController;
 import controllers.DatePickerController;
 import models.Organizer;
+import models.User;
 
 public class AddEvent extends JFrame {
 
@@ -41,15 +42,16 @@ public class AddEvent extends JFrame {
     private java.util.Calendar dateUntilCalendar;
 	private JComboBox startTimeBox;
 	private JComboBox endTimeBox;
+    private User currentUser;
 	
 	/**
-	 * Launch the application.
+	 * For testing purposes.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddEvent frame = new AddEvent();
+					AddEvent frame = new AddEvent(new User("asdf", "asdf"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,8 +62,10 @@ public class AddEvent extends JFrame {
 
 	/**
 	 * Create the frame.
-	 */
-	public AddEvent() {
+     * @param currentUser
+     */
+	public AddEvent(User currentUser) {
+        this.currentUser = currentUser;
         endCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
         startCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
         dateUntilCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
@@ -223,7 +227,7 @@ public class AddEvent extends JFrame {
 						repeatUntilDate.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}
-				}).setVisible(true);
+				}, AddEvent.this.currentUser).setVisible(true);
 			}
 		});
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
@@ -304,7 +308,7 @@ public class AddEvent extends JFrame {
 						endDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}
-				}).setVisible(true);
+				}, AddEvent.this.currentUser).setVisible(true);
 			}
 		});
 		
@@ -352,7 +356,7 @@ public class AddEvent extends JFrame {
 						startDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}
-				}).setVisible(true);
+				}, AddEvent.this.currentUser).setVisible(true);
 			}
 		});
 		

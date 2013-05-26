@@ -21,6 +21,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import controllers.SettingsController;
 
 import models.Organizer;
+import models.User;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -31,11 +32,12 @@ public class Settings extends JFrame {
 	private static final long serialVersionUID = -6483555840304512880L;
 	
 	private JPanel contentPane;
-	private JTextField chosenFolder = new JTextField(Organizer.getInstance().getCurrentUser().getUserProfile().getPath());
-	private JLabel folderLabel = new JLabel("Data folder:");
-	private final JTextField editVelocity = new JTextField();
-	private JLabel lblIcon = new JLabel("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" width=70 height=70 /></html>");
-	private String newPath = Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath();
+	private JTextField chosenFolder;
+	private JLabel folderLabel;
+	private final JTextField editVelocity;
+	private JLabel lblIcon;
+	private String newPath;
+    private User currentUser;
 	
 	/**
 	 * Launch the application.
@@ -44,7 +46,7 @@ public class Settings extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Settings frame = new Settings();
+					Settings frame = new Settings(new User("asdf", "asdf"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,8 +58,10 @@ public class Settings extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Settings() {
-		editVelocity.setColumns(10);
+	public Settings(User currentUser) {
+        this.currentUser = currentUser;
+        editVelocity = new JTextField();
+        editVelocity.setColumns(10);
 		setTitle("Settings");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 453, 250);
@@ -65,8 +69,9 @@ public class Settings extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-				
-		chosenFolder.addMouseListener(new MouseAdapter() {
+
+        chosenFolder = new JTextField(Organizer.getInstance().getCurrentUser().getUserProfile().getPath());
+        chosenFolder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JFileChooser file = new JFileChooser();
@@ -85,12 +90,14 @@ public class Settings extends JFrame {
 		editVelocity.setText(Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
 		
 		File icon = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath());
-		
-		if(icon.canRead()) 
+
+        lblIcon = new JLabel("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" width=70 height=70 /></html>");
+        if(icon.canRead())
 			lblIcon = new JLabel("<html><img src=\"file:"+icon+"\" width=70 height=70 /></html>");
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
+        folderLabel = new JLabel("Data folder:");
+        gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
@@ -113,7 +120,8 @@ public class Settings extends JFrame {
 									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
 									.addContainerGap())))))
 		);
-		lblIcon.addMouseListener(new MouseAdapter() {
+        newPath = Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath();
+        lblIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JFileChooser file = new JFileChooser();

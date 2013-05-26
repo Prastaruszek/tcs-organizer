@@ -47,7 +47,7 @@ public class CreateUserController extends Controller {
 				JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
 		alert.createDialog(login, "Confirmation").setVisible(true);
 		
-		Calendar window = new Calendar();
+		Calendar window = new Calendar(organizer.getUsers().getByUsername(username.getText()));
 		organizer.addObserver(window);
 		window.setVisibility(true);
 		login.dispose();

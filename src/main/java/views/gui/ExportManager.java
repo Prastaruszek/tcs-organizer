@@ -1,48 +1,24 @@
 package views.gui;
 
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.EventQueue;
 
-import javax.swing.JTable;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import javax.swing.ListCellRenderer;
 
-import java.awt.FlowLayout;
-import javax.swing.border.EmptyBorder;
-import javax.swing.UIManager;
-import javax.swing.border.LineBorder;
-
-import models.Event;
+import controllers.ExportManagerController;
 import models.EventBox;
-import models.EventSet;
-import models.Organizer;
 
-import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.GridLayout;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 public class ExportManager extends JFrame {
 	

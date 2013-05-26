@@ -6,6 +6,7 @@ import controllers.WeekPickerBackController;
 import controllers.WeekPickerNextController;
 import models.DisplayState;
 import models.Organizer;
+import models.User;
 import views.gui.components.JEventDisplay;
 
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class Calendar implements Observer {
 	private JLabel lblUsername;
 	private JLabel lblUserPic;
 	private JLabel lblVelocity;
+    private User currentUser;
 	
     public JEventDisplay getEventDisplay() {
 		return eventDisplay;
@@ -44,9 +46,11 @@ public class Calendar implements Observer {
 
 	/**
 	 * Create the application.
-	 */
-	public Calendar() {
-		initialize();
+     * @param u
+     */
+	public Calendar(User u) {
+        currentUser = u;
+        initialize();
 	}
 
     public void setVisibility(boolean value) {
@@ -78,12 +82,12 @@ public class Calendar implements Observer {
 		
 		lblUserPic = new JLabel("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" /></html>");
 		
-		File icon = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath());
+		File icon = new File(currentUser.getUserProfile().getIconPath());
 		if(icon.canRead())
 			lblUserPic.setText("<html><img src=\"file:"+icon+"\" width=70 height=70 /></html>");
 		
 		lblLogin = new JLabel("You are logged in as :");
-		lblUsername = new JLabel(Organizer.getInstance().getCurrentUser().getUsername());
+		lblUsername = new JLabel(currentUser.getUsername());
 		
 		JPanel panel_1 = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -118,14 +122,14 @@ public class Calendar implements Observer {
 		JButton btnAddEvent = new JButton("Add Event");
 		btnAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new AddEvent().setVisible(true);
+				new AddEvent(currentUser).setVisible(true);
 			}
 		});
 		
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Settings().setVisible(true);
+				new Settings(currentUser).setVisible(true);
 			}
 		});
 		
@@ -192,7 +196,7 @@ public class Calendar implements Observer {
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		lblVelocity = new JLabel("Velocity: " + Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
+		lblVelocity = new JLabel("Velocity: " + currentUser.getUserProfile().getVelocity().toString());
 		lblVelocity.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel_2.add(lblVelocity);
 		
@@ -200,12 +204,11 @@ public class Calendar implements Observer {
 		btnPrevious.addActionListener(new WeekPickerBackController());
 		panel.add(btnPrevious);
 
-        // TODO: find better way to provide initial value
-		lblThereWillBe = new JLabel(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getRangeDisplay(), JLabel.CENTER);
+		lblThereWillBe = new JLabel(currentUser.getUserProfile().getState().getRangeDisplay(), JLabel.CENTER);
 		lblThereWillBe.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-                new DatePicker(new WeekPickerController()).setVisible(true);
+                new DatePicker(new WeekPickerController(), currentUser).setVisible(true);
 			}
 		});
         lblThereWillBe.setOpaque(true);
@@ -234,7 +237,7 @@ public class Calendar implements Observer {
 		
 		frame.getContentPane().setLayout(groupLayout);
 		frame.setVisible(true);
-        update(null,Organizer.getInstance().getCurrentUser().getUserProfile().getState());
+        update(null,currentUser.getUserProfile().getState());
 	}
 
     @Override
@@ -244,11 +247,11 @@ public class Calendar implements Observer {
     		lblThereWillBe.setText("<html>"+state.getRangeDisplay()+
                     "<img src=\"file:"+new File(SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF)+"\" /></html>");
     	}
-        lblVelocity.setText("Velocity: " + Organizer.getInstance().getCurrentUser().getUserProfile().getVelocity().toString());
+        lblVelocity.setText("Velocity: " + currentUser.getUserProfile().getVelocity().toString());
         
 		lblUserPic.setText("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" /></html>");
         
-		File icon = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getIconPath());
+		File icon = new File(currentUser.getUserProfile().getIconPath());
 		if(icon.canRead())
 			lblUserPic.setText("<html><img src=\"file:"+icon+"\" width=70 height=70 /></html>");
 

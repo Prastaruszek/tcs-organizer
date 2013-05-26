@@ -17,6 +17,7 @@ import models.Organizer;
 import com.toedter.calendar.JCalendar;
 
 import controllers.DatePickerController;
+import models.User;
 
 public class DatePicker extends JFrame {
 
@@ -25,6 +26,7 @@ public class DatePicker extends JFrame {
 	private JPanel contentPane;
 	private JCalendar jCalendar;
 	private JSplitPane topAndBot, okAndCancel;
+    private User currentUser;
 	/**
 	 * Launch the application.
 	 */
@@ -44,7 +46,8 @@ public class DatePicker extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DatePicker(DatePickerController datePickerController) {
+	public DatePicker(DatePickerController datePickerController, User currentUser) {
+        this.currentUser = currentUser;
 		setName("DatePicker");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -53,7 +56,7 @@ public class DatePicker extends JFrame {
 		setResizable(false);
 		setContentPane(contentPane);
 		
-		jCalendar = new JCalendar(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay());
+		jCalendar = new JCalendar(currentUser.getUserProfile().getState().getFirstDay());
 		JButton btnOk = new JButton("OK");
 		datePickerController.setUp(jCalendar,this);
 		btnOk.addActionListener(datePickerController);

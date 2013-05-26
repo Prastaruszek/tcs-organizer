@@ -1,4 +1,4 @@
-package views.gui;
+package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +13,7 @@ import models.EventSet;
 import models.Organizer;
 
 import controllers.Controller;
+import views.gui.ExportManager;
 
 public class ExportManagerController extends Controller {
 
