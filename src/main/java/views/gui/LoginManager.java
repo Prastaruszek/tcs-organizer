@@ -19,6 +19,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import models.Organizer;
 import controllers.CreateUserController;
@@ -29,6 +31,7 @@ public class LoginManager extends JFrame {
 
 	private static final long serialVersionUID = -370406313299117919L;
 	private JTabbedPane contentPane;
+	private JTextField username;
 	private JPasswordField pwdPasswd, pwdPasswd1, pwdConfPasswd1, pwdPasswd2;
 	private JComboBox<String> userList, userList2;
 
@@ -135,7 +138,7 @@ public class LoginManager extends JFrame {
 		
 		JLabel lblUser1 = new JLabel("User");
 		
-		JTextField username = new JTextField();
+		username = new JTextField();
 		
 		JLabel lblPassword1 = new JLabel("Password");
 		
@@ -267,6 +270,15 @@ public class LoginManager extends JFrame {
 		
 		//deleteUserCard end---------------------------------------------------------------------
 		
+		contentPane.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				pwdPasswd.requestFocusInWindow();
+				username.requestFocusInWindow();
+				pwdPasswd2.requestFocusInWindow();
+			}
+		});
+		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 	        public void windowClosing(WindowEvent e) {
@@ -280,6 +292,7 @@ public class LoginManager extends JFrame {
 	    });
 		
 		setVisible(true);
+		pwdPasswd.requestFocusInWindow();
 	}
 	
 	public void updateUserList() {
