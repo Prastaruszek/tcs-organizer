@@ -129,7 +129,6 @@ public class JEventDisplay extends JComponent{
 		}
 	}
 	private void drawEvents(int colWidth,int rowHeight,Graphics g){
-		setEvents(getEvents());
 		for(EventRectangle event : events){
 			event.draw(colWidth, rowHeight,g);
 		}
