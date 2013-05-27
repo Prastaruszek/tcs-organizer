@@ -3,6 +3,7 @@ package models;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 
 public class Event extends Model implements Serializable {
 	
@@ -13,6 +14,7 @@ public class Event extends Model implements Serializable {
     private Calendar endTime;
     private UserProfile profile;
     private EventPriority priority;
+    private List<Resource> resources;
 
     public Event(EventGroup parent, String comment, Calendar startTime,
     		Calendar endTime, UserProfile profile, EventPriority priority) {

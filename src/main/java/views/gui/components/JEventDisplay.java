@@ -75,6 +75,7 @@ public class JEventDisplay extends JComponent{
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
+        System.out.println("painting");
 		int colWidth = getWidth()/8;
 		int rowHeight = getHeight()/(rowCount+1);
 		drawRowsAndColumns(colWidth, rowHeight, g);

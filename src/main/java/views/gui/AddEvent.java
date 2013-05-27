@@ -1,19 +1,36 @@
 package views.gui;
 
-import controllers.AddEventController;
-import controllers.DatePickerController;
-import models.Organizer;
-import models.User;
-
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
+
+import models.Organizer;
+import models.Resource;
+import models.User;
+import controllers.AddEventController;
+import controllers.DatePickerController;
 
 public class AddEvent extends JFrame {
 
@@ -28,6 +45,7 @@ public class AddEvent extends JFrame {
 	private JComboBox startTimeBox;
 	private JComboBox endTimeBox;
     private User currentUser;
+    private JList list;
 	
 	/**
 	 * For testing purposes.
@@ -158,10 +176,15 @@ public class AddEvent extends JFrame {
 		panel_5.setLayout(gl_panel_5);
 		
 		JButton btnAddResource = new JButton("Add resource");
+		btnAddResource.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new AddResourceDialog(getResourcesJList()).setVisible(true);
+			}
+		});
 		
 		JButton btnRemoveresource = new JButton("Remove resource");
 		
-		JList list = new JList();
+		list = new JList(new DefaultListModel<String>());
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -423,5 +446,11 @@ public class AddEvent extends JFrame {
 	}
 	protected JComboBox getEndTimeBox() {
 		return endTimeBox;
+	}
+	protected JList getResourcesJList() {
+		return list;
+	}
+	public List<Resource> getResources() {
+		return null;
 	}
 }
