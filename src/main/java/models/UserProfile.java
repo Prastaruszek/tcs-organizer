@@ -2,6 +2,7 @@ package models;
 
 import views.gui.Calendar;
 
+import java.awt.Color;
 import java.io.Serializable;
 
 /**
@@ -20,6 +21,7 @@ public class UserProfile extends Model implements Serializable{
     private String filesPath;
     private String iconPath;
     private Integer velocity;
+    private Color[] priorityColor = new Color[5];
 
     public UserProfile() {}
 
@@ -74,6 +76,10 @@ public class UserProfile extends Model implements Serializable{
     
     public Integer getVelocity() {
     	return velocity;
+    }
+    
+    public Color getPriorityColor(int priority) {
+    	return priorityColor[priority-1];
     }
     
     public String toString(){

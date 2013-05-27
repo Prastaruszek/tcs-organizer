@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -11,13 +12,16 @@ public class Event extends Model implements Serializable {
     private Calendar startTime;
     private Calendar endTime;
     private UserProfile profile;
+    private EventPriority priority;
 
-    public Event(EventGroup parent, String comment, Calendar startTime, Calendar endTime, UserProfile profile) {
+    public Event(EventGroup parent, String comment, Calendar startTime,
+    		Calendar endTime, UserProfile profile, EventPriority priority) {
         this.profile = profile;
         this.parent = parent;
         this.comment = comment;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.priority = priority;
     }
 
     public Calendar getStartTime() {
@@ -36,6 +40,18 @@ public class Event extends Model implements Serializable {
         this.endTime = endTime;
     }
 
+    public int getPriority() {
+    	return priority.getPriority();
+    }
+    
+    public String getRomanPriority() {
+    	return priority.getRomanPriority();
+    }
+    
+    public Color getColor() {
+    	return priority.getColor(profile);
+    }
+    
     public String getComment() {
         return comment;
     }

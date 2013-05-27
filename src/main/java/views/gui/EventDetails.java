@@ -19,6 +19,7 @@ public class EventDetails extends JFrame {
 	
 	private JPanel contentPane;
 	private Event event;
+	private JLabel lblPriority;
 	private JLabel lblEventTitle;
 	private JLabel lblEventStart;
 	private JLabel lblEventEnd;
@@ -46,7 +47,8 @@ public class EventDetails extends JFrame {
 		lblEventStart.setText(df.format(event.getStartTime().getTime()));
 		lblEventEnd.setText(df.format(event.getEndTime().getTime()));
 		txtpnEventComment.setText(event.getComment());
-		//TODO set priority label
+		lblPriority.setBackground(event.getColor());
+		lblPriority.setText(event.getRomanPriority());
 		setVisible(true);
 	}
 	/**
@@ -62,7 +64,7 @@ public class EventDetails extends JFrame {
 		
 		JPanel panel = new JPanel();
 		
-		JLabel lblPriority = new JLabel("IV");
+		lblPriority = new JLabel("IV");
 		lblPriority.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPriority.setForeground(new Color(255, 255, 255));
 		lblPriority.setFont(new Font("Dialog", Font.BOLD, 26));
