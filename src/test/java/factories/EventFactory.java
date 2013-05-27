@@ -14,6 +14,6 @@ public class EventFactory {
         GregorianCalendar endTime = (GregorianCalendar) startTime.clone();
         endTime.add(GregorianCalendar.HOUR, 1);
         EventGroup group = new EventGroup("Title");
-        return new Event(group, "Comment", startTime, endTime, UserProfileFactory.create(), new EventPriority(1));
+        return new Event(group, "Comment", startTime, endTime, UserProfileFactory.create(), EventPriority.createPriority(1));
     }
 }
