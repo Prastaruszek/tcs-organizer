@@ -92,8 +92,8 @@ public class Event extends Model implements Serializable {
         Calendar eventEnd = getEndTime();
         if ( eventStart == null || eventEnd == null )
             return false;
-        return (eventStart.equals(startTime) || eventStart.after(startTime)) &&
-               (eventEnd.equals(endTime) || eventEnd.before(endTime));
+        return startTime.getTimeInMillis() <= eventStart.getTimeInMillis() &&
+               eventEnd.getTimeInMillis() <= endTime.getTimeInMillis();
     }
     
     public String toString(){
@@ -105,10 +105,16 @@ public class Event extends Model implements Serializable {
     }
 
     public boolean overlaps(Calendar startTime, Calendar endTime) {
+        Calendar eventStart = getStartTime();
+        Calendar eventEnd = getEndTime();
+        if ( eventStart == null || eventEnd == null )
+            return false;
         if ( isBetween(startTime, endTime) )
             return true;
-        if ( startTime.before(getEndTime()) && endTime.after(getEndTime()) )
+        if ( startTime.getTimeInMillis() <= eventEnd.getTimeInMillis() &&
+             eventEnd.getTimeInMillis() <= endTime.getTimeInMillis() )
             return true;
-        return startTime.before(getStartTime()) && endTime.after(getStartTime());
+        return startTime.getTimeInMillis() <= eventStart.getTimeInMillis() &&
+               eventStart.getTimeInMillis() <= endTime.getTimeInMillis();
     }
 }
