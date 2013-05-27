@@ -2,15 +2,25 @@ package models;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.HashMap;
 
 public class EventPriority implements Serializable {
 	
 	private static final long serialVersionUID = -1840008537717113625L;
 	private static final Color[] defaultColor = {Color.RED, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GREEN};
+	private static HashMap<Integer, EventPriority> cached = new HashMap<>();
 	private int priority;
 	
-	public EventPriority(int priority) {
+	private EventPriority(int priority) {
 		this.priority = priority;
+	}
+	
+	public static EventPriority createPriority(int priority) {
+		if(cached.containsKey(priority))
+			return cached.get(priority);
+		EventPriority theNewOne = new EventPriority(priority);
+		cached.put(priority, theNewOne);
+		return theNewOne;
 	}
 	
 	public int getPriority() {
