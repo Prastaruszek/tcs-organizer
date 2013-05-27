@@ -72,7 +72,7 @@ public final class EventForm extends ModelForm<Event> {
                 endTime,
                 profile,
                 //TODO: add choosing priority
-                EventPriority.createPriority(1)
+                EventPriority.getEnum(1)
             ));
         } else {
             if ( instance.getProfile() != profile )

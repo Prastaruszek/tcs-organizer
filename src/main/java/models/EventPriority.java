@@ -2,25 +2,29 @@ package models;
 
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.HashMap;
 
-public class EventPriority implements Serializable {
+public enum EventPriority implements Serializable {
+	
+	ONE(1, "I"), TWO(2, "II"), THREE(3, "III"), FOUR(4, "IV"), FIVE(5, "V");
 	
 	private static final long serialVersionUID = -1840008537717113625L;
 	private static final Color[] defaultColor = {Color.RED, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GREEN};
-	private static HashMap<Integer, EventPriority> cached = new HashMap<>();
 	private int priority;
+	private String roman;
 	
-	private EventPriority(int priority) {
+	private EventPriority(int priority, String roman) {
 		this.priority = priority;
+		this.roman = roman;
 	}
 	
-	public static EventPriority createPriority(int priority) {
-		if(cached.containsKey(priority))
-			return cached.get(priority);
-		EventPriority theNewOne = new EventPriority(priority);
-		cached.put(priority, theNewOne);
-		return theNewOne;
+	public static EventPriority getEnum(int priority) {
+		switch(priority) {
+			case 1: return ONE;
+			case 2: return TWO;
+			case 3: return THREE;
+			case 4: return FOUR;
+			default: return FIVE;
+		}
 	}
 	
 	public int getPriority() {
@@ -28,14 +32,7 @@ public class EventPriority implements Serializable {
 	}
 	
 	public String getRomanPriority() {
-		switch(priority) {
-			case 1: return "I";
-			case 2: return "II";
-			case 3: return "III";
-			case 4: return "IV";
-			case 5: return "V";
-			default: return "";
-		}
+		return roman;
 	}
 	
 	public Color getDefaultColor(int priority) {
