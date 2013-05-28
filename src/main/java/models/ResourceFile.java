@@ -13,7 +13,8 @@ import java.io.*;
 public class ResourceFile extends Model implements Resource, Serializable {
 
 	private static final long serialVersionUID = 2660584783146068707L;
-	File file;
+	private File file;
+	private String filesPath;
 	
     @Override
     public void open() {
@@ -28,7 +29,7 @@ public class ResourceFile extends Model implements Resource, Serializable {
         try {
             InputStream in = new FileInputStream(file);
             OutputStream out;
-            File outDirectory = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getPath());
+            File outDirectory = new File(filesPath);
             if(!outDirectory.exists())
                 outDirectory.mkdirs();
             out = new FileOutputStream(outDirectory.getPath()+"/"+file.getName());
@@ -42,14 +43,15 @@ public class ResourceFile extends Model implements Resource, Serializable {
             }
             in.close();
             out.close();
-            file = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getPath()+"/"+file.getName());
+            file = new File(filesPath+"/"+file.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public ResourceFile(File file){
+    public ResourceFile(File file, String path){
         this.file=file;
+        this.filesPath = path;
     }
 
     @Override

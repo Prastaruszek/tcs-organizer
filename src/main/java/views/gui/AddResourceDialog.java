@@ -1,5 +1,6 @@
 package views.gui;
 
+import models.Organizer;
 import models.Resource;
 import models.ResourceFile;
 import models.ResourceLink;
@@ -60,7 +61,8 @@ public class AddResourceDialog extends JDialog {
 				int result = fileChooser.showOpenDialog(AddResourceDialog.this);
 				if(result == JFileChooser.APPROVE_OPTION){
 					((DefaultListModel<Resource>)resourcesList.getModel()).addElement(
-                            new ResourceFile(new File(fileChooser.getSelectedFile().toString())));
+                            new ResourceFile(new File(fileChooser.getSelectedFile().toString()),
+                            		Organizer.getInstance().getCurrentUser().getUserProfile().getPath()));
 					dispose();
 				}
 			}
