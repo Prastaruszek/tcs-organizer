@@ -1,7 +1,5 @@
 package models;
 
-import java.io.Serializable;
-
 /**
  * Created with IntelliJ IDEA.
  * User: laiq

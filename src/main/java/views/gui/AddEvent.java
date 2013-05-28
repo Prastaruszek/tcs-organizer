@@ -82,7 +82,7 @@ public class AddEvent extends JFrame {
 		JLabel lblImportance = new JLabel("Importance:");
 		lblImportance.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<>();
 		
 		JPanel panel_4 = new JPanel();
 		

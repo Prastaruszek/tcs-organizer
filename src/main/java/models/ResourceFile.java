@@ -10,8 +10,11 @@ import java.io.*;
  * Time: 12:44 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ResourceFile extends Model implements Resource,Serializable {
-    File file;
+public class ResourceFile extends Model implements Resource, Serializable {
+
+	private static final long serialVersionUID = 2660584783146068707L;
+	File file;
+	
     @Override
     public void open() {
         try {
@@ -20,6 +23,7 @@ public class ResourceFile extends Model implements Resource,Serializable {
             e.printStackTrace();
         }
     }
+    
     public void copyToResourcesDirectory(){
         try {
             InputStream in = new FileInputStream(file);
@@ -43,6 +47,7 @@ public class ResourceFile extends Model implements Resource,Serializable {
             e.printStackTrace();
         }
     }
+    
     public ResourceFile(File file){
         this.file=file;
     }

@@ -24,9 +24,11 @@ import java.io.File;
 
 public class AddResourceDialog extends JDialog {
 
+	private static final long serialVersionUID = -8708883406191310458L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	final private JList<Resource> resourcesList;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -114,6 +116,7 @@ public class AddResourceDialog extends JDialog {
 		}
 		setVisible(true);
 	}
+	
 	protected JTextField getLinkField() {
 		return textField;
 	}
