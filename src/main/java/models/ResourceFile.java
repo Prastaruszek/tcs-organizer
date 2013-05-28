@@ -1,9 +1,7 @@
 package models;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,10 +17,34 @@ public class ResourceFile extends Model implements Resource,Serializable {
         try {
             Desktop.getDesktop().open(file);
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
     }
+    public void copyToResourcesDirectory(){
+        try {
+            InputStream in = new FileInputStream(file);
+            OutputStream out;
+            File outDirectory = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getPath());
+            if(!outDirectory.exists())
+                outDirectory.mkdirs();
+            out = new FileOutputStream(outDirectory.getPath()+"/"+file.getName());
 
+
+            // Copy the bits from input stream to output stream
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+            file = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getPath()+"/"+file.getName());
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public ResourceFile(File file){
         this.file=file;
     }

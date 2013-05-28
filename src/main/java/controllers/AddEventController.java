@@ -2,10 +2,7 @@ package controllers;
 
 import forms.EventForm;
 import forms.ValidationException;
-import models.Event;
-import models.EventGroup;
-import models.Organizer;
-import models.UserProfile;
+import models.*;
 import views.gui.AddEvent;
 
 import javax.swing.*;
@@ -33,6 +30,10 @@ public class AddEventController extends Controller {
         form.setResources(addEvent.getResources());
         try {
             event = form.save();
+            for(Resource resource : event.getResourceList()){
+                 if(resource instanceof ResourceFile)
+                     ((ResourceFile)resource).copyToResourcesDirectory();
+            }
             addEvent.dispose();
         } catch (ValidationException error) {
             String errorMesssages = form.getErrorsDisplay();
