@@ -2,6 +2,8 @@ package models;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,6 +49,14 @@ public class ResourceFile extends Model implements Resource, Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void removeFromResourcesDirectory() {
+    	try {
+			Files.deleteIfExists(Paths.get(filesPath+"/"+file.getName()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     public ResourceFile(File file, String path){
