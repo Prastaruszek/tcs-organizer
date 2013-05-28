@@ -30,6 +30,7 @@ public class AddEventController extends Controller {
         form.setEndTime(addEvent.getEndCalendar());
         form.setComment(addEvent.getEventComment());
         form.setParent(group);
+        form.setResources(addEvent.getResources());
         try {
             event = form.save();
             addEvent.dispose();

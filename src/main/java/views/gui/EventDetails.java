@@ -2,6 +2,7 @@ package views.gui;
 
 import controllers.EventDetailsController;
 import models.Event;
+import models.Resource;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
@@ -12,6 +13,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class EventDetails extends JFrame {
 
@@ -24,20 +27,21 @@ public class EventDetails extends JFrame {
 	private JLabel lblEventStart;
 	private JLabel lblEventEnd;
 	private JTextPane txtpnEventComment;
+	private JList resourceList;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EventDetails frame = new EventDetails();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+            public void run() {
+                try {
+                    EventDetails frame = new EventDetails();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 	}
 	public EventDetails(Event event){
 		this();
@@ -49,6 +53,10 @@ public class EventDetails extends JFrame {
 		txtpnEventComment.setText(event.getComment());
 		lblPriority.setBackground(event.getColor());
 		lblPriority.setText(event.getRomanPriority());
+        DefaultListModel<Resource> listModel = new DefaultListModel<Resource>();
+        for(Resource resource : event.getResourceList())
+            listModel.addElement(resource);
+        resourceList.setModel(listModel);
 		setVisible(true);
 	}
 	/**
@@ -95,6 +103,16 @@ public class EventDetails extends JFrame {
 		txtpnEventComment.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK),
 							BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		
+		resourceList = new JList();
+		resourceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		resourceList.addListSelectionListener(new ListSelectionListener() {
+            int counter=0;
+			public void valueChanged(ListSelectionEvent arg0) {
+                if(counter++%2==0)
+                    ((Resource)resourceList.getSelectedValue()).open();
+			}
+		});
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -111,17 +129,21 @@ public class EventDetails extends JFrame {
 							.addComponent(lblTo)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblEventEnd)
-							.addContainerGap(182, Short.MAX_VALUE))
-						.addComponent(lblEventTitle, GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)))
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+							.addContainerGap(204, Short.MAX_VALUE))
+						.addComponent(lblEventTitle, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)))
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblComment)
-					.addContainerGap(412, Short.MAX_VALUE))
+					.addContainerGap(409, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(txtpnEventComment, GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+					.addComponent(txtpnEventComment, GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(resourceList, GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+					.addGap(13))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -141,7 +163,9 @@ public class EventDetails extends JFrame {
 					.addComponent(lblComment)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtpnEventComment, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(resourceList, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
 		);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -166,5 +190,8 @@ public class EventDetails extends JFrame {
 	
 	public Event getEvent() {
 		return event;
+	}
+	public JList getResourceList() {
+		return resourceList;
 	}
 }

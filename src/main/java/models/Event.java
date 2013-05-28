@@ -120,4 +120,8 @@ public class Event extends Model implements Serializable {
         return startTime.getTimeInMillis() <= eventStart.getTimeInMillis() &&
                eventStart.getTimeInMillis() <= endTime.getTimeInMillis();
     }
+
+    public List<Resource> getResourceList() {
+        return resources;
+    }
 }
