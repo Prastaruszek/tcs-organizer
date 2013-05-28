@@ -26,4 +26,9 @@ public class ResourceFile extends Model implements Resource,Serializable {
     public ResourceFile(File file){
         this.file=file;
     }
+
+    @Override
+    public String toString() {
+        return file.getName();
+    }
 }

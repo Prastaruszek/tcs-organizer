@@ -3,6 +3,7 @@ package forms;
 import models.*;
 
 import java.util.Calendar;
+import java.util.List;
 
 public final class EventForm extends ModelForm<Event> {
     private EventGroup parent;
@@ -10,7 +11,7 @@ public final class EventForm extends ModelForm<Event> {
     private Calendar startTime;
     private Calendar endTime;
     private UserProfile profile;
-
+    private List<Resource> resources;
     public EventForm(Event instance, UserProfile profile) {
         if ( profile == null )
             throw new NullPointerException("Profile cannot be null");
@@ -72,7 +73,8 @@ public final class EventForm extends ModelForm<Event> {
                 endTime,
                 profile,
                 //TODO: add choosing priority
-                EventPriority.getEnum(1)
+                EventPriority.getEnum(1),
+                resources
             ));
         } else {
             if ( instance.getProfile() != profile )
@@ -126,5 +128,9 @@ public final class EventForm extends ModelForm<Event> {
 
     public void setParent(EventGroup parent) {
         this.parent = parent;
+    }
+
+    public void setResources(List<Resource> resources){
+        this.resources = resources;
     }
 }

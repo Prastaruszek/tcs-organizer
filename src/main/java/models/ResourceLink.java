@@ -27,4 +27,9 @@ public class ResourceLink extends Model implements Resource,Serializable {
     public ResourceLink(String uri){
         this.uri = uri;
     }
+
+    @Override
+    public String toString() {
+        return uri;
+    }
 }

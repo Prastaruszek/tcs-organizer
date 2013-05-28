@@ -17,13 +17,14 @@ public class Event extends Model implements Serializable {
     private List<Resource> resources;
 
     public Event(EventGroup parent, String comment, Calendar startTime,
-    		Calendar endTime, UserProfile profile, EventPriority priority) {
+                 Calendar endTime, UserProfile profile, EventPriority priority, List<Resource> resources) {
         this.profile = profile;
         this.parent = parent;
         this.comment = comment;
         this.startTime = startTime;
         this.endTime = endTime;
         this.priority = priority;
+        this.resources = resources;
     }
 
     public Calendar getStartTime() {

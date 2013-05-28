@@ -184,7 +184,7 @@ public class AddEvent extends JFrame {
 		
 		JButton btnRemoveresource = new JButton("Remove resource");
 		
-		list = new JList(new DefaultListModel<String>());
+		list = new JList(new DefaultListModel<Resource>());
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
