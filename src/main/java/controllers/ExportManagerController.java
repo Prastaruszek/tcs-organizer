@@ -42,7 +42,7 @@ public class ExportManagerController extends Controller {
 	}
 
 	public static List<EventBox> getBoxes() {
-		List<EventBox> list = new ArrayList<EventBox>();
+		List<EventBox> list = new ArrayList<>();
 		EventSet events = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all();
 		for(Event e : events)
 			list.add(new EventBox(e.getTitle(), e));

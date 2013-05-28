@@ -18,7 +18,7 @@ public class EventDetailsController extends Controller {
 		JOptionPane alert = new JOptionPane("Are you sure you want to remove this event?",
 				JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
 		alert.createDialog(frame, "").setVisible(true);
-		if((int) alert.getValue() == 1)
+		if(alert.getValue() == 1)
 			return;
 		frame.getEvent().delete();
 		Organizer.getInstance().update();

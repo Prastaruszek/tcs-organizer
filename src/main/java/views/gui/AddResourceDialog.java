@@ -1,5 +1,6 @@
 package views.gui;
 
+import models.Resource;
 import models.ResourceFile;
 import models.ResourceLink;
 
@@ -25,7 +26,7 @@ public class AddResourceDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
-	final private JList resourcesList;
+	final private JList<Resource> resourcesList;
 	/**
 	 * Launch the application.
 	 */
@@ -43,7 +44,7 @@ public class AddResourceDialog extends JDialog {
 	 * Create the dialog.
 	 * @param _resourcesList
 	 */
-	public AddResourceDialog(JList _resourcesList) {
+	public AddResourceDialog(JList<Resource> _resourcesList) {
 		this.resourcesList = _resourcesList;
 		setBounds(100, 100, 450, 157);
 		getContentPane().setLayout(new BorderLayout());
@@ -56,7 +57,7 @@ public class AddResourceDialog extends JDialog {
 				JFileChooser fileChooser = new JFileChooser();
 				int result = fileChooser.showOpenDialog(AddResourceDialog.this);
 				if(result == JFileChooser.APPROVE_OPTION){
-					((DefaultListModel)resourcesList.getModel()).addElement(
+					((DefaultListModel<Resource>)resourcesList.getModel()).addElement(
                             new ResourceFile(new File(fileChooser.getSelectedFile().toString())));
 					dispose();
 				}
@@ -69,7 +70,7 @@ public class AddResourceDialog extends JDialog {
 		JButton btnAddLink = new JButton("Add Link");
 		btnAddLink.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				((DefaultListModel)resourcesList.getModel()).addElement(new ResourceLink(getLinkField().getText()));
+				((DefaultListModel<Resource>)resourcesList.getModel()).addElement(new ResourceLink(getLinkField().getText()));
 				dispose();
 			}
 		});

@@ -18,21 +18,6 @@ public class DatePicker extends JFrame {
 	private JCalendar jCalendar;
 	private JSplitPane topAndBot, okAndCancel;
     private User currentUser;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					//DatePicker frame = new DatePicker();
-					//frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

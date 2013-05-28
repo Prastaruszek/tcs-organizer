@@ -39,8 +39,6 @@ public class ResourceFile extends Model implements Resource,Serializable {
             in.close();
             out.close();
             file = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getPath()+"/"+file.getName());
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
