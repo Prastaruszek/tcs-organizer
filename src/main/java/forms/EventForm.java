@@ -110,6 +110,7 @@ public final class EventForm extends ModelForm<Event> {
         } else {
             instance.setEndTime(endTime);
             instance.setStartTime(startTime);
+            instance.setResources(resources);
         }
         return getInstance();
     }

@@ -405,7 +405,16 @@ public class EventManager extends JFrame {
             txtrComment.setText(event.getComment());
             for(Resource resource : event.getResourceList())
                 ((DefaultListModel)list.getModel()).addElement(resource);
-
+            int h = startCalendar.get(java.util.Calendar.HOUR_OF_DAY);
+            int m = startCalendar.get(java.util.Calendar.MINUTE);
+            startTimeBox.setSelectedItem(
+                    (h<9?"0":"")+h+":"+
+                            (m<=9?"0":"")+m);
+            h = endCalendar.get(java.util.Calendar.HOUR_OF_DAY);
+            m = endCalendar.get(java.util.Calendar.MINUTE);
+            endTimeBox.setSelectedItem(
+                    (h<9?"0":"")+h+":"+
+                            (m<=9?"0":"")+m);
         }
 		setVisible(true);
 	}

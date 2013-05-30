@@ -176,6 +176,7 @@ public class EventDetails extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 new EventManager(Organizer.getInstance().getCurrentUser(),event).setVisible(true);
+                dispose();
             }
         });
 		panel.add(btnEdit);

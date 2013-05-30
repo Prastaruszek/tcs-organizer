@@ -14,6 +14,7 @@ public class Event extends Model implements Serializable {
     private Calendar endTime;
     private UserProfile profile;
     private EventPriority priority;
+
     private List<Resource> resources;
 
     public Event(EventGroup parent, String comment, Calendar startTime,
@@ -73,6 +74,14 @@ public class Event extends Model implements Serializable {
 
     public EventGroup getParent() {
         return parent;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 
     public Event save() {
