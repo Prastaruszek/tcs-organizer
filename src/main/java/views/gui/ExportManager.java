@@ -93,6 +93,7 @@ public class ExportManager extends JFrame {
 		panel.add(btnSelectAll);
 		panel.add(btnOK);
 		panel.add(btnCancel);
+		setVisible(true);
 	}
 
 }
