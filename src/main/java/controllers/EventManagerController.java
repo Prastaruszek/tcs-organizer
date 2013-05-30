@@ -32,6 +32,7 @@ public class EventManagerController extends Controller {
         form.setComment(eventManager.getEventComment());
         form.setParent(group);
         form.setResources(eventManager.getResources());
+        form.setPriority(eventManager.getEventPriority());
         try {
             event = form.save();
             for(Resource resource : event.getResourceList()){

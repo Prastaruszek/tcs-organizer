@@ -45,4 +45,9 @@ public enum EventPriority implements Serializable {
 			return custom;
 		return getDefaultColor(priority);
 	}
+	
+	@Override
+	public String toString() {
+		return roman;
+	}
 }

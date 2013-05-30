@@ -48,8 +48,16 @@ public class Event extends Model implements Serializable {
     	return priority.getPriority();
     }
     
+    public EventPriority getPriorityObject() {
+    	return priority;
+    }
+    
     public String getRomanPriority() {
     	return priority.getRomanPriority();
+    }
+    
+    public void setPriority(EventPriority priority) {
+    	this.priority = priority;
     }
     
     public Color getColor() {

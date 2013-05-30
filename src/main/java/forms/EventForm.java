@@ -12,6 +12,8 @@ public final class EventForm extends ModelForm<Event> {
     private Calendar endTime;
     private UserProfile profile;
     private List<Resource> resources;
+    private EventPriority priority;
+    
     public EventForm(Event instance, UserProfile profile) {
         if ( profile == null )
             throw new NullPointerException("Profile cannot be null");
@@ -72,8 +74,7 @@ public final class EventForm extends ModelForm<Event> {
                 startTime,
                 endTime,
                 profile,
-                //TODO: add choosing priority
-                EventPriority.getEnum(1),
+                priority,
                 resources
             ));
         } else {
@@ -111,6 +112,7 @@ public final class EventForm extends ModelForm<Event> {
             instance.setEndTime(endTime);
             instance.setStartTime(startTime);
             instance.setResources(resources);
+            instance.setPriority(priority);
         }
         return getInstance();
     }
@@ -133,5 +135,9 @@ public final class EventForm extends ModelForm<Event> {
 
     public void setResources(List<Resource> resources){
         this.resources = resources;
+    }
+    
+    public void setPriority(EventPriority priority) {
+    	this.priority = priority;
     }
 }

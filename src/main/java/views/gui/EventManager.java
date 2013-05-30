@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import controllers.EventManagerController;
 import models.Event;
+import models.EventPriority;
 import models.Organizer;
 import models.Resource;
 import models.User;
@@ -34,6 +35,7 @@ public class EventManager extends JFrame {
     private java.util.Calendar dateUntilCalendar;
 	private JComboBox<String> startTimeBox;
 	private JComboBox<String> endTimeBox;
+	private JComboBox<EventPriority> importanceBox;
     private User currentUser;
     private JList<Resource> list = null;
     private Event event = null;
@@ -96,7 +98,9 @@ public class EventManager extends JFrame {
 		JLabel lblImportance = new JLabel("Importance:");
 		lblImportance.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox<String> comboBox = new JComboBox<>();
+		importanceBox = new JComboBox<>(new DefaultComboBoxModel<EventPriority>(EventPriority.values()));
+		if(isEditing())
+			importanceBox.setSelectedItem(event.getPriorityObject());
 		
 		JPanel panel_4 = new JPanel();
 		
@@ -115,7 +119,7 @@ public class EventManager extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(lblImportance)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+					.addComponent(importanceBox, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 				.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
@@ -143,7 +147,7 @@ public class EventManager extends JFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblImportance)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(importanceBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -188,7 +192,7 @@ public class EventManager extends JFrame {
         btnRemoveresource.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ((DefaultListModel)list.getModel()).removeElement(list.getSelectedValue());
+                ((DefaultListModel<Resource>)list.getModel()).removeElement(list.getSelectedValue());
             }
         });
 		list = new JList<>(new DefaultListModel<Resource>());
@@ -410,7 +414,7 @@ public class EventManager extends JFrame {
             txtfldTitle.setText(event.getTitle());
             txtrComment.setText(event.getComment());
             for(Resource resource : event.getResourceList())
-                ((DefaultListModel)list.getModel()).addElement(resource);
+                ((DefaultListModel<Resource>)list.getModel()).addElement(resource);
             int h = startCalendar.get(java.util.Calendar.HOUR_OF_DAY);
             int m = startCalendar.get(java.util.Calendar.MINUTE);
             startTimeBox.setSelectedItem(
@@ -429,6 +433,9 @@ public class EventManager extends JFrame {
 	}
 	public String getEventComment() {
 		return txtrComment.getText();
+	}
+	public EventPriority getEventPriority() {
+		return (EventPriority) importanceBox.getSelectedItem();
 	}
 	private boolean checkIsTimeIsValid(String time){
 		if(time.length()==5&&time.charAt(2)==':'){
