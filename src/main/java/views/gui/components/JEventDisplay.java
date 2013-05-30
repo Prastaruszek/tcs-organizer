@@ -182,32 +182,70 @@ public class JEventDisplay extends JComponent{
 	}
 	
 	private class EventRectangle {
-		private Event event;
-		public Event getEvent() {
-			return event;
-		}
+        private Event event;
+        private Calendar startTime;
+        private Calendar endTime;
+        private Color color;
+        private String title;
+        private String comment;
+
+        public String getComment() {
+            return comment;
+        }
+
+        public Calendar getStartTime() {
+            return startTime;
+        }
+
+        public Calendar getEndTime() {
+            return endTime;
+        }
+
+        public Color getColor() {
+            return color;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public Event getEvent(){
+            return event;
+        }
+
 		public String getTooltip() {
-			return "<html>"+event.getTitle()+"<br>"+event.getComment()+"</html>";
+			return "<html>"+getTitle()+"<br>"+getComment()+"</html>";
 		}
 		private static final int arcWidth = 10;
 		private static final int arcHeight = 10;
 		private static final int xOffset = 5; 
 		private List<Rectangle> rectangles = new LinkedList<>();
 		public EventRectangle(Event event) {
-			this.event = event;
+            this.event = event;
+			this.title = event.getTitle();
+            this.comment = event.getComment();
+            this.startTime = event.getStartTime();
+            this.endTime = event.getEndTime();
+            this.color = event.getColor();
 		}
 		public void draw(int colWidth, int rowHeight,Graphics g){
-			int startingDay = event.getStartTime().get(GregorianCalendar.DAY_OF_WEEK);
-			int endingDay = event.getEndTime().get(GregorianCalendar.DAY_OF_WEEK);
-			int startHour = event.getStartTime().get(GregorianCalendar.HOUR_OF_DAY);
-			int endHour = event.getEndTime().get(GregorianCalendar.HOUR_OF_DAY);
-			int startingMinute = event.getStartTime().get(GregorianCalendar.MINUTE);
-			int endingMinute = event.getEndTime().get(GregorianCalendar.MINUTE);
+            if(getStartTime().before(mondayDate))
+                startTime = (Calendar) mondayDate.clone();
+            Calendar fridayDate = (Calendar) mondayDate.clone();
+            fridayDate.add(Calendar.DAY_OF_MONTH,6);
+            if(getEndTime().after(fridayDate))
+                endTime = (Calendar) fridayDate.clone();
+			int startingDay = getStartTime().get(GregorianCalendar.DAY_OF_WEEK);
+			int endingDay = getEndTime().get(GregorianCalendar.DAY_OF_WEEK);
+			int startHour = getStartTime().get(GregorianCalendar.HOUR_OF_DAY);
+			int endHour = getEndTime().get(GregorianCalendar.HOUR_OF_DAY);
+			int startingMinute = getStartTime().get(GregorianCalendar.MINUTE);
+			int endingMinute = getEndTime().get(GregorianCalendar.MINUTE);
 			startingDay= (startingDay+5)%7;
 			endingDay=(endingDay+5)%7;
             if ( endingDay < startingDay )
                 endingDay = startingDay+1;
-			Color eventFillColor = event.getColor();
+			Color eventFillColor = getColor();
 			Color eventBorderColor = Color.BLACK;
 			//System.out.println(""+startingDay+" "+endingDay+"|"+startHour+" "+endHour+"|"+startingMinute+" "+endingMinute);
 			for(int day=startingDay;day<=endingDay;day++){
@@ -233,10 +271,10 @@ public class JEventDisplay extends JComponent{
 						rectangle.width, rectangle.height,
 						arcWidth, arcHeight, eventFillColor, eventBorderColor, g);
 				g.setColor(Color.BLACK);
-				String eventTitleShrinked = event.getTitle();
+				String eventTitleShrinked = getTitle();
 				if(g.getFontMetrics().getStringBounds(eventTitleShrinked, g).getWidth()>width-arcWidth){
 					eventTitleShrinked+="...";
-					while(g.getFontMetrics().getStringBounds(eventTitleShrinked, g).getWidth()>width-arcWidth){
+					while(g.getFontMetrics().getStringBounds(eventTitleShrinked, g).getWidth()>width-arcWidth&&eventTitleShrinked.length()>4){
 						eventTitleShrinked = eventTitleShrinked.substring(0, eventTitleShrinked.length()-4);
 						eventTitleShrinked+="...";
 					}

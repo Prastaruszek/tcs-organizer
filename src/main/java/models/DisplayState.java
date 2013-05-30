@@ -23,11 +23,11 @@ public class DisplayState extends Model implements Serializable {
     }
 
     public Calendar getFirstDay() {
-        return firstDay;
+        return (Calendar) firstDay.clone();
     }
 
     public Calendar getLastDay() {
-        return lastDay;
+        return (Calendar) lastDay.clone();
     }
 
     private void _setWeek(int year, int month, int day) {
@@ -35,6 +35,9 @@ public class DisplayState extends Model implements Serializable {
         calendar.setFirstDayOfWeek(firstDayOfWeek);
         firstDay = (Calendar) calendar.clone();
         firstDay.add(Calendar.DAY_OF_YEAR, (-7-calendar.get(Calendar.DAY_OF_WEEK) + 2)%7);
+        firstDay.set(Calendar.HOUR_OF_DAY,0);
+        firstDay.set(Calendar.MINUTE,0);
+        firstDay.set(Calendar.MILLISECOND,0);
         lastDay = (Calendar) firstDay.clone();
         lastDay.add(Calendar.DAY_OF_WEEK, 6);
     }
