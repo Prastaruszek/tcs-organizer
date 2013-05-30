@@ -185,6 +185,12 @@ public class EventManager extends JFrame {
 		});
 		
 		JButton btnRemoveresource = new JButton("Remove resource");
+        btnRemoveresource.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ((DefaultListModel)list.getModel()).removeElement(list.getSelectedValue());
+            }
+        });
 		list = new JList<>(new DefaultListModel<Resource>());
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
