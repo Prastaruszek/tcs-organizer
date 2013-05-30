@@ -183,38 +183,39 @@ public class JEventDisplay extends JComponent{
 	
 	private class EventRectangle {
         private Event event;
+
+        private Calendar getStartTime() {
+            return startTime;
+        }
+
+        private Calendar getEndTime() {
+            return endTime;
+        }
+
+        private Color getColor() {
+            return color;
+        }
+
+        private String getTitle() {
+            return title;
+        }
+
+        private String getComment() {
+            return comment;
+        }
+
         private Calendar startTime;
         private Calendar endTime;
         private Color color;
         private String title;
         private String comment;
-
-        public String getComment() {
-            return comment;
-        }
-
-        public Calendar getStartTime() {
-            return startTime;
-        }
-
-        public Calendar getEndTime() {
-            return endTime;
-        }
-
-        public Color getColor() {
-            return color;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
+        boolean isStartBeforeMonday = false;
         public Event getEvent(){
             return event;
         }
 
 		public String getTooltip() {
-			return "<html>"+getTitle()+"<br>"+getComment()+"</html>";
+			return "<html>"+event.getTitle()+"<br>"+event.getComment()+"</html>";
 		}
 		private static final int arcWidth = 10;
 		private static final int arcHeight = 10;
@@ -229,12 +230,17 @@ public class JEventDisplay extends JComponent{
             this.color = event.getColor();
 		}
 		public void draw(int colWidth, int rowHeight,Graphics g){
-            if(getStartTime().before(mondayDate))
+            if(getStartTime().before(mondayDate)){
                 startTime = (Calendar) mondayDate.clone();
+                startTime.set(Calendar.HOUR_OF_DAY, startingHour);
+                isStartBeforeMonday = true;
+            }
             Calendar fridayDate = (Calendar) mondayDate.clone();
             fridayDate.add(Calendar.DAY_OF_MONTH,6);
-            if(getEndTime().after(fridayDate))
+            if(getEndTime().after(fridayDate)){
                 endTime = (Calendar) fridayDate.clone();
+                endTime.set(Calendar.HOUR_OF_DAY,startingHour+rowCount);
+            }
 			int startingDay = getStartTime().get(GregorianCalendar.DAY_OF_WEEK);
 			int endingDay = getEndTime().get(GregorianCalendar.DAY_OF_WEEK);
 			int startHour = getStartTime().get(GregorianCalendar.HOUR_OF_DAY);
@@ -255,10 +261,16 @@ public class JEventDisplay extends JComponent{
 				int height = rowHeight*(endHour-startHour)+(int)((float)rowHeight*((float)endingMinute/60.0f));
 				Rectangle rectangle;
 				if(day==startingDay&&day==endingDay){
-					rectangle = new Rectangle(x,y,width,height);
+                    if(isStartBeforeMonday)
+                        rectangle = new Rectangle(x,0,width,height);
+                    else
+					    rectangle = new Rectangle(x,y,width,height);
 				}
 				else if(day==startingDay){
-					rectangle = new Rectangle(x,y,width,getHeight()+arcHeight*2);
+                    if(isStartBeforeMonday)
+                        rectangle = new Rectangle(x,-10,width,getHeight()+arcHeight*2);
+                    else
+					    rectangle = new Rectangle(x,y,width,getHeight()+arcHeight*2);
 				}
 				else if(day<endingDay){
 					rectangle = new Rectangle(x,0,width,getHeight()+arcHeight*2);
