@@ -28,19 +28,19 @@ public class Event extends Model implements Serializable {
     }
 
     public Calendar getStartTime() {
-        return startTime;
+        return (Calendar) startTime.clone();
     }
 
     public void setStartTime(Calendar startTime) {
-        this.startTime = startTime;
+        this.startTime = (Calendar) startTime.clone();
     }
 
     public Calendar getEndTime() {
-        return endTime;
+        return (Calendar) endTime.clone();
     }
 
     public void setEndTime(Calendar endTime) {
-        this.endTime = endTime;
+        this.endTime = (Calendar) endTime.clone();
     }
 
     public int getPriority() {
