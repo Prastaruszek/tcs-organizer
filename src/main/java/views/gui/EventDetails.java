@@ -2,6 +2,7 @@ package views.gui;
 
 import controllers.EventDetailsController;
 import models.Event;
+import models.Organizer;
 import models.Resource;
 
 import javax.swing.*;
@@ -171,6 +172,12 @@ public class EventDetails extends JFrame {
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnEdit = new JButton("Edit");
+        btnEdit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new EventManager(Organizer.getInstance().getCurrentUser(),event).setVisible(true);
+            }
+        });
 		panel.add(btnEdit);
 		
 		JButton btnRemove = new JButton("Remove");

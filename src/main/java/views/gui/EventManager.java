@@ -14,14 +14,15 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import controllers.EventManagerController;
+import models.Event;
 import models.Organizer;
 import models.Resource;
 import models.User;
-import controllers.AddEventController;
 import controllers.DatePickerController;
 import utils.DateUtils;
 
-public class AddEvent extends JFrame {
+public class EventManager extends JFrame {
 
 	private static final long serialVersionUID = -1113743261857828270L;
 	
@@ -34,8 +35,9 @@ public class AddEvent extends JFrame {
 	private JComboBox<String> startTimeBox;
 	private JComboBox<String> endTimeBox;
     private User currentUser;
-    private JList<Resource> list;
-	
+    private JList<Resource> list = null;
+    private Event event = null;
+
 	/**
 	 * For testing purposes.
 	 */
@@ -43,7 +45,7 @@ public class AddEvent extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddEvent frame = new AddEvent(new User("asdf", "asdf"));
+					EventManager frame = new EventManager(new User("asdf", "asdf"),null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,11 +57,22 @@ public class AddEvent extends JFrame {
 	/**
 	 * Create the frame.
      * @param currentUser
+     *
+     * @param event If null then new event will be added. Otherwise given event will be edited;
      */
-	public AddEvent(User currentUser) {
+	public EventManager(User currentUser, Event event) {
         this.currentUser = currentUser;
-        endCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
-        startCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
+        // there is similar if at the end of the constructor because some values (calendars) had to be set before
+        // creating components and some (text areas, list) after.
+        if(event==null) {
+            endCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
+            startCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
+        }
+        else {
+            endCalendar = event.getEndTime();
+            startCalendar = event.getStartTime();
+            this.event = event;
+        }
         dateUntilCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
         setResizable(false);
 		setBounds(100, 100, 397, 529);
@@ -137,8 +150,8 @@ public class AddEvent extends JFrame {
 					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		
-		JButton btnAddEvent = new JButton("Add Event");
-		btnAddEvent.addActionListener(new AddEventController(this));
+		JButton btnAddEvent = new JButton(isEditing()?"Edit":"Add Event");
+		btnAddEvent.addActionListener(new EventManagerController(this));
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
@@ -172,7 +185,6 @@ public class AddEvent extends JFrame {
 		});
 		
 		JButton btnRemoveresource = new JButton("Remove resource");
-		
 		list = new JList<>(new DefaultListModel<Resource>());
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
@@ -193,85 +205,87 @@ public class AddEvent extends JFrame {
 					.addComponent(list, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
 		);
 		panel_4.setLayout(gl_panel_4);
-		
-		JLabel lblRepeatUntil = new JLabel("Repeat until:");
-		lblRepeatUntil.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		
-		JCheckBox chckbxMonday = new JCheckBox("Mon");
-		
-		JCheckBox chckbxTuesday = new JCheckBox("Tue");
-		
-		JCheckBox chckbxWed = new JCheckBox("Wed");
-		
-		JCheckBox chckbxTh = new JCheckBox("Thu");
-		
-		JCheckBox chckbxFri = new JCheckBox("Fri");
-		
-		JCheckBox chckbxSat = new JCheckBox("Sat");
-		
-		JCheckBox chckbxSun = new JCheckBox("Sun");
-		
-		final JTextPane repeatUntilDate = JDateFactory.JDate(dateUntilCalendar);
-		repeatUntilDate.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				new DatePicker(new DatePickerController() {
 
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						dateUntilCalendar = getGregorianCalendar();
-						repeatUntilDate.setText(DateUtils.dateDisplay(endCalendar));
-						repeatUntilDate.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
-						super.actionPerformed(e);
-					}
-				}, AddEvent.this.currentUser).setVisible(true);
-			}
-		});
-		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-		gl_panel_3.setHorizontalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addComponent(lblRepeatUntil)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(repeatUntilDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addComponent(chckbxMonday)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxTuesday)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxWed)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxTh)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxFri)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxSat)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxSun)))
-					.addContainerGap(72, Short.MAX_VALUE))
-		);
-		gl_panel_3.setVerticalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblRepeatUntil)
-						.addComponent(repeatUntilDate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(chckbxMonday)
-						.addComponent(chckbxTuesday)
-						.addComponent(chckbxWed)
-						.addComponent(chckbxTh)
-						.addComponent(chckbxFri)
-						.addComponent(chckbxSat)
-						.addComponent(chckbxSun))
-					.addContainerGap(22, Short.MAX_VALUE))
-		);
-		panel_3.setLayout(gl_panel_3);
-		
+        if(isEditing()==false){
+            JLabel lblRepeatUntil = new JLabel("Repeat until:");
+            lblRepeatUntil.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
+            JCheckBox chckbxMonday = new JCheckBox("Mon");
+
+            JCheckBox chckbxTuesday = new JCheckBox("Tue");
+
+            JCheckBox chckbxWed = new JCheckBox("Wed");
+
+            JCheckBox chckbxTh = new JCheckBox("Thu");
+
+            JCheckBox chckbxFri = new JCheckBox("Fri");
+
+            JCheckBox chckbxSat = new JCheckBox("Sat");
+
+            JCheckBox chckbxSun = new JCheckBox("Sun");
+
+            final JTextPane repeatUntilDate = JDateFactory.JDate(dateUntilCalendar);
+            repeatUntilDate.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent arg0) {
+                    new DatePicker(new DatePickerController() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            dateUntilCalendar = getGregorianCalendar();
+                            repeatUntilDate.setText(DateUtils.dateDisplay(endCalendar));
+                            repeatUntilDate.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
+                            super.actionPerformed(e);
+                        }
+                    }, EventManager.this.currentUser).setVisible(true);
+                }
+            });
+
+            GroupLayout gl_panel_3 = new GroupLayout(panel_3);
+            gl_panel_3.setHorizontalGroup(
+                gl_panel_3.createParallelGroup(Alignment.LEADING)
+                    .addGroup(gl_panel_3.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+                            .addGroup(gl_panel_3.createSequentialGroup()
+                                .addComponent(lblRepeatUntil)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(repeatUntilDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(gl_panel_3.createSequentialGroup()
+                                .addComponent(chckbxMonday)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(chckbxTuesday)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(chckbxWed)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(chckbxTh)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(chckbxFri)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(chckbxSat)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(chckbxSun)))
+                        .addContainerGap(72, Short.MAX_VALUE))
+            );
+            gl_panel_3.setVerticalGroup(
+                gl_panel_3.createParallelGroup(Alignment.LEADING)
+                    .addGroup(gl_panel_3.createSequentialGroup()
+                        .addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
+                            .addComponent(lblRepeatUntil)
+                            .addComponent(repeatUntilDate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(chckbxMonday)
+                            .addComponent(chckbxTuesday)
+                            .addComponent(chckbxWed)
+                            .addComponent(chckbxTh)
+                            .addComponent(chckbxFri)
+                            .addComponent(chckbxSat)
+                            .addComponent(chckbxSun))
+                        .addContainerGap(22, Short.MAX_VALUE))
+            );
+            panel_3.setLayout(gl_panel_3);
+        }
 		JPanel panel_1 = new JPanel();
 		
 		JPanel panel_2 = new JPanel();
@@ -305,7 +319,7 @@ public class AddEvent extends JFrame {
 						endDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}
-				}, AddEvent.this.currentUser).setVisible(true);
+				}, EventManager.this.currentUser).setVisible(true);
 			}
 		});
 		
@@ -353,7 +367,7 @@ public class AddEvent extends JFrame {
 						startDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}
-				}, AddEvent.this.currentUser).setVisible(true);
+				}, EventManager.this.currentUser).setVisible(true);
 			}
 		});
 		
@@ -386,6 +400,13 @@ public class AddEvent extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
+        if(event!=null){
+            txtfldTitle.setText(event.getTitle());
+            txtrComment.setText(event.getComment());
+            for(Resource resource : event.getResourceList())
+                ((DefaultListModel)list.getModel()).addElement(resource);
+
+        }
 		setVisible(true);
 	}
 	public String getEventTitle() {
@@ -446,4 +467,10 @@ public class AddEvent extends JFrame {
             ret.add(model.getElementAt(i));
         return ret;
 	}
+    public boolean isEditing(){
+        return event!=null;
+    }
+    public Event getEvent(){
+        return event;
+    }
 }
