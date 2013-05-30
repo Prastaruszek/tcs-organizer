@@ -64,6 +64,10 @@ public class ResourceFile extends Model implements Resource, Serializable {
         this.filesPath = path;
     }
 
+    public String getPath() {
+    	return file.getPath();
+    }
+    
     @Override
     public String toString() {
         return file.getName();
