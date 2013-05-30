@@ -13,6 +13,7 @@ import java.util.List;
 
 public class ExportManager extends JFrame {
 	
+	private static final long serialVersionUID = -7741300109933336770L;
 	private final JPanel panel = new JPanel();
 	public List<EventBox> checkboxes;
 	public JTextField destination;

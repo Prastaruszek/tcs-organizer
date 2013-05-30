@@ -23,7 +23,7 @@ public class DeleteUserController extends Controller {
 		JOptionPane alert = new JOptionPane("Are you sure you want to delete user '" + username.getSelectedItem() + "'?",
 				JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
 		alert.createDialog(login, "").setVisible(true);
-		if((int) alert.getValue() == 1)
+		if(alert.getValue().equals(1))
 			return;
 		Organizer organizer = Organizer.getInstance();
 		boolean removed = organizer.getUsers().remove(

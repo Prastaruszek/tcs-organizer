@@ -2,6 +2,8 @@ package models;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,8 +12,12 @@ import java.io.*;
  * Time: 12:44 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ResourceFile extends Model implements Resource,Serializable {
-    File file;
+public class ResourceFile extends Model implements Resource, Serializable {
+
+	private static final long serialVersionUID = 2660584783146068707L;
+	private File file;
+	private String filesPath;
+	
     @Override
     public void open() {
         try {
@@ -20,11 +26,12 @@ public class ResourceFile extends Model implements Resource,Serializable {
             e.printStackTrace();
         }
     }
+    
     public void copyToResourcesDirectory(){
         try {
             InputStream in = new FileInputStream(file);
             OutputStream out;
-            File outDirectory = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getPath());
+            File outDirectory = new File(filesPath);
             if(!outDirectory.exists())
                 outDirectory.mkdirs();
             out = new FileOutputStream(outDirectory.getPath()+"/"+file.getName());
@@ -38,15 +45,23 @@ public class ResourceFile extends Model implements Resource,Serializable {
             }
             in.close();
             out.close();
-            file = new File(Organizer.getInstance().getCurrentUser().getUserProfile().getPath()+"/"+file.getName());
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
+            file = new File(filesPath+"/"+file.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public ResourceFile(File file){
+    
+    public void removeFromResourcesDirectory() {
+    	try {
+			Files.deleteIfExists(Paths.get(filesPath+"/"+file.getName()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public ResourceFile(File file, String path){
         this.file=file;
+        this.filesPath = path;
     }
 
     @Override

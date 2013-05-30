@@ -11,8 +11,11 @@ import java.net.URI;
  * Time: 12:45 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ResourceLink extends Model implements Resource,Serializable {
-    String uri;
+public class ResourceLink extends Model implements Resource, Serializable {
+
+	private static final long serialVersionUID = 305787132332484558L;
+	String uri;
+	
     @Override
     public void open() {
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
@@ -24,6 +27,7 @@ public class ResourceLink extends Model implements Resource,Serializable {
             }
         }
     }
+    
     public ResourceLink(String uri){
         this.uri = uri;
     }

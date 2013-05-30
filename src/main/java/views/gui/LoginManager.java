@@ -45,7 +45,7 @@ public class LoginManager extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginManager() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 250);
 		setResizable(false);
 		setTitle("User manager");
@@ -60,7 +60,7 @@ public class LoginManager extends JFrame {
 		
 		JLabel lblUser = new JLabel("User");
 		
-		userList = new JComboBox<String>(Organizer.getInstance().getUsers().getUsernames());
+		userList = new JComboBox<>(Organizer.getInstance().getUsers().getUsernames());
 		
 		JLabel lblPassword = new JLabel("Password");
 		
@@ -199,7 +199,7 @@ public class LoginManager extends JFrame {
 		
 		JLabel lblUser2 = new JLabel("User");
 		
-		userList2 = new JComboBox<String>(Organizer.getInstance().getUsers().getUsernames());
+		userList2 = new JComboBox<>(Organizer.getInstance().getUsers().getUsernames());
 		
 		JLabel lblPassword2 = new JLabel("Password");
 		
@@ -286,9 +286,9 @@ public class LoginManager extends JFrame {
 	}
 	
 	public void updateUserList() {
-		userList.setModel(new DefaultComboBoxModel<String>(
+		userList.setModel(new DefaultComboBoxModel<>(
 				Organizer.getInstance().getUsers().getUsernames()));
-		userList2.setModel(new DefaultComboBoxModel<String>(
+		userList2.setModel(new DefaultComboBoxModel<>(
 				Organizer.getInstance().getUsers().getUsernames()));
 	}
 }

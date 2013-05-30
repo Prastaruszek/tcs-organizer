@@ -31,10 +31,10 @@ public class AddEvent extends JFrame {
 	private java.util.Calendar endCalendar;
 	private java.util.Calendar startCalendar;
     private java.util.Calendar dateUntilCalendar;
-	private JComboBox startTimeBox;
-	private JComboBox endTimeBox;
+	private JComboBox<String> startTimeBox;
+	private JComboBox<String> endTimeBox;
     private User currentUser;
-    private JList list;
+    private JList<Resource> list;
 	
 	/**
 	 * For testing purposes.
@@ -83,7 +83,7 @@ public class AddEvent extends JFrame {
 		JLabel lblImportance = new JLabel("Importance:");
 		lblImportance.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<>();
 		
 		JPanel panel_4 = new JPanel();
 		
@@ -173,7 +173,7 @@ public class AddEvent extends JFrame {
 		
 		JButton btnRemoveresource = new JButton("Remove resource");
 		
-		list = new JList(new DefaultListModel<Resource>());
+		list = new JList<>(new DefaultListModel<Resource>());
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -309,8 +309,8 @@ public class AddEvent extends JFrame {
 			}
 		});
 		
-		endTimeBox = new JComboBox();
-		endTimeBox.setModel(new DefaultComboBoxModel(new String[] {"00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"}));
+		endTimeBox = new JComboBox<>();
+		endTimeBox.setModel(new DefaultComboBoxModel<>(new String[] {"00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"}));
 		endTimeBox.setSelectedIndex(17);
 		endTimeBox.setEditable(true);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
@@ -357,9 +357,9 @@ public class AddEvent extends JFrame {
 			}
 		});
 		
-		startTimeBox = new JComboBox();
+		startTimeBox = new JComboBox<>();
 		startTimeBox.setEditable(true);
-		startTimeBox.setModel(new DefaultComboBoxModel(new String[] {"00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"}));
+		startTimeBox.setModel(new DefaultComboBoxModel<>(new String[] {"00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"}));
 		startTimeBox.setSelectedIndex(16);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -423,27 +423,27 @@ public class AddEvent extends JFrame {
 	public java.util.Calendar getEndCalendar() {
 		String time = (String) getEndTimeBox().getSelectedItem();
 		if(checkIsTimeIsValid(time)){
-			int h = Integer.parseInt(time.substring(0,2));
-			int m = Integer.parseInt(time.substring(3,5));
+			int h = Integer.parseInt(time.substring(0, 2));
+			int m = Integer.parseInt(time.substring(3, 5));
 			endCalendar.set(java.util.Calendar.HOUR_OF_DAY, h);
 			endCalendar.set(java.util.Calendar.MINUTE, m);
 		}
 		return (java.util.Calendar) endCalendar.clone();
 	}
-	protected JComboBox getStartTimeBox() {
+	protected JComboBox<String> getStartTimeBox() {
 		return startTimeBox;
 	}
-	protected JComboBox getEndTimeBox() {
+	protected JComboBox<String> getEndTimeBox() {
 		return endTimeBox;
 	}
-	protected JList getResourcesJList() {
+	protected JList<Resource> getResourcesJList() {
 		return list;
 	}
 	public List<Resource> getResources() {
-		ListModel model = getResourcesJList().getModel();
-        List<Resource> ret = new LinkedList<Resource>();
+		ListModel<Resource> model = getResourcesJList().getModel();
+        List<Resource> ret = new LinkedList<>();
         for(int i=0;i<model.getSize();i++)
-            ret.add((Resource) model.getElementAt(i));
+            ret.add(model.getElementAt(i));
         return ret;
 	}
 }

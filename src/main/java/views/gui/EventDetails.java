@@ -27,7 +27,7 @@ public class EventDetails extends JFrame {
 	private JLabel lblEventStart;
 	private JLabel lblEventEnd;
 	private JTextPane txtpnEventComment;
-	private JList resourceList;
+	private JList<Resource> resourceList;
 	/**
 	 * Launch the application.
 	 */
@@ -53,7 +53,7 @@ public class EventDetails extends JFrame {
 		txtpnEventComment.setText(event.getComment());
 		lblPriority.setBackground(event.getColor());
 		lblPriority.setText(event.getRomanPriority());
-        DefaultListModel<Resource> listModel = new DefaultListModel<Resource>();
+        DefaultListModel<Resource> listModel = new DefaultListModel<>();
         for(Resource resource : event.getResourceList())
             listModel.addElement(resource);
         resourceList.setModel(listModel);
@@ -103,13 +103,13 @@ public class EventDetails extends JFrame {
 		txtpnEventComment.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK),
 							BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		
-		resourceList = new JList();
+		resourceList = new JList<>();
 		resourceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resourceList.addListSelectionListener(new ListSelectionListener() {
             int counter=0;
 			public void valueChanged(ListSelectionEvent arg0) {
                 if(counter++%2==0)
-                    ((Resource)resourceList.getSelectedValue()).open();
+                    (resourceList.getSelectedValue()).open();
 			}
 		});
 		
@@ -191,7 +191,7 @@ public class EventDetails extends JFrame {
 	public Event getEvent() {
 		return event;
 	}
-	public JList getResourceList() {
+	public JList<Resource> getResourceList() {
 		return resourceList;
 	}
 }

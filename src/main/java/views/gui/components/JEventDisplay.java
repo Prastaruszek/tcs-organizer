@@ -26,8 +26,8 @@ public class JEventDisplay extends JComponent{
 	private int startingHour = 8;
     private Calendar mondayDate = null;
 	String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-	Iterable<EventRectangle> events = new LinkedList<EventRectangle>();
-	List<ActionListener> actionListeners = new LinkedList<ActionListener>();
+	Iterable<EventRectangle> events = new LinkedList<>();
+	List<ActionListener> actionListeners = new LinkedList<>();
 	public JEventDisplay() {
 		// tooltip instant display
 		addMouseListener(new MouseAdapter() {
@@ -64,13 +64,13 @@ public class JEventDisplay extends JComponent{
 		actionListeners.add(listener);
 	}
 	public Iterable<Event> getEvents() {
-		List<Event> ret = new LinkedList<Event>();
+		List<Event> ret = new LinkedList<>();
 		for(EventRectangle eventRectangle : events)
 			ret.add(eventRectangle.getEvent());
 		return ret;
 	}
 	public void setEvents(Iterable<Event> events,Calendar mondayDate) {
-		List<EventRectangle> tmp = new LinkedList<JEventDisplay.EventRectangle>();
+		List<EventRectangle> tmp = new LinkedList<>();
 		for(Event event : events)
 			tmp.add(new EventRectangle(event));
 		this.events = tmp;
@@ -176,7 +176,7 @@ public class JEventDisplay extends JComponent{
 	
 	@Override
 	public Point getToolTipLocation(MouseEvent event) {
-		if(getToolTipText(event)!="")
+		if(!getToolTipText(event).equals(""))
 			return null;
 		else return new Point(-10000,-10000);
 	}
@@ -192,7 +192,7 @@ public class JEventDisplay extends JComponent{
 		private static final int arcWidth = 10;
 		private static final int arcHeight = 10;
 		private static final int xOffset = 5; 
-		private List<Rectangle> rectangles = new LinkedList<Rectangle>(); 
+		private List<Rectangle> rectangles = new LinkedList<>();
 		public EventRectangle(Event event) {
 			this.event = event;
 		}

@@ -83,6 +83,9 @@ public class Event extends Model implements Serializable {
     }
 
     public void delete() {
+    	for(Resource r : resources)
+    		if(r instanceof ResourceFile)
+    			((ResourceFile) r).removeFromResourcesDirectory();
         profile.getEvents().removeEvent(this);
     }
 

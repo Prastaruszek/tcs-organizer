@@ -57,7 +57,7 @@ public class Calendar implements Observer {
 		Organizer.getInstance();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 430);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
 		
 		JPanel panel = new JPanel();
