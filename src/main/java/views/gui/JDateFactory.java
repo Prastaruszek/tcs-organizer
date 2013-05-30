@@ -1,6 +1,6 @@
 package views.gui;
 
-import controllers.DatePickerController;
+import utils.DateUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ public final class JDateFactory {
 		textPane.setContentType("text/html");
 		if(calendar==null)
 			calendar = GregorianCalendar.getInstance();
-		textPane.setText(DatePickerController.dateDisplay(calendar));
+		textPane.setText(DateUtils.dateDisplay(calendar));
 		textPane.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 		return textPane;
 	}

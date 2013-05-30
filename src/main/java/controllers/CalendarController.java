@@ -22,7 +22,8 @@ public class CalendarController extends Controller implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		display.setEvents(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getCurrentWeekEvents());
+		display.setEvents(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getCurrentWeekEvents(),
+                Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay());
 	}
 
 }

@@ -19,6 +19,7 @@ import models.Resource;
 import models.User;
 import controllers.AddEventController;
 import controllers.DatePickerController;
+import utils.DateUtils;
 
 public class AddEvent extends JFrame {
 
@@ -219,7 +220,7 @@ public class AddEvent extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						dateUntilCalendar = getGregorianCalendar();
-						repeatUntilDate.setText(dateDisplay(endCalendar));
+						repeatUntilDate.setText(DateUtils.dateDisplay(endCalendar));
 						repeatUntilDate.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}
@@ -300,7 +301,7 @@ public class AddEvent extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						endCalendar = getGregorianCalendar();
-						endDatePicker.setText(dateDisplay(endCalendar));
+						endDatePicker.setText(DateUtils.dateDisplay(endCalendar));
 						endDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}
@@ -348,7 +349,7 @@ public class AddEvent extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						startCalendar = getGregorianCalendar();
-						startDatePicker.setText(dateDisplay(startCalendar));
+						startDatePicker.setText(DateUtils.dateDisplay(startCalendar));
 						startDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}

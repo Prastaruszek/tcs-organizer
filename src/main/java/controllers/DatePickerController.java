@@ -30,9 +30,4 @@ public abstract class DatePickerController extends Controller {
     public void actionPerformed(ActionEvent arg0) {
     	picker.dispose();
     }
-	public static String dateDisplay(Calendar calendar) {
-		return ""+calendar.get(GregorianCalendar.DAY_OF_MONTH)+"."+
-				   (calendar.get(GregorianCalendar.MONTH)+1)+"."+
-				   calendar.get(GregorianCalendar.YEAR);
-	}
 }

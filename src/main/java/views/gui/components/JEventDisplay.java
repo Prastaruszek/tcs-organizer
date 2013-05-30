@@ -1,6 +1,7 @@
 package views.gui.components;
 
 import models.Event;
+import utils.DateUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class JEventDisplay extends JComponent{
 
 	private int rowCount=14;
 	private int startingHour = 8;
+    private Calendar mondayDate = null;
 	String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	Iterable<EventRectangle> events = new LinkedList<EventRectangle>();
 	List<ActionListener> actionListeners = new LinkedList<ActionListener>();
@@ -66,17 +69,18 @@ public class JEventDisplay extends JComponent{
 			ret.add(eventRectangle.getEvent());
 		return ret;
 	}
-	public void setEvents(Iterable<Event> events) {
+	public void setEvents(Iterable<Event> events,Calendar mondayDate) {
 		List<EventRectangle> tmp = new LinkedList<JEventDisplay.EventRectangle>();
 		for(Event event : events)
 			tmp.add(new EventRectangle(event));
 		this.events = tmp;
+        this.mondayDate = mondayDate;
 		repaint();
 	}
 	@Override
 	protected void paintComponent(Graphics g) {
-		int colWidth = getWidth()/8;
-		int rowHeight = getHeight()/(rowCount+1);
+		int colWidth = (int)g.getClipBounds().getWidth()/8;
+		int rowHeight = (int)g.getClipBounds().getHeight()/(rowCount+1);
 		drawRowsAndColumns(colWidth, rowHeight, g);
 	}
 	
@@ -123,9 +127,21 @@ public class JEventDisplay extends JComponent{
 		g.fillRect(0,0,getWidth(),rowHeight);
 		g.setColor(Color.BLACK);
 		for(int i=1;i<=7;i++){
-			g.drawString(daysOfTheWeek[i-1],
-					colWidth*i+(int) (colWidth/2 - g.getFontMetrics().getStringBounds(daysOfTheWeek[i-1],g).getWidth()/2),
-					rowHeight-g.getFontMetrics().getHeight()/2);
+            if(rowHeight<2*g.getFontMetrics().getHeight())
+                g.drawString(daysOfTheWeek[i-1],
+                        colWidth*i+(int) (colWidth/2 - g.getFontMetrics().getStringBounds(daysOfTheWeek[i-1],g).getWidth()/2),
+                        rowHeight-g.getFontMetrics().getHeight()/2);
+            else if(mondayDate!=null){
+                g.drawString(daysOfTheWeek[i-1],
+                        colWidth*i+(int) (colWidth/2 - g.getFontMetrics().getStringBounds(daysOfTheWeek[i-1],g).getWidth()/2),
+                        rowHeight/2-g.getFontMetrics().getHeight()/4);
+                Calendar thisDay = (Calendar) mondayDate.clone();
+                thisDay.add(Calendar.DAY_OF_MONTH,i-1);
+                String date = DateUtils.dateDisplay(thisDay);
+                g.drawString(date,
+                        colWidth*i+(int) (colWidth/2 - g.getFontMetrics().getStringBounds(date,g).getWidth()/2),
+                        rowHeight-g.getFontMetrics().getHeight()/4);
+            }
 		}
 	}
 	private void drawEvents(int colWidth,int rowHeight,Graphics g){
@@ -193,7 +209,7 @@ public class JEventDisplay extends JComponent{
                 endingDay = startingDay+1;
 			Color eventFillColor = event.getColor();
 			Color eventBorderColor = Color.BLACK;
-			System.out.println(""+startingDay+" "+endingDay+"|"+startHour+" "+endHour+"|"+startingMinute+" "+endingMinute);
+			//System.out.println(""+startingDay+" "+endingDay+"|"+startHour+" "+endHour+"|"+startingMinute+" "+endingMinute);
 			for(int day=startingDay;day<=endingDay;day++){
 				int x = xOffset+colWidth*(day+1);
 				int y = rowHeight*(startHour-startingHour+1)+(int)((float)rowHeight*((float)startingMinute/60.0f));
