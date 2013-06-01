@@ -1,9 +1,9 @@
 package views.gui;
 
+import controllers.EventFilterController;
 import controllers.ExportManagerController;
 
 import javax.swing.*;
-
 import views.gui.components.JEventBox;
 
 import java.awt.*;
@@ -17,8 +17,9 @@ public class ExportManager extends JFrame {
 	
 	private static final long serialVersionUID = -7741300109933336770L;
 	private final JPanel panel = new JPanel();
-	public List<JEventBox> checkboxes;
-	public JTextField destination;
+	private List<JEventBox> checkboxes;
+	private JTextField destination;
+	private JTextField searchField;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -36,7 +37,7 @@ public class ExportManager extends JFrame {
 	public ExportManager() {
 		
 		setName("Export Manager");
-		setBounds(100, 100, 300, 300);
+		setBounds(100, 100, 300, 400);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().add(panel, BorderLayout.SOUTH);
@@ -69,6 +70,18 @@ public class ExportManager extends JFrame {
 		eventView.setLayout(new BoxLayout(eventView, BoxLayout.Y_AXIS));
 		panel_1.add(eventPanel, BorderLayout.CENTER);
 		
+		JPanel searchPanel = new JPanel();
+		panel_1.add(searchPanel, BorderLayout.NORTH);
+		searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
+		
+		JLabel lblSearch = new JLabel("Search:");
+		searchPanel.add(lblSearch);
+		
+		searchField = new JTextField();
+		searchPanel.add(searchField);
+		searchField.setColumns(10);
+		searchField.getDocument().addDocumentListener(new EventFilterController(this));
+		
 		checkboxes = ExportManagerController.getBoxes();
 		
 		for(JEventBox box : checkboxes)
@@ -81,7 +94,8 @@ public class ExportManager extends JFrame {
 		btnSelectAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				for(JEventBox box : checkboxes)
-					box.setSelected(true);
+					if(box.isVisible())
+						box.setSelected(true);
 			}
 		});
 		
@@ -105,6 +119,18 @@ public class ExportManager extends JFrame {
 		int maxWidth = 300;
 		for(JEventBox box : checkboxes)
 			maxWidth = Math.max(maxWidth, box.getWidth());
-		setSize(maxWidth+20, 300);
+		setSize(maxWidth+20, 400);
+	}
+	
+	public JTextField getDestination() {
+		return destination;
+	}
+	
+	public JTextField getSearchField() {
+		return searchField;
+	}
+	
+	public List<JEventBox> getEventBoxes() {
+		return checkboxes;
 	}
 }

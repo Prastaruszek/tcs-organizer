@@ -24,14 +24,14 @@ public class ExportManagerController extends Controller {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		String dest = exportManager.destination.getText();
+		String dest = exportManager.getDestination().getText();
 		if(dest.equals("Pick a destination")){
 			new JOptionPane("Please select a destination folder", JOptionPane.ERROR_MESSAGE,
 				JOptionPane.DEFAULT_OPTION).createDialog(exportManager, "Error").setVisible(true);
 			return;
 		}
 		EventSet eS = new EventSet();
-		for(JEventBox box : exportManager.checkboxes)
+		for(JEventBox box : exportManager.getEventBoxes())
 			if(box.isSelected())
 				eS.add(box.getEvent());
 		if(!eS.isEmpty()){
