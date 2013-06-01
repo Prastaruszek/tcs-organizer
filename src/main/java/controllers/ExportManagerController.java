@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class ExportManagerController extends Controller {
 
 	ExportManager exportManager;
@@ -24,7 +26,8 @@ public class ExportManagerController extends Controller {
 	public void actionPerformed(ActionEvent arg0) {
 		String dest = exportManager.destination.getText();
 		if(dest.equals("Pick a destination")){
-			// TODO: ADD error dialog
+			new JOptionPane("Please select a destination folder", JOptionPane.ERROR_MESSAGE,
+				JOptionPane.DEFAULT_OPTION).createDialog(exportManager, "Error").setVisible(true);
 			return;
 		}
 		EventSet eS = new EventSet();
@@ -35,7 +38,8 @@ public class ExportManagerController extends Controller {
 			eS.exportEventSet(dest, Organizer.getInstance().getCurrentUser().getUsername()+"_expo");
 		}
 		else{
-			// TODO: ADD error dialog
+			new JOptionPane("No events have been selected", JOptionPane.ERROR_MESSAGE,
+					JOptionPane.DEFAULT_OPTION).createDialog(exportManager, "Error").setVisible(true);
 			return;
 		}
 		exportManager.dispose();
