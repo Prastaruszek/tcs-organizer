@@ -136,7 +136,6 @@ public class Calendar implements Observer {
 		btnExport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ExportManager().setVisible(true);
-				System.out.println("Export clicked");
 			}
 		});
 		

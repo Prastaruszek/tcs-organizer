@@ -1,9 +1,11 @@
 package views.gui;
 
 import controllers.ExportManagerController;
-import models.EventBox;
 
 import javax.swing.*;
+
+import views.gui.components.JEventBox;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +17,7 @@ public class ExportManager extends JFrame {
 	
 	private static final long serialVersionUID = -7741300109933336770L;
 	private final JPanel panel = new JPanel();
-	public List<EventBox> checkboxes;
+	public List<JEventBox> checkboxes;
 	public JTextField destination;
 	
 	public static void main(String[] args) {
@@ -32,10 +34,9 @@ public class ExportManager extends JFrame {
 	}
 	
 	public ExportManager() {
-		// TODO: przerobic ten chujowy layout
 		
 		setName("Export Manager");
-		setBounds(100,100, 300, 300);
+		setBounds(100, 100, 300, 300);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().add(panel, BorderLayout.SOUTH);
@@ -63,20 +64,23 @@ public class ExportManager extends JFrame {
 		panel_1.add(destination, BorderLayout.SOUTH);
 		destination.setColumns(10);
 		
-		JPanel panel_2 = new JPanel();
-		panel_1.add(panel_2, BorderLayout.CENTER);
+		JPanel eventView = new JPanel();
+		JScrollPane eventPanel = new JScrollPane(eventView);
+		eventView.setLayout(new BoxLayout(eventView, BoxLayout.Y_AXIS));
+		panel_1.add(eventPanel, BorderLayout.CENTER);
 		
 		checkboxes = ExportManagerController.getBoxes();
-		for(EventBox box : checkboxes)
-			panel_2.add(box);
+		
+		for(JEventBox box : checkboxes)
+			eventView.add(box);
 		
 		if(checkboxes.isEmpty())
-			panel_2.add(new JLabel("Nothing to do here"));
+			eventView.add(new JLabel("Nothing to do here"));
 		
 		JButton btnSelectAll = new JButton("Select all");
 		btnSelectAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				for(EventBox box : checkboxes)
+				for(JEventBox box : checkboxes)
 					box.setSelected(true);
 			}
 		});
@@ -94,6 +98,13 @@ public class ExportManager extends JFrame {
 		panel.add(btnOK);
 		panel.add(btnCancel);
 		setVisible(true);
+		updateWidth();
 	}
 
+	private void updateWidth() {
+		int maxWidth = 300;
+		for(JEventBox box : checkboxes)
+			maxWidth = Math.max(maxWidth, box.getWidth());
+		setSize(maxWidth+20, 300);
+	}
 }

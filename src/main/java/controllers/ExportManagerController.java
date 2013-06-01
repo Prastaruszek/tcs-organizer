@@ -1,10 +1,10 @@
 package controllers;
 
 import models.Event;
-import models.EventBox;
 import models.EventSet;
 import models.Organizer;
 import views.gui.ExportManager;
+import views.gui.components.JEventBox;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class ExportManagerController extends Controller {
 			return;
 		}
 		EventSet eS = new EventSet();
-		for(EventBox box : exportManager.checkboxes)
+		for(JEventBox box : exportManager.checkboxes)
 			if(box.isSelected())
 				eS.add(box.getEvent());
 		if(!eS.isEmpty()){
@@ -41,11 +41,11 @@ public class ExportManagerController extends Controller {
 		exportManager.dispose();
 	}
 
-	public static List<EventBox> getBoxes() {
-		List<EventBox> list = new ArrayList<>();
+	public static List<JEventBox> getBoxes() {
+		List<JEventBox> list = new ArrayList<>();
 		EventSet events = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all();
 		for(Event e : events)
-			list.add(new EventBox(e.getTitle(), e));
+			list.add(new JEventBox(e.getTitle(), e));
 		return list;
 	}
 
