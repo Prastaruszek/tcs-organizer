@@ -33,7 +33,7 @@ public class EventFilterController implements DocumentListener {
 		String text = exportManager.getSearchField().getText();
 		List<JEventBox> checkboxes = exportManager.getEventBoxes();
 		for(JEventBox box : checkboxes)
-			if(box.getText().contains(text))
+			if(box.getText().toLowerCase().contains(text.toLowerCase()))
 				box.setVisible(true);
 			else
 				box.setVisible(false);
