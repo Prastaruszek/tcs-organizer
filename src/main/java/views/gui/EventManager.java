@@ -154,7 +154,7 @@ public class EventManager extends JFrame {
 					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		
-		JButton btnAddEvent = new JButton(isEditing()?"Edit":"Add Event");
+		JButton btnAddEvent = new JButton(isEditing()?"Save":"Add Event");
 		btnAddEvent.addActionListener(new EventManagerController(this));
 		
 		JButton btnClose = new JButton("Close");

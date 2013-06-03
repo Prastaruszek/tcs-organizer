@@ -25,7 +25,7 @@ public class Calendar implements Observer {
 	public static final String DEFAULT_USER_ICON = "src/main/images/DefaultUserIcon.png";
 	private JFrame frame;
 	private JEventDisplay eventDisplay;
-	private JLabel lblThereWillBe;
+	private JButton btnThereWillBe;
 	private JLabel lblLogin;
 	private JLabel lblUsername;
 	private JLabel lblUserPic;
@@ -195,17 +195,16 @@ public class Calendar implements Observer {
 		btnPrevious.addActionListener(new WeekPickerBackController());
 		panel.add(btnPrevious);
 
-		lblThereWillBe = new JLabel(currentUser.getUserProfile().getState().getRangeDisplay(), JLabel.CENTER);
-		lblThereWillBe.addMouseListener(new MouseAdapter() {
+		btnThereWillBe = new JButton(currentUser.getUserProfile().getState().getRangeDisplay());
+		btnThereWillBe.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
                 new DatePicker(new WeekPickerController(), currentUser).setVisible(true);
 			}
 		});
-        lblThereWillBe.setOpaque(true);
-        lblThereWillBe.setBackground(Color.WHITE);
-        lblThereWillBe.setPreferredSize(new Dimension(250, 25));
-		panel.add(lblThereWillBe);
+        btnThereWillBe.setOpaque(true);
+        btnThereWillBe.setPreferredSize(new Dimension(250, 25));
+		panel.add(btnThereWillBe);
 
 
 		JButton btnNext = new JButton("Next");
@@ -235,8 +234,7 @@ public class Calendar implements Observer {
     public void update(Observable o, Object arg) {
     	if(arg != null) {
     		DisplayState state = (DisplayState) arg;
-    		lblThereWillBe.setText("<html>"+state.getRangeDisplay()+
-                    "<img src=\"file:"+new File(SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF)+"\" /></html>");
+    		btnThereWillBe.setText(state.getRangeDisplay());
     	}
         lblVelocity.setText("Velocity: " + currentUser.getUserProfile().getVelocity().toString());
         
@@ -248,7 +246,7 @@ public class Calendar implements Observer {
 
     }
     
-	protected JLabel getLblThereWillBe() {
-		return lblThereWillBe;
+	protected JButton getLblThereWillBe() {
+		return btnThereWillBe;
 	}
 }
