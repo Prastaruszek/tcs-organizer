@@ -40,6 +40,9 @@ public class DisplayState extends Model implements Serializable {
         firstDay.set(Calendar.MILLISECOND,0);
         lastDay = (Calendar) firstDay.clone();
         lastDay.add(Calendar.DAY_OF_WEEK, 6);
+        lastDay.set(Calendar.HOUR_OF_DAY,23);
+        lastDay.set(Calendar.MINUTE,59);
+        lastDay.set(Calendar.MILLISECOND,59);
     }
 
     public void setWeek(int year, int month, int day) {
