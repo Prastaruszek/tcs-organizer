@@ -261,7 +261,7 @@ public class JEventDisplay extends JComponent{
 				int x = xOffset+colWidth*(day+1);
 				int y = rowHeight*(startHour-startingHour+1)+(int)((float)rowHeight*((float)startingMinute/60.0f));
 				int width = colWidth-xOffset*2;
-				int height = rowHeight*(endHour-startHour)+(int)((float)rowHeight*((float)endingMinute/60.0f));
+				int height = rowHeight*(endHour-startHour)+(int)((float)rowHeight*((float)(endingMinute-startingMinute)/60.0f));
 				Rectangle rectangle;
 				if(day==startingDay&&day==endingDay){
                     if(isStartBeforeMonday)
