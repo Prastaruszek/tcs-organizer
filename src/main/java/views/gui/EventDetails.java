@@ -13,6 +13,8 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.text.SimpleDateFormat;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -24,10 +26,10 @@ public class EventDetails extends JFrame {
 	private JPanel contentPane;
 	private Event event;
 	private JLabel lblPriority;
-	private JLabel lblEventTitle;
+	private JTextArea txtrEventTitle;
 	private JLabel lblEventStart;
 	private JLabel lblEventEnd;
-	private JTextPane txtpnEventComment;
+	private JTextArea txtrEventComment;
 	private JList<Resource> resourceList;
 	/**
 	 * Launch the application.
@@ -47,11 +49,12 @@ public class EventDetails extends JFrame {
 	public EventDetails(Event event){
 		this();
 		this.event = event;
-		lblEventTitle.setText(event.getTitle());
+		txtrEventTitle.setText(event.getTitle());
 		SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm");
 		lblEventStart.setText(df.format(event.getStartTime().getTime()));
 		lblEventEnd.setText(df.format(event.getEndTime().getTime()));
-		txtpnEventComment.setText(event.getComment());
+		txtrEventComment.setText(event.getComment());
+		txtrEventComment.setCaretPosition(0);
 		lblPriority.setBackground(event.getColor());
 		lblPriority.setText(event.getRomanPriority());
         DefaultListModel<Resource> listModel = new DefaultListModel<>();
@@ -81,8 +84,18 @@ public class EventDetails extends JFrame {
 		lblPriority.setOpaque(true);
 		lblPriority.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
-		lblEventTitle = new JLabel("Event title");
-		lblEventTitle.setFont(new Font("Dialog", Font.BOLD, 20));
+		txtrEventTitle = new JTextArea("Event title");
+		txtrEventTitle.setWrapStyleWord(true);
+		txtrEventTitle.setLineWrap(true);
+		txtrEventTitle.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		txtrEventTitle.setEditable(false);
+		txtrEventTitle.setFont(new Font("Dialog", Font.BOLD, 20));
+		txtrEventTitle.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				txtrEventTitle.setMinimumSize(new Dimension(0, 0));
+			}
+		});
 		
 		JLabel lblFrom = new JLabel("From:");
 		
@@ -96,13 +109,16 @@ public class EventDetails extends JFrame {
 		
 		JLabel lblComment = new JLabel("Comment:");
 		
-		txtpnEventComment = new JTextPane();
-		txtpnEventComment.setBackground(UIManager.getColor("TextPane.inactiveForeground"));
-		txtpnEventComment.setText("This is the comment");
-		txtpnEventComment.setEditable(false);
-		txtpnEventComment.setMargin(new Insets(5, 5, 5, 5));
-		txtpnEventComment.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK),
+		txtrEventComment = new JTextArea();
+		txtrEventComment.setWrapStyleWord(true);
+		txtrEventComment.setLineWrap(true);
+		txtrEventComment.setBackground(UIManager.getColor("TextField.inactiveBackground"));
+		txtrEventComment.setText("This is the comment");
+		txtrEventComment.setEditable(false);
+		txtrEventComment.setMargin(new Insets(5, 5, 5, 5));
+		txtrEventComment.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK),
 							BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+		JScrollPane commentHolder = new JScrollPane(txtrEventComment);
 		
 		resourceList = new JList<>();
 		resourceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -131,7 +147,7 @@ public class EventDetails extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblEventEnd)
 							.addContainerGap(204, Short.MAX_VALUE))
-						.addComponent(lblEventTitle, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)))
+						.addComponent(txtrEventTitle, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)))
 				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
@@ -139,7 +155,7 @@ public class EventDetails extends JFrame {
 					.addContainerGap(409, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(txtpnEventComment, GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+					.addComponent(commentHolder, GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
 					.addContainerGap())
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
@@ -153,7 +169,7 @@ public class EventDetails extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(lblPriority, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblEventTitle)
+							.addComponent(txtrEventTitle)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblFrom)
@@ -163,7 +179,7 @@ public class EventDetails extends JFrame {
 					.addGap(18)
 					.addComponent(lblComment)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtpnEventComment, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+					.addComponent(commentHolder, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(resourceList, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -194,6 +210,7 @@ public class EventDetails extends JFrame {
 		panel.add(btnClose);
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);
+		System.out.println(txtrEventTitle.getWidth());
 	}
 	
 	public Event getEvent() {

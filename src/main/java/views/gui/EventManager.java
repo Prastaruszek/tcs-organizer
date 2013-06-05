@@ -108,8 +108,11 @@ public class EventManager extends JFrame {
 		JPanel panel_5 = new JPanel();
 		
 		txtrComment = new JTextArea();
+		txtrComment.setWrapStyleWord(true);
 		txtrComment.setLineWrap(true);
 		txtrComment.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		JScrollPane commentHolder = new JScrollPane(txtrComment);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -125,7 +128,7 @@ public class EventManager extends JFrame {
 				.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 				.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-				.addComponent(txtrComment, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+				.addComponent(commentHolder, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(lblComment, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
@@ -140,7 +143,7 @@ public class EventManager extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblComment)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtrComment, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+					.addComponent(commentHolder, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
