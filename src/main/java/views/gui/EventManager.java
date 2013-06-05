@@ -461,6 +461,8 @@ public class EventManager extends JFrame {
 			startCalendar.set(java.util.Calendar.HOUR_OF_DAY, h);
 			startCalendar.set(java.util.Calendar.MINUTE, m);
 		}
+        else
+            return null;
 		return (java.util.Calendar) startCalendar.clone();
 	}
 	public java.util.Calendar getEndCalendar() {
@@ -471,6 +473,8 @@ public class EventManager extends JFrame {
 			endCalendar.set(java.util.Calendar.HOUR_OF_DAY, h);
 			endCalendar.set(java.util.Calendar.MINUTE, m);
 		}
+        else
+            return null;
 		return (java.util.Calendar) endCalendar.clone();
 	}
 	protected JComboBox<String> getStartTimeBox() {

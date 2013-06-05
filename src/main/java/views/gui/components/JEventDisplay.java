@@ -237,6 +237,9 @@ public class JEventDisplay extends JComponent{
             }
             Calendar fridayDate = (Calendar) mondayDate.clone();
             fridayDate.add(Calendar.DAY_OF_MONTH,6);
+            fridayDate.set(Calendar.HOUR_OF_DAY,23);
+            fridayDate.set(Calendar.MINUTE,59);
+            fridayDate.set(Calendar.MILLISECOND,59);
             if(getEndTime().after(fridayDate)){
                 endTime = (Calendar) fridayDate.clone();
                 endTime.set(Calendar.HOUR_OF_DAY,startingHour+rowCount);
