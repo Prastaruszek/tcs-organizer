@@ -16,12 +16,14 @@ import javax.swing.border.EmptyBorder;
 
 import controllers.EventManagerController;
 import models.Event;
+import models.EventGroup;
 import models.EventPriority;
 import models.Organizer;
 import models.Resource;
 import models.User;
 import controllers.DatePickerController;
 import utils.DateUtils;
+import views.gui.components.LimitedDocument;
 
 public class EventManager extends JFrame {
 
@@ -85,8 +87,7 @@ public class EventManager extends JFrame {
 		JLabel lblTitle = new JLabel("Title: ");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		txtfldTitle = new JTextField();
-		txtfldTitle.setColumns(10);
+		txtfldTitle = new JTextField(new LimitedDocument(EventGroup.getMaxTitleLength()), "", 10);
 		
 		JLabel lblComment = new JLabel("Comment:");
 		lblComment.setFont(new Font("Tahoma", Font.PLAIN, 13));
