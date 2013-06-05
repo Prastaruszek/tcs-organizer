@@ -14,8 +14,10 @@ public class LimitedDocument extends PlainDocument {
 	
 	@Override
 	public void insertString(int offs, String str, AttributeSet attr) throws BadLocationException {
-		if(str == null || getLength() + str.length() > limit)
+		if(str == null)
 			return;
+		if(getLength() + str.length() > limit)
+			str = str.substring(0, limit-getLength());
 		super.insertString(offs, str, attr);	
 	}
 }
