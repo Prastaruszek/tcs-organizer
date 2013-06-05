@@ -33,37 +33,44 @@ public final class EventForm extends ModelForm<Event> {
             return false;
         if ( comment == null )
             return false;
-        if ( startTime == null )
-            return false;
-        if ( endTime == null )
-            return false;
 
         boolean valid = true;
+
+        if ( startTime == null ){
+            this.getErrors().appendError("Time", "Start time is invalid.");
+            valid = false;
+        }
+        if ( endTime == null ){
+            this.getErrors().appendError("Time", "End time is invalid.");
+            valid = false;
+        }
 
         if ( parent.getTitle().isEmpty()) {
             this.getErrors().appendError("Title", "Cannot be empty");
         	valid = false;
         }
-        if ( !startTime.before(endTime) ) {
+        if ( startTime != null && endTime != null && !startTime.before(endTime) ) {
             this.getErrors().appendError("General", "End time has to be after start time");
             valid = false;
         }
 
         EventSet events = profile.getEvents().all();
-        for ( Event event : events ) {
-            if ( event == instance )
-                continue;
-            boolean overlap = false;
-            if(event.isBetween(startTime,endTime))
-                overlap = true;
-            if(event.getStartTime().before(endTime)&&event.getEndTime().after(endTime))
-                overlap = true;
-            if(event.getStartTime().before(startTime)&&event.getEndTime().after(startTime))
-                overlap = true;
-            if ( overlap ) {
-                this.getErrors().appendError("General", "Event overlaps existing one" + event.getTitle() + event.getStartTime().getTime() + event.getEndTime().getTime());
-                valid =  false;
-                break;
+        if(startTime != null && endTime != null ){
+            for ( Event event : events ) {
+                if ( event == instance )
+                    continue;
+                boolean overlap = false;
+                if(event.isBetween(startTime,endTime))
+                    overlap = true;
+                if(event.getStartTime().before(endTime)&&event.getEndTime().after(endTime))
+                    overlap = true;
+                if(event.getStartTime().before(startTime)&&event.getEndTime().after(startTime))
+                    overlap = true;
+                if ( overlap ) {
+                    this.getErrors().appendError("General", "Event overlaps existing one" + event.getTitle() + event.getStartTime().getTime() + event.getEndTime().getTime());
+                    valid =  false;
+                    break;
+                }
             }
         }
 
