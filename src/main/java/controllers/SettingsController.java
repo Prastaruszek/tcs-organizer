@@ -1,8 +1,10 @@
 package controllers;
 
 import models.Organizer;
+import models.UserProfile;
 import views.gui.Settings;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 public class SettingsController extends Controller {
@@ -13,11 +15,28 @@ public class SettingsController extends Controller {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Organizer.getInstance().getCurrentUser().getUserProfile().setPath(ref.getPath());
-		Organizer.getInstance().getCurrentUser().getUserProfile().setVelocity(ref.getVelocity());
-		Organizer.getInstance().getCurrentUser().getUserProfile().setIconPath(ref.getIconPath());
-		Organizer.getInstance().update();
-		Organizer.getInstance().notifyObservers();
+		
+		Organizer o = Organizer.getInstance();
+		UserProfile logged = o.getCurrentUser().getUserProfile();
+		
+		logged.setPath(ref.getPath());
+		
+		logged.setVelocity(ref.getVelocity());
+		
+		logged.setIconPath(ref.getIconPath());
+		
+		Color[] modColors = ref.getColorChoices();
+		
+		if(modColors != null) {
+			
+			for(int i=0; i<5; ++i)
+				logged.setPriorityColor(i+1, modColors[i]);
+			
+		}
+		
+		o.update();
+		o.notifyObservers();
+		
 		ref.dispose();
 	}
 	

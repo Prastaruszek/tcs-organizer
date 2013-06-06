@@ -1,6 +1,7 @@
 package views.gui;
 
 import controllers.SettingsController;
+import models.EventPriority;
 import models.User;
 
 import javax.swing.*;
@@ -21,12 +22,14 @@ public class Settings extends JFrame {
 	
 	private JPanel contentPane;
 	private JTextField chosenFolder;
-	private JLabel folderLabel;
 	private JTextField editVelocity;
 	private JLabel lblIcon;
+	private JComboBox<String> colorBox;
 	private String newPath;
     private User currentUser;
     private static Settings instance;
+    private JButton colorButton;
+    private Color[] modColors;
 
     /**
 	 * Launch the application.
@@ -58,6 +61,7 @@ public class Settings extends JFrame {
     }
 
 	private void init(User currentUser) {
+		
         this.currentUser = currentUser;
         editVelocity = new JTextField();
         editVelocity.setColumns(10);
@@ -84,7 +88,9 @@ public class Settings extends JFrame {
 		
 		JPanel panel = new JPanel();
 		
-		JLabel lblVelocity = new JLabel("Velocity");
+		JLabel lblVelocity = new JLabel("Velocity:");
+		
+        JLabel folderLabel = new JLabel("Data folder:");
 		
 		editVelocity.setText(currentUser.getUserProfile().getVelocity().toString());
 		
@@ -94,9 +100,52 @@ public class Settings extends JFrame {
         if(icon.canRead())
 			lblIcon = new JLabel("<html><img src=\"file:"+icon+"\" width=70 height=70 /></html>");
 		
+		JLabel colorLabel = new JLabel("Color:");
+		
+		modColors = new Color[5];
+		
+		String[] prior = new String[5];
+		for(int i=0; i<5; ++i) {
+			prior[i] = EventPriority.values()[i].getRomanPriority();
+			modColors[i] = EventPriority.values()[i].getColor(Settings.this.currentUser.getUserProfile());
+		}
+		
+		colorButton = new JButton(" ");
+		colorButton.setContentAreaFilled(true);
+		colorButton.setOpaque(true);
+		colorButton.setBackground(Color.PINK);
+		colorButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Color newColor = JColorChooser.showDialog(null, "Choose a color", colorButton.getBackground());
+				
+				if(newColor != null) {
+					
+					modColors[colorBox.getSelectedIndex()] = newColor;
+					
+					colorBox.setSelectedIndex(colorBox.getSelectedIndex());
+				}	
+			}
+		
+		});
+		
+		colorBox = new JComboBox<>(prior);
+		colorBox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				colorButton.setBackground(modColors[colorBox.getSelectedIndex()]);
+				
+			}
+			
+		});
+		colorBox.setSelectedIndex(0);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-        folderLabel = new JLabel("Data folder:");
-        gl_contentPane.setHorizontalGroup(
+		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
@@ -107,17 +156,47 @@ public class Settings extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(folderLabel)
-								.addComponent(lblVelocity))
+								.addComponent(lblVelocity)
+								.addComponent(colorLabel))
 							.addGap(53)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+											.addComponent(colorButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addGap(18)
+											.addComponent(colorBox, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)))
+									.addPreferredGap(ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
 									.addComponent(lblIcon)
 									.addGap(42))
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
 									.addContainerGap())))))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblIcon, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+								.addComponent(colorLabel)
+								.addComponent(colorButton)
+								.addComponent(colorBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(40))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(29)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblVelocity)
+								.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(folderLabel))
+					.addGap(31)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 		);
         newPath = currentUser.getUserProfile().getIconPath();
         lblIcon.addMouseListener(new MouseAdapter() {
@@ -139,26 +218,6 @@ public class Settings extends JFrame {
 				}
 			}
 		});
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblIcon, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGap(40))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(29)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblVelocity)
-								.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(folderLabel))
-					.addGap(31)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
-		);
 		
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -192,5 +251,11 @@ public class Settings extends JFrame {
 	
 	public String getIconPath() {
 		return newPath;
+	}
+	
+	public Color[] getColorChoices() {
+		
+		return modColors;
+		
 	}
 }

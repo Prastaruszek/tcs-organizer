@@ -82,6 +82,13 @@ public class UserProfile extends Model implements Serializable{
     	return priorityColor[priority-1];
     }
     
+    public void setPriorityColor(int priority, Color newColor) {
+    	
+    	if(newColor != null)
+    		priorityColor[priority-1] = newColor;
+    	
+    }
+    
     public String toString(){
     	String res = "UserProfile[";
     	res += (state + ", ");
