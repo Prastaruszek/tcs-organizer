@@ -19,6 +19,10 @@ public class SettingsController extends Controller {
 		Organizer o = Organizer.getInstance();
 		UserProfile logged = o.getCurrentUser().getUserProfile();
 		
+		/**
+		 * Saves up-to-date data from Settings view after OK to current user profile
+		 */
+		
 		logged.setPath(ref.getPath());
 		
 		logged.setVelocity(ref.getVelocity());

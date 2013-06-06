@@ -32,7 +32,7 @@ public class Settings extends JFrame {
     private Color[] modColors;
 
     /**
-	 * Launch the application.
+	 * Launch the settings view
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -74,7 +74,13 @@ public class Settings extends JFrame {
 		setContentPane(contentPane);
 
         chosenFolder = new JTextField(currentUser.getUserProfile().getPath());
+        
         chosenFolder.addMouseListener(new MouseAdapter() {
+
+        	/**
+        	 *  Opens directory chooser dialog on mouse click
+        	 */ 
+        	
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				JFileChooser file = new JFileChooser();
@@ -83,7 +89,9 @@ public class Settings extends JFrame {
 					chosenFolder.setText(file.getSelectedFile().getAbsolutePath());
 				}
 			}
+			
 		});
+        
 		chosenFolder.setEditable(false);
 		
 		JPanel panel = new JPanel();
@@ -104,6 +112,10 @@ public class Settings extends JFrame {
 		
 		modColors = new Color[5];
 		
+		/**
+		 * Gets actual priority colors from user profile
+		 */
+		
 		String[] prior = new String[5];
 		for(int i=0; i<5; ++i) {
 			prior[i] = EventPriority.values()[i].getRomanPriority();
@@ -115,7 +127,11 @@ public class Settings extends JFrame {
 		colorButton.setOpaque(true);
 		colorButton.setBackground(Color.PINK);
 		colorButton.addActionListener(new ActionListener() {
-
+			
+			/**
+			 * Opens JColorChooser to set color for current priority in colorBox
+			 */
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
@@ -133,6 +149,10 @@ public class Settings extends JFrame {
 		
 		colorBox = new JComboBox<>(prior);
 		colorBox.addActionListener(new ActionListener() {
+			
+			/**
+			 * Updates the color of colorButton on change of priority
+			 */
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -221,9 +241,17 @@ public class Settings extends JFrame {
 		
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
+		/**
+		 * Proceed to save new data
+		 */
+		
 		JButton btnOK = new JButton("OK");
 		btnOK.addActionListener(new SettingsController(this));
 		panel.add(btnOK);
+		
+		/**
+		 *  Avoids saving anything
+		 */
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -237,10 +265,16 @@ public class Settings extends JFrame {
 		setVisible(true);
 	}
 	
+	/** Returns path to user save location
+	 * @return String with current user specified save folder
+	 */
 	public String getPath() {
 		return chosenFolder.getText();
 	}
 	
+	/** Returns Velocity
+	 * @return Integer with actual Velocity
+	 */
 	public Integer getVelocity() {
 		try {
 			return Integer.parseInt(editVelocity.getText());
@@ -249,10 +283,16 @@ public class Settings extends JFrame {
 		}
 	}
 	
+	/** Returns user icon path 
+	 * @return String with current user icon path
+	 */
 	public String getIconPath() {
 		return newPath;
 	}
 	
+	/** Returns Colors for events priority
+	 * @return Color[] with actual color parameters
+	 */
 	public Color[] getColorChoices() {
 		
 		return modColors;
