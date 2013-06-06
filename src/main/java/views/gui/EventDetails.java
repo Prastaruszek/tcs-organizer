@@ -29,6 +29,7 @@ public class EventDetails extends JFrame {
 	private JTextArea txtrEventTitle;
 	private JLabel lblEventStart;
 	private JLabel lblEventEnd;
+	private JSplitPane infoPane;
 	private JTextArea txtrEventComment;
 	private JList<Resource> resourceList;
 	/**
@@ -67,7 +68,7 @@ public class EventDetails extends JFrame {
 	 * Create the frame.
 	 */
 	public EventDetails() {
-		setBounds(100, 100, 500, 343);
+		setBounds(100, 100, 500, 360);
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = new JPanel();
@@ -109,6 +110,10 @@ public class EventDetails extends JFrame {
 		
 		JLabel lblComment = new JLabel("Comment:");
 		
+		infoPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		infoPane.setDividerLocation(100);
+		infoPane.setResizeWeight(0.66);
+		
 		txtrEventComment = new JTextArea();
 		txtrEventComment.setWrapStyleWord(true);
 		txtrEventComment.setLineWrap(true);
@@ -119,6 +124,7 @@ public class EventDetails extends JFrame {
 		txtrEventComment.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK),
 							BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		JScrollPane commentHolder = new JScrollPane(txtrEventComment);
+		infoPane.add(commentHolder);
 		
 		resourceList = new JList<>();
 		resourceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -129,6 +135,8 @@ public class EventDetails extends JFrame {
                     (resourceList.getSelectedValue()).open();
 			}
 		});
+		JScrollPane resourceHolder = new JScrollPane(resourceList);
+		infoPane.add(resourceHolder);
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -146,21 +154,17 @@ public class EventDetails extends JFrame {
 							.addComponent(lblTo)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblEventEnd)
-							.addContainerGap(204, Short.MAX_VALUE))
-						.addComponent(txtrEventTitle, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)))
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+							.addContainerGap(182, Short.MAX_VALUE))
+						.addComponent(txtrEventTitle)))
+				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblComment)
-					.addContainerGap(409, Short.MAX_VALUE))
+					.addContainerGap(407, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(commentHolder, GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+					.addComponent(infoPane, GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
 					.addContainerGap())
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(resourceList, GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
-					.addGap(13))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -169,7 +173,7 @@ public class EventDetails extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(lblPriority, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(txtrEventTitle)
+							.addComponent(txtrEventTitle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblFrom)
@@ -179,10 +183,8 @@ public class EventDetails extends JFrame {
 					.addGap(18)
 					.addComponent(lblComment)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(commentHolder, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+					.addComponent(infoPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(resourceList, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
 		);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -210,7 +212,6 @@ public class EventDetails extends JFrame {
 		panel.add(btnClose);
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);
-		System.out.println(txtrEventTitle.getWidth());
 	}
 	
 	public Event getEvent() {
