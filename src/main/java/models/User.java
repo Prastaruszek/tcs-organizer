@@ -4,12 +4,6 @@ import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 15.05.13
- * Time: 22:48
- */
 public class User extends Model implements Serializable{
 	
 	private static final long serialVersionUID = 7429787799167627798L;
@@ -17,11 +11,18 @@ public class User extends Model implements Serializable{
     private String password;
     private UserProfile userProfile;
     
+    /** Creates a User with given username and proper password(will be stored as a hash).
+     * @param username A username.
+     * @param rawPass A proper password.
+     */
     public User(String username, String rawPass) {
     	this.username = username;
     	this.password = hashIt(rawPass);
     }
     
+    /** Returns the Username as a String.
+     * @return The Username as a String.
+     */
     public String getUsername() {
         return username;
     }
@@ -34,18 +35,32 @@ public class User extends Model implements Serializable{
         userProfile = profile;
     }
     
+    /** Checks if a given proper password is equal to the User's one.
+     * @param rawPass A proper password.
+     * @return True, if password check was successful. False otherwise.
+     */
     public boolean hasPassword(String rawPass){
         return password.equals(hashIt(rawPass));
     }
     
+    /** Changes the User's password.
+     * @param rawPass Proper password(will be stored as a hash).
+     */
     public void setPassword(String rawPass){
     	password = hashIt(rawPass);
     }
     
+    /** Returns hashed password of the User.
+     * @return Hashed password as a String.
+     */
     public String getPassword(){
     	return password;
     }
     
+    /** Takes a String and applies basic hashing function to it.
+     * @param rawPass A String.
+     * @return String after digestion.
+     */
     public static String hashIt(String rawPass) {
     	byte[] bytePass = rawPass.getBytes(), bytePassAfter;
         MessageDigest md = null;
@@ -64,6 +79,9 @@ public class User extends Model implements Serializable{
     	 return result;
     }
     
+	/** Returns the User's HashCode.
+	 * @return User's HashCode.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
