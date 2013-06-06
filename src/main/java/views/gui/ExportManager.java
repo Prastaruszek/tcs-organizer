@@ -4,6 +4,8 @@ import controllers.EventFilterController;
 import controllers.ExportManagerController;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import views.gui.components.JEventBox;
 
 import java.awt.*;
@@ -37,7 +39,7 @@ public class ExportManager extends JFrame {
 	public ExportManager() {
 		
 		setName("Export Manager");
-		setBounds(100, 100, 300, 400);
+		setBounds(100, 100, 400, 400);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().add(panel, BorderLayout.SOUTH);
@@ -46,6 +48,7 @@ public class ExportManager extends JFrame {
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
+		panel_1.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		destination = new JTextField();
 		destination.setText("Pick a destination");
@@ -108,15 +111,26 @@ public class ExportManager extends JFrame {
 				dispose();
 			}
 		});
+		
+		JButton btnDeselectAll = new JButton("Deselect all");
+		btnDeselectAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for(JEventBox box : checkboxes)
+					if(box.isVisible())
+						box.setSelected(false);
+			}
+		});
+		
 		panel.add(btnSelectAll);
+		panel.add(btnDeselectAll);
 		panel.add(btnOK);
 		panel.add(btnCancel);
 		setVisible(true);
 		updateWidth();
 	}
-
+	
 	private void updateWidth() {
-		int maxWidth = 300;
+		int maxWidth = 400;
 		for(JEventBox box : checkboxes)
 			maxWidth = Math.max(maxWidth, box.getWidth());
 		setSize(maxWidth+20, 400);
