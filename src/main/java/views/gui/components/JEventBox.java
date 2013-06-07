@@ -17,4 +17,5 @@ public class JEventBox extends JCheckBox {
 		super(s);
 		this.event = event;
 	}
+
 }

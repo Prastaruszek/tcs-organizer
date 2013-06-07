@@ -8,6 +8,9 @@ import views.gui.components.JEventBox;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -48,8 +51,47 @@ public class ExportManagerController extends Controller {
 	public static List<JEventBox> getBoxes() {
 		List<JEventBox> list = new ArrayList<>();
 		EventSet events = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all();
-		for(Event e : events)
-			list.add(new JEventBox(e.getTitle(), e));
+		Event[] evlist = new Event[events.size()];
+		
+		int it = 0;
+		for(Event e : events){
+			evlist[it] = e;
+			it++;
+		}
+		
+		Comparator<Event> c = new Comparator<Event>(){
+			@Override
+			public int compare(Event o1, Event o2) {
+				if(o1.getStartTime().getTimeInMillis() < o2.getStartTime().getTimeInMillis())
+					return -1;
+				else if(o1.getStartTime().getTimeInMillis() == o2.getStartTime().getTimeInMillis())
+					return 0;
+				else return 1;
+			}
+		};
+		Arrays.sort(evlist, c);
+		for(Event e : evlist){
+			String startDate = new String(), endDate = new String();
+			Calendar tmp = e.getStartTime();
+			startDate += tmp.get(Calendar.HOUR_OF_DAY) + 
+					":" + ( (tmp.get(Calendar.MINUTE)<10 )?"0":"") + 
+					tmp.get(Calendar.MINUTE) +
+					" " +tmp.get(Calendar.DAY_OF_MONTH) + 
+					"." + (tmp.get(Calendar.MONTH)+1) + 
+					"." + tmp.get(Calendar.YEAR);
+			
+			tmp = e.getEndTime();
+			
+			endDate += tmp.get(Calendar.HOUR_OF_DAY) + 
+					":" + ( (tmp.get(Calendar.MINUTE)<10 )?"0":"") + 
+					tmp.get(Calendar.MINUTE) +
+					" " +tmp.get(Calendar.DAY_OF_MONTH) + 
+					"." + (tmp.get(Calendar.MONTH)+1) + 
+					"." + tmp.get(Calendar.YEAR);
+					
+			
+			list.add(new JEventBox(e.getTitle() + " " + startDate +  "  till  " + endDate, e));
+		}
 		return list;
 	}
 
