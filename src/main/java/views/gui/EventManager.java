@@ -435,12 +435,12 @@ public class EventManager extends JFrame {
             int h = startCalendar.get(java.util.Calendar.HOUR_OF_DAY);
             int m = startCalendar.get(java.util.Calendar.MINUTE);
             startTimeBox.setSelectedItem(
-                    (h<9?"0":"")+h+":"+
+                    (h<=9?"0":"")+h+":"+
                             (m<=9?"0":"")+m);
             h = endCalendar.get(java.util.Calendar.HOUR_OF_DAY);
             m = endCalendar.get(java.util.Calendar.MINUTE);
             endTimeBox.setSelectedItem(
-                    (h<9?"0":"")+h+":"+
+                    (h<=9?"0":"")+h+":"+
                             (m<=9?"0":"")+m);
         }
 		setVisible(true);

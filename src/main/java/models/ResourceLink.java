@@ -28,8 +28,8 @@ public class ResourceLink extends Model implements Resource, Serializable {
         }
     }
     
-    public ResourceLink(String uri){
-        this.uri = uri;
+    public ResourceLink(String uri) {
+        this.uri = uri.startsWith("http://") || uri.startsWith("https://") ? uri : "http://" + uri;
     }
 
     @Override
