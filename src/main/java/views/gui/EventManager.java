@@ -74,16 +74,15 @@ public class EventManager extends JFrame {
 	}
 
 	public static EventManager getInstance(User currentUser, Event event) {
-		if(instance == null)
+		if(instance == null) {
 			instance = new EventManager(currentUser, event);
-		else
-			instance.init(currentUser, event);
+		} else {
+			instance.dispose();
+			instance = new EventManager(currentUser, event);
+		}
 		return instance;
 	}
-	
-	private EventManager(User currentUser, Event event) {
-		init(currentUser, event);
-	}
+
 	
 	/**
 	 * Create the frame.
@@ -91,7 +90,7 @@ public class EventManager extends JFrame {
      *
      * @param event If null then new event will be added. Otherwise given event will be edited;
      */
-	public void init(User currentUser, Event event) {
+	private EventManager(User currentUser, Event event) {
         this.currentUser = currentUser;
         // there is similar if at the end of the constructor because some values (calendars) had to be set before
         // creating components and some (text areas, list) after.

@@ -40,16 +40,14 @@ public class ExportManager extends JFrame {
 	public static ExportManager getInstance() {
 		if(instance == null)
 			instance = new ExportManager();
-		else
-			instance.init();
+		else {
+			instance.dispose();
+			instance = new ExportManager();
+		}
 		return instance;
 	}
 	
 	private ExportManager() {
-		init();
-	}
-	
-	public void init() {
 		
 		setName("Export Manager");
 		setBounds(100, 100, 400, 400);

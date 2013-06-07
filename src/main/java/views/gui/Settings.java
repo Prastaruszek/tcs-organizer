@@ -47,20 +47,18 @@ public class Settings extends JFrame {
 		});
 	}
 
-    private Settings(User currentUser) {
-        init(currentUser);
-    }
 
     public static Settings getInstance(User user) {
         if ( instance == null ) {
             instance = new Settings(user);
         } else {
-            instance.init(user);
+            instance.dispose();
+            instance = new Settings(user);
         }
         return instance;
     }
 
-	private void init(User currentUser) {
+	private Settings(User currentUser) {
 		
         this.currentUser = currentUser;
         editVelocity = new JTextField();

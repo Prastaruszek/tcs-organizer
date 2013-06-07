@@ -21,23 +21,22 @@ public class DatePicker extends JFrame {
 	private static DatePicker instance = null;
 
     public static DatePicker getInstance(DatePickerController datePickerController, User currentUser) {
-    	if(instance == null)
+    	
+    	if(instance == null) {
     		instance = new DatePicker(datePickerController, currentUser);
-    	else
-    		instance.init(datePickerController, currentUser);
+    	} else {
+    		instance.dispose();
+    		instance = new DatePicker(datePickerController, currentUser);
+    	}
     	
     	return instance;
-    }
-    
-    private DatePicker(DatePickerController datePickerController, User currentUser) {
-    	init(datePickerController, currentUser);
     }
     
     
 	/**
 	 * Create the frame.
 	 */
-	private void init (DatePickerController datePickerController, User currentUser) {
+	private DatePicker(DatePickerController datePickerController, User currentUser) {
         this.currentUser = currentUser;
 		setName("DatePicker");
 		setBounds(100, 100, 450, 300);
