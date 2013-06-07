@@ -276,11 +276,13 @@ public class JEventDisplay extends JComponent{
 					    rectangle = new Rectangle(x,y,width,getHeight()+arcHeight*2);
 				}
 				else if(day<endingDay){
-                    y= rowHeight;
+                    y= 0;
 					rectangle = new Rectangle(x,0,width,getHeight()+arcHeight*2);
 				}
 				else {
-                    y= rowHeight;
+                    if(endHour>startingHour)
+                        y = rowHeight;
+                    else y = 0;
 					rectangle = new Rectangle(x,rowHeight-arcHeight,width,height+arcHeight);
 				}
 				rectangles.add(rectangle);
