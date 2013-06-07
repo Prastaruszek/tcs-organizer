@@ -135,7 +135,7 @@ public class Calendar implements Observer {
 		JButton btnExport = new JButton("Export");
 		btnExport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new ExportManager().setVisible(true);
+				ExportManager.getInstance().setVisible(true);
 			}
 		});
 		

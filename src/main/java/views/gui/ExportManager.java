@@ -22,6 +22,7 @@ public class ExportManager extends JFrame {
 	private List<JEventBox> checkboxes;
 	private JTextField destination;
 	private JTextField searchField;
+	private static ExportManager instance = null;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -36,7 +37,19 @@ public class ExportManager extends JFrame {
 		});
 	}
 	
-	public ExportManager() {
+	public static ExportManager getInstance() {
+		if(instance == null)
+			instance = new ExportManager();
+		else
+			instance.init();
+		return instance;
+	}
+	
+	private ExportManager() {
+		init();
+	}
+	
+	public void init() {
 		
 		setName("Export Manager");
 		setBounds(100, 100, 400, 400);
