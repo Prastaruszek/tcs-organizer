@@ -129,10 +129,11 @@ public class EventDetails extends JFrame {
 		resourceList = new JList<>();
 		resourceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resourceList.addListSelectionListener(new ListSelectionListener() {
-            int counter=0;
 			public void valueChanged(ListSelectionEvent arg0) {
-                if(counter++%2==0)
-                    (resourceList.getSelectedValue()).open();
+				if(resourceList.getSelectedValue() == null)
+					return;
+                resourceList.getSelectedValue().open();
+                resourceList.clearSelection();
 			}
 		});
 		JScrollPane resourceHolder = new JScrollPane(resourceList);
