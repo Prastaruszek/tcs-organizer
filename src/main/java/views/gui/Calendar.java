@@ -114,7 +114,7 @@ public class Calendar implements Observer {
 		JButton btnAddEvent = new JButton("Add Event");
 		btnAddEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new EventManager(currentUser,null).setVisible(true);
+				EventManager.getInstance(currentUser,null).setVisible(true);
 			}
 		});
 		

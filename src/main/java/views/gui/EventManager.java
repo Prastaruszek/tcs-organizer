@@ -29,6 +29,8 @@ public class EventManager extends JFrame {
 
 	private static final long serialVersionUID = -1113743261857828270L;
 	
+	private static EventManager instance = null;
+	
 	private JPanel contentPane;
 	private JTextField txtfldTitle;
 	private JTextArea txtrComment;
@@ -71,13 +73,25 @@ public class EventManager extends JFrame {
 		});
 	}
 
+	public static EventManager getInstance(User currentUser, Event event) {
+		if(instance == null)
+			instance = new EventManager(currentUser, event);
+		else
+			instance.init(currentUser, event);
+		return instance;
+	}
+	
+	private EventManager(User currentUser, Event event) {
+		init(currentUser, event);
+	}
+	
 	/**
 	 * Create the frame.
      * @param currentUser
      *
      * @param event If null then new event will be added. Otherwise given event will be edited;
      */
-	public EventManager(User currentUser, Event event) {
+	public void init(User currentUser, Event event) {
         this.currentUser = currentUser;
         // there is similar if at the end of the constructor because some values (calendars) had to be set before
         // creating components and some (text areas, list) after.
