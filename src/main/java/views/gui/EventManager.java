@@ -42,7 +42,20 @@ public class EventManager extends JFrame {
     private JList<Resource> list = null;
     private Event event = null;
 
-	/**
+
+    public JCheckBox getChckbxSun() {
+        return chckbxSun;
+    }
+
+    private JCheckBox chckbxMonday;
+    private JCheckBox chckbxTuesday;
+    private JCheckBox chckbxWed;
+    private JCheckBox chckbxTh;
+    private JCheckBox chckbxFri;
+    private JCheckBox chckbxSat;
+    private JCheckBox chckbxSun;
+
+    /**
 	 * For testing purposes.
 	 */
 	public static void main(String[] args) {
@@ -224,19 +237,19 @@ public class EventManager extends JFrame {
             JLabel lblRepeatUntil = new JLabel("Repeat until:");
             lblRepeatUntil.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
-            JCheckBox chckbxMonday = new JCheckBox("Mon");
+            chckbxMonday = new JCheckBox("Mon");
 
-            JCheckBox chckbxTuesday = new JCheckBox("Tue");
+            chckbxTuesday = new JCheckBox("Tue");
 
-            JCheckBox chckbxWed = new JCheckBox("Wed");
+            chckbxWed = new JCheckBox("Wed");
 
-            JCheckBox chckbxTh = new JCheckBox("Thu");
+            chckbxTh = new JCheckBox("Thu");
 
-            JCheckBox chckbxFri = new JCheckBox("Fri");
+            chckbxFri = new JCheckBox("Fri");
 
-            JCheckBox chckbxSat = new JCheckBox("Sat");
+            chckbxSat = new JCheckBox("Sat");
 
-            JCheckBox chckbxSun = new JCheckBox("Sun");
+            chckbxSun = new JCheckBox("Sun");
 
             final JTextPane repeatUntilDate = JDateFactory.JDate(dateUntilCalendar);
             repeatUntilDate.addMouseListener(new MouseAdapter() {
@@ -502,5 +515,37 @@ public class EventManager extends JFrame {
     }
     public Event getEvent(){
         return event;
+    }
+    public boolean isMondayRepeat() {
+        return chckbxMonday!=null&&chckbxMonday.isSelected();
+    }
+
+    public boolean isTuesdayRepeat() {
+        return chckbxTuesday!=null&&chckbxTuesday.isSelected();
+    }
+
+    public boolean isWednesdayRepeat() {
+        return chckbxWed!=null&&chckbxWed.isSelected();
+    }
+
+    public boolean isThursdayRepeat() {
+        return chckbxTh!=null&&chckbxTh.isSelected();
+    }
+
+    public boolean isFridayRepeat() {
+        return chckbxFri!=null&&chckbxFri.isSelected();
+    }
+
+    public boolean isSaturdayRepeat() {
+        return chckbxSat!=null&&chckbxSat.isSelected();
+    }
+
+    public boolean isSundayRepeat() {
+        return chckbxSun!=null&&chckbxSun.isSelected();
+    }
+
+    public boolean isRepeating(){
+        return isMondayRepeat()||isTuesdayRepeat()||isWednesdayRepeat()
+                ||isThursdayRepeat()||isFridayRepeat()||isSaturdayRepeat()||isSundayRepeat();
     }
 }
