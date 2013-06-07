@@ -255,7 +255,7 @@ public class EventManager extends JFrame {
             repeatUntilDate.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent arg0) {
-                    new DatePicker(new DatePickerController() {
+                    DatePicker.getInstance(new DatePickerController() {
 
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -337,7 +337,7 @@ public class EventManager extends JFrame {
 		endDatePicker.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new DatePicker(new DatePickerController() {
+				DatePicker.getInstance(new DatePickerController() {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -385,7 +385,7 @@ public class EventManager extends JFrame {
 		startDatePicker.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new DatePicker(new DatePickerController() {
+				DatePicker.getInstance(new DatePickerController() {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {

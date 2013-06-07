@@ -17,12 +17,27 @@ public class DatePicker extends JFrame {
 	private JPanel contentPane;
 	private JCalendar jCalendar;
 	private JSplitPane topAndBot, okAndCancel;
-    private User currentUser;
+	private User currentUser;
+	private static DatePicker instance = null;
 
+    public static DatePicker getInstance(DatePickerController datePickerController, User currentUser) {
+    	if(instance == null)
+    		instance = new DatePicker(datePickerController, currentUser);
+    	else
+    		instance.init(datePickerController, currentUser);
+    	
+    	return instance;
+    }
+    
+    private DatePicker(DatePickerController datePickerController, User currentUser) {
+    	init(datePickerController, currentUser);
+    }
+    
+    
 	/**
 	 * Create the frame.
 	 */
-	public DatePicker(DatePickerController datePickerController, User currentUser) {
+	private void init (DatePickerController datePickerController, User currentUser) {
         this.currentUser = currentUser;
 		setName("DatePicker");
 		setBounds(100, 100, 450, 300);

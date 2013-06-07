@@ -199,7 +199,7 @@ public class Calendar implements Observer {
 		btnThereWillBe.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-                new DatePicker(new WeekPickerController(), currentUser).setVisible(true);
+                DatePicker.getInstance(new WeekPickerController(), currentUser).setVisible(true);
 			}
 		});
         btnThereWillBe.setOpaque(true);
