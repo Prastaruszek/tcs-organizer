@@ -48,6 +48,10 @@ public class ExportManagerController extends Controller {
 		exportManager.dispose();
 	}
 
+	/** Creates readable and sorted by date list of JEventBoxes containing Events of the User.
+	 * Only used in ExportManager.
+	 * @return Sorted List of JEventBoxes.
+	 */
 	public static List<JEventBox> getBoxes() {
 		List<JEventBox> list = new ArrayList<>();
 		EventSet events = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all();
@@ -90,7 +94,7 @@ public class ExportManagerController extends Controller {
 					"." + tmp.get(Calendar.YEAR);
 					
 			
-			list.add(new JEventBox(e.getTitle() + " " + startDate +  "  till  " + endDate, e));
+			list.add(new JEventBox(e.getTitle() + "  Starts: " + startDate +  "  Ends: " + endDate, e));
 		}
 		return list;
 	}

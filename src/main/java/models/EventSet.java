@@ -21,6 +21,11 @@ public class EventSet extends HashSet<Event> {
         this.eventManager = eventManager;
     }
 
+    /** Returns an EventSet of Events that are between _startTime and _endTime.
+     * @param _startTime Calendar type start of the interval.
+     * @param _endTime Calendar type end of the interval.
+     * @return Set of Events.
+     */
     public EventSet between(Calendar _startTime, Calendar _endTime) {
         EventSet ret = new EventSet(eventManager);
         Calendar startTime = (Calendar) _startTime.clone();
