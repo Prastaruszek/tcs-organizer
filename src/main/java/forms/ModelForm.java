@@ -39,6 +39,8 @@ public abstract class ModelForm<T> {
                 }
             }
         }
+        if( errors != null )
+            errors = null;
     }
 
     public ErrorList getErrors() {

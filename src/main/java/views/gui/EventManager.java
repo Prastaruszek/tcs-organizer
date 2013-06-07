@@ -260,7 +260,7 @@ public class EventManager extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             dateUntilCalendar = getGregorianCalendar();
-                            repeatUntilDate.setText(DateUtils.dateDisplay(endCalendar));
+                            repeatUntilDate.setText(DateUtils.dateDisplay(dateUntilCalendar));
                             repeatUntilDate.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
                             super.actionPerformed(e);
                         }
@@ -494,7 +494,15 @@ public class EventManager extends JFrame {
             return null;
 		return (java.util.Calendar) endCalendar.clone();
 	}
-	protected JComboBox<String> getStartTimeBox() {
+
+    public java.util.Calendar getDateUntilCalendar() {
+        dateUntilCalendar.set(java.util.Calendar.HOUR,23);
+        dateUntilCalendar.set(java.util.Calendar.MINUTE,59);
+        dateUntilCalendar.set(java.util.Calendar.SECOND,59);
+        return (java.util.Calendar) dateUntilCalendar.clone();
+    }
+
+    protected JComboBox<String> getStartTimeBox() {
 		return startTimeBox;
 	}
 	protected JComboBox<String> getEndTimeBox() {

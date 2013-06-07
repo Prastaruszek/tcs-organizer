@@ -74,17 +74,7 @@ public final class EventForm extends ModelForm<Event> {
             }
         }
 
-        if ( instance == null ) {
-            setInstance(new Event(
-                parent,
-                comment,
-                startTime,
-                endTime,
-                profile,
-                priority,
-                resources
-            ));
-        } else {
+        if ( instance != null ) {
             if ( instance.getProfile() != profile )
                 return false;
             if ( instance.getParent() != parent )
@@ -111,6 +101,17 @@ public final class EventForm extends ModelForm<Event> {
     @Override
     public Event save() throws ValidationException {
         boolean isCreate = instance == null;
+        if ( instance == null ) {
+            setInstance(new Event(
+                    parent,
+                    comment,
+                    startTime,
+                    endTime,
+                    profile,
+                    priority,
+                    resources
+            ));
+        }
         super.save();
         if ( isCreate ) {
             EventManager manager = profile.getEvents();
