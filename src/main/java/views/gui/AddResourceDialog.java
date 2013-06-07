@@ -28,7 +28,8 @@ public class AddResourceDialog extends JDialog {
 	private static final long serialVersionUID = -8708883406191310458L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
-	final private JList<Resource> resourcesList;
+	private JList<Resource> resourcesList;
+	private static AddResourceDialog instance = null;
 	
 	/**
 	 * Launch the application.
@@ -43,11 +44,23 @@ public class AddResourceDialog extends JDialog {
 		}
 	}
 
+	private AddResourceDialog(JList<Resource> _resourcesList) {
+		init(_resourcesList);
+	}
+	
 	/**
 	 * Create the dialog.
 	 * @param _resourcesList
 	 */
-	public AddResourceDialog(JList<Resource> _resourcesList) {
+	public static AddResourceDialog getInstance(JList<Resource> _resourcesList) {
+		if(instance == null)
+			instance = new AddResourceDialog(_resourcesList);
+		else
+			instance.init(_resourcesList);
+		return instance;
+	}
+
+	private void init(JList<Resource> _resourcesList) {
 		this.resourcesList = _resourcesList;
 		setBounds(100, 100, 450, 157);
 		getContentPane().setLayout(new BorderLayout());

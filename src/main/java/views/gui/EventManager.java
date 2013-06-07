@@ -201,7 +201,7 @@ public class EventManager extends JFrame {
 		JButton btnAddResource = new JButton("Add resource");
 		btnAddResource.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new AddResourceDialog(getResourcesJList()).setVisible(true);
+				AddResourceDialog.getInstance(getResourcesJList()).setVisible(true);
 			}
 		});
 		
