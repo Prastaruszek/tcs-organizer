@@ -200,10 +200,6 @@ public class JEventDisplay extends JComponent{
             return title;
         }
 
-        private String getComment() {
-            return comment;
-        }
-
         private Calendar startTime;
         private Calendar endTime;
         private Color color;
