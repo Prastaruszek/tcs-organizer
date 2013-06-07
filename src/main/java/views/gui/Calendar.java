@@ -146,6 +146,14 @@ public class Calendar implements Observer {
 				frame.dispose();
 			}
 		});
+		
+	    JButton btnExit = new JButton("Exit");
+	    btnExit.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent arg0) {
+	    		frame.dispose();
+	    	}
+	    });
+
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -160,7 +168,8 @@ public class Calendar implements Observer {
 					.addComponent(lblUserPic)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(20, Short.MAX_VALUE))
+					.addContainerGap(33, Short.MAX_VALUE))
+				.addComponent(btnExit, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -183,7 +192,9 @@ public class Calendar implements Observer {
 					.addComponent(btnExport)
 					.addGap(18)
 					.addComponent(btnChangeUser)
-					.addGap(145))
+					.addGap(18)
+					.addComponent(btnExit)
+					.addGap(132))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
