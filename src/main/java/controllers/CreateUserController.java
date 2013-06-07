@@ -37,7 +37,7 @@ public class CreateUserController extends Controller {
 			return;
 		}
 		
-		organizer.getUsers().initializeUser(username.getText(), new String(passwd.getPassword()));
+		organizer.getUsers().initializeUser(username.getText(), passwd.getPassword());
 		organizer.getUsers().setCurrentUser(organizer.getUsers().getByUsername(username.getText()));
 		JOptionPane alert = new JOptionPane("User '" + username.getText() + "' has been created!",
 				JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);

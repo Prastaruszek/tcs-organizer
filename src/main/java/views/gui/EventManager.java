@@ -62,7 +62,7 @@ public class EventManager extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EventManager frame = new EventManager(new User("asdf", "asdf"),null);
+					EventManager frame = new EventManager(new User("asdf", "asdf".toCharArray()),null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -15,13 +15,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class UserTest {
     private String username;
-    private String password;
+    private char[] password;
     private User user;
 
     @Before
     public void setUp() throws Exception {
         username = "john_doe";
-        password = "secret";
+        password = "secret".toCharArray();
         user = new User(username, password);
     }
 
@@ -33,12 +33,12 @@ public class UserTest {
     @Test
     public void testHasPassword() throws Exception {
         assertTrue(user.hasPassword(password));
-        assertFalse(user.hasPassword("testysomgupie"));
+        assertFalse(user.hasPassword("testysomgupie".toCharArray()));
     }
 
     @Test
     public void testSetPassword() throws Exception {
-        String newPassword = "terces";
+        char[] newPassword = "terces".toCharArray();
         assertTrue(user.hasPassword(password));
         user.setPassword(newPassword);
         assertFalse(user.hasPassword(password));

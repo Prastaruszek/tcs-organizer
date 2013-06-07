@@ -38,7 +38,7 @@ public class Settings extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Settings frame = new Settings(new User("asdf", "asdf"));
+					Settings frame = new Settings(new User("asdf", "asdf".toCharArray()));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
