@@ -112,6 +112,7 @@ public class ExportManager extends JFrame {
 				for(JEventBox box : checkboxes)
 					if(box.isVisible())
 						box.setSelected(true);
+				searchField.requestFocusInWindow();
 			}
 		});
 		
@@ -131,6 +132,7 @@ public class ExportManager extends JFrame {
 				for(JEventBox box : checkboxes)
 					if(box.isVisible())
 						box.setSelected(false);
+				searchField.requestFocusInWindow();
 			}
 		});
 		
