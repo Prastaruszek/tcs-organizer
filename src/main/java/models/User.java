@@ -1,6 +1,8 @@
 package models;
 
 import java.io.Serializable;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -15,7 +17,7 @@ public class User extends Model implements Serializable{
      * @param username A username.
      * @param rawPass A proper password.
      */
-    public User(String username, String rawPass) {
+    public User(String username, char[] rawPass) {
     	this.username = username;
     	this.password = hashIt(rawPass);
     }
@@ -39,14 +41,14 @@ public class User extends Model implements Serializable{
      * @param rawPass A proper password.
      * @return True, if password check was successful. False otherwise.
      */
-    public boolean hasPassword(String rawPass){
+    public boolean hasPassword(char[] rawPass){
         return password.equals(hashIt(rawPass));
     }
     
     /** Changes the User's password.
      * @param rawPass Proper password(will be stored as a hash).
      */
-    public void setPassword(String rawPass){
+    public void setPassword(char[] rawPass){
     	password = hashIt(rawPass);
     }
     
@@ -57,12 +59,13 @@ public class User extends Model implements Serializable{
     	return password;
     }
     
-    /** Takes a String and applies basic hashing function to it.
-     * @param rawPass A String.
+    /** Takes a char array and applies basic hashing function to it.
+     * @param rawPass A char array.
      * @return String after digestion.
      */
-    public static String hashIt(String rawPass) {
-    	byte[] bytePass = rawPass.getBytes(), bytePassAfter;
+    public static String hashIt(char[] rawPass) {
+    	byte[] bytePass = Charset.forName("UTF-8").encode(CharBuffer.wrap(rawPass)).array();
+    	byte[] bytePassAfter;
         MessageDigest md = null;
         try { md = MessageDigest.getInstance("SHA-1"); }
         catch(NoSuchAlgorithmException e) { e.printStackTrace(); }

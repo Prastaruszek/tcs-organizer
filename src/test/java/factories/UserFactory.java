@@ -12,7 +12,7 @@ public class UserFactory {
     private static Class<?> klass = User.class;
 
     public static User create() {
-        User ret = new User("john_doe", "secret");
+        User ret = new User("john_doe", "secret".toCharArray());
         return ret;
     }
 }

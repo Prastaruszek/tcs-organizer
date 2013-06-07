@@ -27,7 +27,7 @@ public class DeleteUserController extends Controller {
 			return;
 		Organizer organizer = Organizer.getInstance();
 		boolean removed = organizer.getUsers().remove(
-				(String) username.getSelectedItem(), new String(passwd.getPassword()));
+				(String) username.getSelectedItem(), passwd.getPassword());
 		if(removed) {
 			alert = new JOptionPane("User '" + username.getSelectedItem() + "' has been deleted!",
 					JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);

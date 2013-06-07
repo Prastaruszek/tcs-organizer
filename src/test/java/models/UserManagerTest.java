@@ -27,18 +27,18 @@ public class UserManagerTest {
 
     @Test
     public void testValidateUserReturnsUserObjectForExistingUser() throws Exception {
-        user.setPassword("secret");
+        user.setPassword("secret".toCharArray());
         assertNull(manager.getCurrentUser());
-        assertEquals(user, manager.validateUser(user.getUsername(), "secret"));
+        assertEquals(user, manager.validateUser(user.getUsername(), "secret".toCharArray()));
         assertNull(manager.getCurrentUser());
 
     }
 
     @Test
     public void testValidateUserReturnsNullForNonExistingUser() throws Exception {
-        user.setPassword("secret");
+        user.setPassword("secret".toCharArray());
         assertNull(manager.getCurrentUser());
-        assertNull(manager.validateUser(user.getUsername(), "invalid"));
+        assertNull(manager.validateUser(user.getUsername(), "invalid".toCharArray()));
         assertNull(manager.getCurrentUser());
     }
 

@@ -13,7 +13,7 @@ public class UserManager implements Serializable{
         users = new UserSet(this);
     }
 
-    public void initializeUser(String username, String rawPassword) {
+    public void initializeUser(String username, char[] rawPassword) {
     	User user = new User(username, rawPassword);
         DisplayState state = new DisplayState();
         EventManager events = new EventManager();
@@ -30,7 +30,7 @@ public class UserManager implements Serializable{
     	currentUser = user;
     }
     
-    public User validateUser(String username, String rawPassword) {
+    public User validateUser(String username, char[] rawPassword) {
     	User res = getByUsername(username);
         System.out.println(res);
         if(res != null && res.hasPassword(rawPassword))
@@ -54,7 +54,7 @@ public class UserManager implements Serializable{
         return users.add(user);
     }
     
-    public boolean remove(String username, String rawPassword) {
+    public boolean remove(String username, char[] rawPassword) {
     	User user = validateUser(username, rawPassword);
     	if(user == null)
     		return false;

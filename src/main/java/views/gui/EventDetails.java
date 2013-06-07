@@ -132,8 +132,8 @@ public class EventDetails extends JFrame {
 			public void valueChanged(ListSelectionEvent arg0) {
 				if(resourceList.getSelectedValue() == null)
 					return;
-                resourceList.getSelectedValue().open();
-                resourceList.clearSelection();
+				resourceList.getSelectedValue().open();
+				resourceList.clearSelection();
 			}
 		});
 		JScrollPane resourceHolder = new JScrollPane(resourceList);

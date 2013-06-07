@@ -24,7 +24,7 @@ public class LoginController extends Controller {
 	public void actionPerformed(ActionEvent e) {
 		Organizer organizer = Organizer.getInstance();
 		User u = organizer.getUsers().validateUser(
-				(String) username.getSelectedItem(), new String(passwd.getPassword()));
+				(String) username.getSelectedItem(), passwd.getPassword());
 		if(u != null) {
 			organizer.getUsers().setCurrentUser(u);
 			Calendar window = new Calendar(u);
