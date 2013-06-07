@@ -8,6 +8,7 @@ import views.gui.EventManager;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,11 +47,11 @@ public class EventManagerController extends Controller {
                                     eventManager.isSaturdayRepeat()};
             Calendar startCalendar = eventManager.getStartCalendar();
             Calendar endCalendar = eventManager.getEndCalendar();
-            do {
-                startCalendar.add(Calendar.DATE,1);
-                endCalendar.add(Calendar.DATE,1);
-            } while(!repeatDays[startCalendar.get(Calendar.DAY_OF_WEEK)]);
-            while(startCalendar.before(eventManager.getDateUntilCalendar())){
+            while (!repeatDays[startCalendar.get(Calendar.DAY_OF_WEEK)-1]) {
+                startCalendar.add(Calendar.DAY_OF_YEAR,1);
+                endCalendar.add(Calendar.DAY_OF_YEAR,1);
+            }
+            while (startCalendar.before(eventManager.getDateUntilCalendar())) {
                 EventForm form = new EventForm(eventManager.getEvent(), profile);
                 form.setStartTime((Calendar) startCalendar.clone());
                 form.setEndTime((Calendar) endCalendar.clone());
@@ -60,12 +61,13 @@ public class EventManagerController extends Controller {
                 form.setPriority(eventManager.getEventPriority());
                 forms.add(form);
                 do {
-                    startCalendar.add(Calendar.DATE,1);
-                    endCalendar.add(Calendar.DATE,1);
+                    startCalendar.add(Calendar.DAY_OF_YEAR,1);
+                    endCalendar.add(Calendar.DAY_OF_YEAR,1);
                 } while(!repeatDays[startCalendar.get(Calendar.DAY_OF_WEEK)-1]);
             }
         }
         EventForm failForm = null;
+        Collection<Event> events = new LinkedList<>();
         try {
             for(EventForm form : forms)
                 if(!form.isValid()){
@@ -73,7 +75,9 @@ public class EventManagerController extends Controller {
                     failForm.save(); // since form is invalid it will throw validation exception with proper error message
                 }
             for(EventForm form : forms){
+                failForm = form;
                 event = form.save();
+                events.add(event);
                 for(Resource resource : event.getResourceList()){
                      if(resource instanceof ResourceFile)
                          ((ResourceFile)resource).copyToResourcesDirectory();
@@ -81,6 +85,8 @@ public class EventManagerController extends Controller {
             }
             eventManager.dispose();
         } catch (ValidationException error) {
+            for(Event ignored : events)
+                ignored.delete();
             String errorMesssages = failForm.getErrorsDisplay();
         	JDialog errors = new JOptionPane(errorMesssages,
     				JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION).createDialog(eventManager, "Error");

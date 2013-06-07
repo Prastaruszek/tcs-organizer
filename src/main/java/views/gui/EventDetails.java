@@ -39,7 +39,7 @@ public class EventDetails extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    EventDetails frame = new EventDetails();
+                    EventDetails frame = new EventDetails(null);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -47,27 +47,12 @@ public class EventDetails extends JFrame {
             }
         });
 	}
-	public EventDetails(Event event){
-		this();
-		this.event = event;
-		txtrEventTitle.setText(event.getTitle());
-		SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm");
-		lblEventStart.setText(df.format(event.getStartTime().getTime()));
-		lblEventEnd.setText(df.format(event.getEndTime().getTime()));
-		txtrEventComment.setText(event.getComment());
-		txtrEventComment.setCaretPosition(0);
-		lblPriority.setBackground(event.getColor());
-		lblPriority.setText(event.getRomanPriority());
-        DefaultListModel<Resource> listModel = new DefaultListModel<>();
-        for(Resource resource : event.getResourceList())
-            listModel.addElement(resource);
-        resourceList.setModel(listModel);
-		setVisible(true);
-	}
+
 	/**
 	 * Create the frame.
 	 */
-	public EventDetails() {
+	public EventDetails(Event _event ) {
+        this.event = _event;
 		setBounds(100, 100, 500, 360);
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -193,15 +178,22 @@ public class EventDetails extends JFrame {
         btnEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                new EventManager(Organizer.getInstance().getCurrentUser(),event).setVisible(true);
+                new EventManager(Organizer.getInstance().getCurrentUser(), event).setVisible(true);
                 dispose();
             }
         });
 		panel.add(btnEdit);
 		
 		JButton btnRemove = new JButton("Remove");
-		btnRemove.addActionListener(new EventDetailsController(this));
+        EventDetailsController eventDetailsController = new EventDetailsController(this);
+		btnRemove.addActionListener(eventDetailsController.getRemoveListener());
 		panel.add(btnRemove);
+
+        if ( event != null && !event.getParent().isSingle()) { // we need null check because otherwise window builder will crush during parsing
+            JButton btnRemoveGroup = new JButton("Remove group");
+            btnRemoveGroup.addActionListener(eventDetailsController.getRemoveGroupListener());
+            panel.add(btnRemoveGroup);
+        }
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
@@ -211,7 +203,20 @@ public class EventDetails extends JFrame {
 		});
 		panel.add(btnClose);
 		contentPane.setLayout(gl_contentPane);
-		setVisible(true);
+
+        txtrEventTitle.setText(event.getTitle());
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm");
+        lblEventStart.setText(df.format(event.getStartTime().getTime()));
+        lblEventEnd.setText(df.format(event.getEndTime().getTime()));
+        txtrEventComment.setText(event.getComment());
+        txtrEventComment.setCaretPosition(0);
+        lblPriority.setBackground(event.getColor());
+        lblPriority.setText(event.getRomanPriority());
+        DefaultListModel<Resource> listModel = new DefaultListModel<>();
+        for(Resource resource : event.getResourceList())
+            listModel.addElement(resource);
+        resourceList.setModel(listModel);
+        setVisible(true);
 	}
 	
 	public Event getEvent() {
