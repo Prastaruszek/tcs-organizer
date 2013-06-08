@@ -9,28 +9,28 @@ public class UnbindedEvent implements Serializable{
 	private static final long serialVersionUID = 1237493344848846964L;
 	private EventGroup parent;
 	private String comment;
-	private int duration;
+	private int durationInMinutes;
 	private UserProfile profile;
 	private EventPriority priority;
 
     private List<Resource> resources;
 
-	public UnbindedEvent(EventGroup parent, String comment, int duration,
+	public UnbindedEvent(EventGroup parent, String comment, int durationInMinutes,
 			UserProfile profile, EventPriority priority, List<Resource> resources) {
 		this.profile = profile;
 		this.parent = parent;
 		this.comment = comment;
-		this.duration = duration;
+		this.durationInMinutes = durationInMinutes;
 		this.priority = priority;
         this.resources = resources;
     }
     
-	public void setDuration(int duration){
-		this.duration = duration;
+	public void setDuration(int durationInMinutes){
+		this.durationInMinutes = durationInMinutes;
     }
     
 	public int getDuration(){
-		return duration;
+		return durationInMinutes;
 	}
 
 	public int getPriority() {
@@ -83,7 +83,7 @@ public class UnbindedEvent implements Serializable{
     
 	public String toString(){
 		String res = "UnbindedEvent[";
-		res += duration;
+		res += durationInMinutes;
 		res += "]";
 		return res;
 	}
