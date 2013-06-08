@@ -8,9 +8,7 @@ import views.gui.components.JEventBox;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -54,26 +52,8 @@ public class ExportManagerController extends Controller {
 	 */
 	public static List<JEventBox> getBoxes() {
 		List<JEventBox> list = new ArrayList<>();
-		EventSet events = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all();
-		Event[] evlist = new Event[events.size()];
+		Event[] evlist = Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().all().getSortedArray();
 		
-		int it = 0;
-		for(Event e : events){
-			evlist[it] = e;
-			it++;
-		}
-		
-		Comparator<Event> c = new Comparator<Event>(){
-			@Override
-			public int compare(Event o1, Event o2) {
-				if(o1.getStartTime().getTimeInMillis() < o2.getStartTime().getTimeInMillis())
-					return -1;
-				else if(o1.getStartTime().getTimeInMillis() == o2.getStartTime().getTimeInMillis())
-					return 0;
-				else return 1;
-			}
-		};
-		Arrays.sort(evlist, c);
 		for(Event e : evlist){
 			String startDate = new String(), endDate = new String();
 			Calendar tmp = e.getStartTime();

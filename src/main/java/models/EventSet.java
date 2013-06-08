@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashSet;
 
 public class EventSet extends HashSet<Event> {
@@ -19,6 +21,28 @@ public class EventSet extends HashSet<Event> {
 	
     public EventSet(EventManager eventManager) {
         this.eventManager = eventManager;
+    }
+    
+    public Event[] getSortedArray(){
+    	Event[] array = new Event[this.size()];
+    	int it = 0;
+		for(Event e : this){
+			array[it] = e;
+			it++;
+		}
+		Comparator<Event> c = new Comparator<Event>(){
+			@Override
+			public int compare(Event o1, Event o2) {
+				if(o1.getStartTime().getTimeInMillis() < o2.getStartTime().getTimeInMillis())
+					return -1;
+				else if(o1.getStartTime().getTimeInMillis() == o2.getStartTime().getTimeInMillis())
+					return 0;
+				else return 1;
+			}
+		};
+		
+		Arrays.sort(array, c);
+    	return array;
     }
 
     /** Returns an EventSet of Events that are between _startTime and _endTime.
