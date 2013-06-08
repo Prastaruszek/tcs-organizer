@@ -145,7 +145,7 @@ public class Settings extends JFrame {
 		
 		});
 		
-		colorBox = new JComboBox<>(prior);
+		colorBox = new JComboBox<>(new DefaultComboBoxModel<String>(prior));
 		colorBox.addActionListener(new ActionListener() {
 			
 			/**
@@ -169,9 +169,6 @@ public class Settings extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(folderLabel)
 								.addComponent(lblVelocity)
@@ -179,18 +176,21 @@ public class Settings extends JFrame {
 							.addGap(53)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 										.addComponent(editVelocity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane.createSequentialGroup()
 											.addComponent(colorButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 											.addGap(18)
 											.addComponent(colorBox, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)))
-									.addPreferredGap(ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
 									.addComponent(lblIcon)
 									.addGap(42))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-									.addContainerGap())))))
+									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+									.addContainerGap())))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+							.addContainerGap())))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -213,7 +213,7 @@ public class Settings extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(folderLabel))
-					.addGap(31)
+					.addGap(70)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 		);
         newPath = currentUser.getUserProfile().getIconPath();
