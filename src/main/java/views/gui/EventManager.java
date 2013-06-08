@@ -226,6 +226,8 @@ public class EventManager extends JFrame {
             }
         });
 		list = new JList<>(new DefaultListModel<Resource>());
+		JScrollPane listHolder = new JScrollPane(list);
+		
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -233,7 +235,7 @@ public class EventManager extends JFrame {
 					.addComponent(btnAddResource)
 					.addPreferredGap(ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
 					.addComponent(btnRemoveresource))
-				.addComponent(list, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+				.addComponent(listHolder, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
 		);
 		gl_panel_4.setVerticalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -242,7 +244,7 @@ public class EventManager extends JFrame {
 						.addComponent(btnAddResource)
 						.addComponent(btnRemoveresource))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(list, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+					.addComponent(listHolder, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
 		);
 		panel_4.setLayout(gl_panel_4);
 
