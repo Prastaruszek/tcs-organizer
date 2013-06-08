@@ -106,8 +106,6 @@ public class EventDetails extends JFrame {
 		txtrEventComment.setText("This is the comment");
 		txtrEventComment.setEditable(false);
 		txtrEventComment.setMargin(new Insets(5, 5, 5, 5));
-		txtrEventComment.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK),
-							BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		JScrollPane commentHolder = new JScrollPane(txtrEventComment);
 		infoPane.add(commentHolder);
 		
