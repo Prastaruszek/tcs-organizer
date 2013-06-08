@@ -2,7 +2,7 @@ package models;
 
 import java.util.Calendar;
 
-public class FirstPossibleEvent implements IAddStrategy {
+public class FirstPossibleEvent implements AddStrategy {
 	
 	public FirstPossibleEvent() { }
 	
