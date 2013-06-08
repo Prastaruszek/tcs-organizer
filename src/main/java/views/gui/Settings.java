@@ -59,13 +59,13 @@ public class Settings extends JFrame {
     }
 
 	private Settings(User currentUser) {
-		
+		setResizable(false);
         this.currentUser = currentUser;
         editVelocity = new JTextField();
         editVelocity.setColumns(10);
 		setTitle("Settings");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 453, 250);
+		setBounds(100, 100, 453, 265);
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

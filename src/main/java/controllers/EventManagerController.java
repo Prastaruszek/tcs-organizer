@@ -78,7 +78,7 @@ public class EventManagerController extends Controller {
                 failForm = form;
                 event = form.save();
                 events.add(event);
-                for(Resource resource : event.getResourceList()){
+                for(Resource resource : event.getResources()){
                      if(resource instanceof ResourceFile)
                          ((ResourceFile)resource).copyToResourcesDirectory();
                 }

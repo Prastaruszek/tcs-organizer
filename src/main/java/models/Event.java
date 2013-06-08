@@ -5,11 +5,11 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-public class Event extends Model implements Serializable {
+public class Event implements Serializable {
 	
 	private static final long serialVersionUID = -4422979245490541800L;
-    private EventGroup parent;
-    private String comment;
+	private EventGroup parent;
+	private String comment;
     private Calendar startTime;
     private Calendar endTime;
     private UserProfile profile;
@@ -26,6 +26,11 @@ public class Event extends Model implements Serializable {
         this.endTime = endTime;
         this.priority = priority;
         this.resources = resources;
+    }
+    
+    public Event(UnbindedEvent event, Calendar sTime, Calendar eTime){
+    	this(event.getParent(), event.getComment(), sTime, eTime, 
+    			event.getProfile(), event.getPriorityObject(), event.getResources() );
     }
 
     public Calendar getStartTime() {
@@ -139,9 +144,5 @@ public class Event extends Model implements Serializable {
             return true;
         return startTime.getTimeInMillis() <= eventStart.getTimeInMillis() &&
                eventStart.getTimeInMillis() <= endTime.getTimeInMillis();
-    }
-
-    public List<Resource> getResourceList() {
-        return resources;
     }
 }

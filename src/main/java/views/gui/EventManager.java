@@ -443,7 +443,7 @@ public class EventManager extends JFrame {
         if(event!=null){
             txtfldTitle.setText(event.getTitle());
             txtrComment.setText(event.getComment());
-            for(Resource resource : event.getResourceList())
+            for(Resource resource : event.getResources())
                 ((DefaultListModel<Resource>)list.getModel()).addElement(resource);
             int h = startCalendar.get(java.util.Calendar.HOUR_OF_DAY);
             int m = startCalendar.get(java.util.Calendar.MINUTE);

@@ -214,7 +214,7 @@ public class EventDetails extends JFrame {
         lblPriority.setBackground(event.getColor());
         lblPriority.setText(event.getRomanPriority());
         DefaultListModel<Resource> listModel = new DefaultListModel<>();
-        for(Resource resource : event.getResourceList())
+        for(Resource resource : event.getResources())
             listModel.addElement(resource);
         resourceList.setModel(listModel);
         setVisible(true);
