@@ -1,9 +1,9 @@
 package views.gui;
 
-import utils.DateUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 public final class JDateFactory {
@@ -21,7 +21,8 @@ public final class JDateFactory {
 		textPane.setContentType("text/html");
 		if(calendar==null)
 			calendar = GregorianCalendar.getInstance();
-		textPane.setText(DateUtils.dateDisplay(calendar));
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+		textPane.setText(df.format(calendar.getTime()));
 		textPane.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 		return textPane;
 	}

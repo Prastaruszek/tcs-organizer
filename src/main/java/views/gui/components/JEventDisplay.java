@@ -1,7 +1,6 @@
 package views.gui.components;
 
 import models.Event;
-import utils.DateUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
@@ -156,7 +156,8 @@ public class JEventDisplay extends JComponent implements Scrollable{
                         rowHeight/2-g.getFontMetrics().getHeight()/4);
                 Calendar thisDay = (Calendar) mondayDate.clone();
                 thisDay.add(Calendar.DAY_OF_MONTH,i-1);
-                String date = DateUtils.dateDisplay(thisDay);
+                SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+                String date = df.format(thisDay.getTime());
                 g.drawString(date,
                         colWidth*i+(int) (colWidth/2 - g.getFontMetrics().getStringBounds(date,g).getWidth()/2),
                         rowHeight-g.getFontMetrics().getHeight()/4);

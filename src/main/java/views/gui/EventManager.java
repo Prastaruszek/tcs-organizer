@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -256,7 +257,7 @@ public class EventManager extends JFrame {
 					.addComponent(listHolder, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
 		);
 		panel_4.setLayout(gl_panel_4);
-
+        final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         if(isEditing()==false){
             JLabel lblRepeatUntil = new JLabel("Repeat until:");
             lblRepeatUntil.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -276,6 +277,7 @@ public class EventManager extends JFrame {
             chckbxSun = new JCheckBox("Sun");
 
             final JTextPane repeatUntilDate = JDateFactory.JDate(dateUntilCalendar);
+
             repeatUntilDate.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent arg0) {
@@ -284,7 +286,7 @@ public class EventManager extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             dateUntilCalendar = getGregorianCalendar();
-                            repeatUntilDate.setText(DateUtils.dateDisplay(dateUntilCalendar));
+                            repeatUntilDate.setText(df.format(dateUntilCalendar.getTime()));
                             repeatUntilDate.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
                             super.actionPerformed(e);
                         }
@@ -366,7 +368,7 @@ public class EventManager extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						endCalendar = getGregorianCalendar();
-						endDatePicker.setText(DateUtils.dateDisplay(endCalendar));
+						endDatePicker.setText(df.format(endCalendar.getTime()));
 						endDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}
@@ -414,7 +416,7 @@ public class EventManager extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						startCalendar = getGregorianCalendar();
-						startDatePicker.setText(DateUtils.dateDisplay(startCalendar));
+						startDatePicker.setText(df.format(startCalendar.getTime()));
 						startDatePicker.insertIcon(new ImageIcon(Calendar.SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF));
 						super.actionPerformed(e);
 					}
