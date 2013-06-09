@@ -119,15 +119,18 @@ public class Event implements Serializable {
     }
 
     public void delete() {
-    	String path = null;
     	for(Resource r : resources) {
     		if(r instanceof ResourceFile) {
-    			path = ((ResourceFile) r).getFullPath();
     			((ResourceFile) r).removeFromResourcesDirectory();
     		}
     	}
-    	if(path != null)
-    		new File(path).delete();
+    	
+    	// Deletes resources folder
+    	
+    	String path = profile.getPath() + this.getRandom();
+    	
+    	new File(path).delete();
+    	
         profile.getEvents().removeEvent(this);
     }
 
