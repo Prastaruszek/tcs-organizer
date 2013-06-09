@@ -36,6 +36,8 @@ public final class EventForm extends ModelForm<Event> {
             return false;
         if ( comment == null )
             return false;
+        if ( title == null )
+            return false;
 
         boolean valid = true;
 
@@ -144,7 +146,6 @@ public final class EventForm extends ModelForm<Event> {
 
     public void setTitle(String title) {
         this.title = title;
-
     }
 
     public void setComment(String comment) {

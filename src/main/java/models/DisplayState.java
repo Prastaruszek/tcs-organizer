@@ -35,7 +35,7 @@ public class DisplayState extends Model implements Serializable {
         calendar.setFirstDayOfWeek(firstDayOfWeek);
         firstDay = (Calendar) calendar.clone();
         firstDay.add(Calendar.DAY_OF_YEAR, (-7-calendar.get(Calendar.DAY_OF_WEEK) + 2)%7);
-        firstDay.set(Calendar.HOUR_OF_DAY,0);
+        firstDay.set(Calendar.HOUR, 5);
         firstDay.set(Calendar.MINUTE,0);
         firstDay.set(Calendar.MILLISECOND,0);
         lastDay = (Calendar) firstDay.clone();
@@ -62,14 +62,24 @@ public class DisplayState extends Model implements Serializable {
         Organizer.getInstance().update();
     }
 
+    /**
+     * Returns
+     *
+     * @return      EventSet containing events overlapping given week
+     */
     public String getRangeDisplay() {
         DateFormat d = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
         String from = d.format(getFirstDay().getTime());
         String to = d.format(getLastDay().getTime());
         return from + " to " + to;
     }
-    
-    public Iterable<Event> getCurrentWeekEvents(){
+
+    /**
+     * Returns events which belong to given week.
+     *
+     * @return      EventSet containing events overlapping given week
+     */
+    public EventSet getCurrentWeekEvents(){
 		return Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().overlapping(firstDay, lastDay);
     }
     

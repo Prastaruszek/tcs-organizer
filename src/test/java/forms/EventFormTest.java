@@ -32,6 +32,7 @@ public class EventFormTest {
         endTime = new GregorianCalendar();
         endTime.add(Calendar.HOUR, 2);
         endTime.set(Calendar.SECOND, 30);
+        form.setTitle("Title");
         form.setStartTime(startTime);
         form.setEndTime(endTime);
         form.setParent(group);

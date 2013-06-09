@@ -20,20 +20,6 @@ import static org.mockito.Mockito.*;
  */
 public class EventTest {
     @org.junit.Test
-    public void testGetTitle() throws Exception {
-        Event event = EventFactory.create();
-        EventGroup group = mock(EventGroup.class);
-        Field parent = event.getClass().getDeclaredField("parent");
-        parent.setAccessible(true);
-        parent.set(event, group);
-        String mockedTitle = "MockTest";
-        when(group.getTitle()).thenReturn(mockedTitle);
-        String title = event.getTitle();
-        verify(group).getTitle();
-        assertEquals(title, mockedTitle);
-    }
-
-    @org.junit.Test
     public void testDuration() throws Exception {
         GregorianCalendar now = new GregorianCalendar();
         GregorianCalendar tomorrow = (GregorianCalendar) now.clone();
@@ -75,15 +61,12 @@ public class EventTest {
         assertTrue(event.isBetween(after, before));
         assertTrue(event.overlaps(after, before));
 
-        event = EventFactory.create();
-        event.setStartTime(null);
+        after = (Calendar) now.clone();
+        after.add(Calendar.DAY_OF_MONTH, 2);
+        before = (Calendar) now.clone();
+        before.add(Calendar.DAY_OF_MONTH, 4);
         assertFalse(event.isBetween(after, before));
-        assertFalse(event.overlaps(after, before));
-
-        event = EventFactory.create();
-        event.setEndTime(null);
-        assertFalse(event.isBetween(after, before));
-        assertFalse(event.overlaps(after, before));
+        assertTrue(event.overlaps(after, before));
 
         event = EventFactory.create();
         assertTrue(event.isBetween(event.getStartTime(), event.getEndTime()));
