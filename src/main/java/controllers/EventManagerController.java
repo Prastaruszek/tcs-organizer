@@ -7,6 +7,7 @@ import views.gui.EventManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -78,9 +79,13 @@ public class EventManagerController extends Controller {
                 failForm = form;
                 event = form.save();
                 events.add(event);
+                String hash = String.valueOf(event.hashCode());
+                new File(profile.getPath()+hash).mkdirs();
                 for(Resource resource : event.getResources()){
-                     if(resource instanceof ResourceFile)
+                     if(resource instanceof ResourceFile) {
+                    	 ((ResourceFile)resource).appendPath(hash);
                          ((ResourceFile)resource).copyToResourcesDirectory();
+                     }
                 }
             }
             eventManager.dispose();
