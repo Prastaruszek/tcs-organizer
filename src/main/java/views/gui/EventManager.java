@@ -542,6 +542,11 @@ public class EventManager extends JFrame {
             ret.add(model.getElementAt(i));
         return ret;
 	}
+
+    /**
+     * Tells you whether the event is edited by manager or new one is being created.
+     * @return true if editing
+     */
     public boolean isEditing(){
         return event!=null;
     }
@@ -576,6 +581,10 @@ public class EventManager extends JFrame {
         return chckbxSun!=null&&chckbxSun.isSelected();
     }
 
+    /**
+     * If event is edited this should be always false. Object is repeating if at least one day is ticked.
+     * @return true if event is repeating
+     */
     public boolean isRepeating(){
         return isMondayRepeat()||isTuesdayRepeat()||isWednesdayRepeat()
                 ||isThursdayRepeat()||isFridayRepeat()||isSaturdayRepeat()||isSundayRepeat();
