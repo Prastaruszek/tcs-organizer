@@ -8,6 +8,9 @@ import java.util.GregorianCalendar;
 
 public final class JDateFactory {
 	/**
+     * Factory for simple DD.MM.YY date picking component. You also have to provide action listener
+     * like for example in EventManager to make it truly pick date. Factory itself only provides basic
+     * layout for text pane.
 	 * @wbp.factory
 	 */
 	public static JTextPane JDate(java.util.Calendar calendar) {
