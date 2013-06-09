@@ -54,7 +54,7 @@ public class ResourceFile extends Model implements Resource, Serializable {
     
     public void removeFromResourcesDirectory() {
     	try {
-			Files.deleteIfExists(Paths.get(filesPath+"/"+file.getName()));
+			Files.deleteIfExists(Paths.get(filesPath+appendedPath+"/"+file.getName()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
