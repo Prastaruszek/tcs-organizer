@@ -43,7 +43,7 @@ public class EventManagerController extends Controller {
             form.setTitle(eventManager.getEventTitle());
             form.setComment(eventManager.getEventComment());
             form.setParent(group);
-            form.setResources(eventManager.getResources());
+            form.setTasks(eventManager.getTasks());
             form.setPriority(eventManager.getEventPriority());
             forms.add(form);
         } else {
@@ -64,7 +64,7 @@ public class EventManagerController extends Controller {
                 form.setTitle(eventManager.getEventTitle());
                 form.setComment(eventManager.getEventComment());
                 form.setParent(group);
-                form.setResources(eventManager.getResources());
+                form.setTasks(eventManager.getTasks());
                 form.setPriority(eventManager.getEventPriority());
                 forms.add(form);
                 do {

@@ -8,6 +8,7 @@ public class Task implements Serializable{
 	
 	private static final long serialVersionUID = 1237493344848846964L;
 	private EventGroup parent;
+    private String title;
 	private String comment;
 	private int durationInMinutes;
 	private UserProfile profile;
@@ -71,9 +72,12 @@ public class Task implements Serializable{
 	}
 
 	public String getTitle() {
-		return this.parent.getTitle();
+		return this.title;
 	}
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 	public UserProfile getProfile() {
 		return profile;
 	}
@@ -96,4 +100,6 @@ public class Task implements Serializable{
 		res += "]";
 		return res;
 	}
+
+
 }

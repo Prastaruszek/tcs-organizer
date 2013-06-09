@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -19,10 +20,10 @@ public class Event implements Serializable {
     private String title;
     private String random;
 
-    private List<Resource> resources;
+    private List<Task> tasks;
 
     public Event(EventGroup parent, String comment, Calendar startTime,
-                 Calendar endTime, UserProfile profile, EventPriority priority, List<Resource> resources) {
+                 Calendar endTime, UserProfile profile, EventPriority priority, List<Task> tasks) {
         this.profile = profile;
         this.parent = parent;
         this.title = parent.getTitle();
@@ -30,13 +31,16 @@ public class Event implements Serializable {
         this.startTime = startTime;
         this.endTime = endTime;
         this.priority = priority;
-        this.resources = resources;
+        this.tasks = tasks;
         this.random = String.valueOf(new Random().nextInt(10000000));
     }
     
-    public Event(Task event, Calendar sTime, Calendar eTime){
+    public Event(final Task event, Calendar sTime, Calendar eTime){
     	this(event.getParent(), event.getComment(), sTime, eTime, 
-    			event.getProfile(), event.getPriorityObject(), event.getResources() );
+    			event.getProfile(), event.getPriorityObject(), null);
+        List<Task> tmp = new LinkedList<>();
+        tmp.add(event);
+        setTasks(tmp);
     }
 
     public Calendar getStartTime() {
@@ -103,12 +107,12 @@ public class Event implements Serializable {
         return parent;
     }
 
-    public List<Resource> getResources() {
-        return resources;
+    public List<Task> getTasks() {
+        return tasks;
     }
 
-    public void setResources(List<Resource> resources) {
-        this.resources = resources;
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public Event save() {
@@ -119,10 +123,11 @@ public class Event implements Serializable {
     }
 
     public void delete() {
-    	for(Resource r : resources) {
-    		if(r instanceof ResourceFile) {
-    			((ResourceFile) r).removeFromResourcesDirectory();
-    		}
+    	for(Task t : tasks) {
+            for(Resource r : t.getResources())
+                if(r instanceof ResourceFile) {
+                    ((ResourceFile) r).removeFromResourcesDirectory();
+                }
     	}
     	
     	// Deletes resources folder
@@ -175,5 +180,17 @@ public class Event implements Serializable {
      */
     public String getRandom() {
     	return this.random;
+    }
+
+    public void addTask(Task instance) {
+    }
+
+    public List<Resource> getResources() {
+        List<Resource> resources = new LinkedList<>();
+        for(Task t : tasks) {
+            for(Resource r : t.getResources())
+                resources.add(r);
+        }
+        return resources;
     }
 }

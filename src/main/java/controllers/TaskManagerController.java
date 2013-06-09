@@ -31,7 +31,7 @@ public class TaskManagerController extends Controller {
 
         for(ResourceFile f : taskManager.getRemovedList())
             f.removeFromResourcesDirectory();
-        TaskForm form = new TaskForm(taskManager.getTask(), taskManager.getEvent());
+        TaskForm form = new TaskForm(taskManager.getTask(), profile);
         form.setDuration(taskManager.getDuration());
         form.setTitle(taskManager.getEventTitle());
         form.setComment(taskManager.getEventComment());
@@ -39,7 +39,10 @@ public class TaskManagerController extends Controller {
         form.setPriority(taskManager.getEventPriority());
 
         try {
-            form.save();
+            Task task = form.save();
+            if ( !taskManager.isEditing()) {
+                ((DefaultListModel<Task>)taskManager.getTaskJList().getModel()).addElement(task);
+            }
             taskManager.dispose();
         } catch (ValidationException error) {
             String errorMesssages = form.getErrorsDisplay();

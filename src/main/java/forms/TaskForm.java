@@ -15,21 +15,18 @@ public final class TaskForm extends ModelForm<Task> {
     private UserProfile profile;
     private List<Resource> resources;
     private EventPriority priority;
-    private Event event;
 
-    public TaskForm(Task instance, Event event) {
+    public TaskForm(Task instance, UserProfile profile) {
+        this.profile = profile;
         if ( profile == null )
             throw new NullPointerException("Profile cannot be null");
         this.instance = instance;
-        this.event = event;
     }
 
     @Override
     public boolean isValid() {
         clean();
 
-        if ( parent == null )
-            return false;
         if ( comment == null )
             return false;
 
@@ -48,13 +45,17 @@ public final class TaskForm extends ModelForm<Task> {
         if ( instance != null ) {
             if ( instance.getProfile() != profile )
                 return false;
-            if ( instance.getParent() != parent )
-                return false;
         }
 
         return valid;
     }
 
+    /**
+     * Because we should'nt pass JList to forms, it simply validates the task and returns it so controller can do whatever
+     * he wants with it.
+     * @return created task
+     * @throws ValidationException
+     */
     @Override
     public Task save() throws ValidationException {
         boolean isCreate = instance == null;
@@ -69,9 +70,7 @@ public final class TaskForm extends ModelForm<Task> {
             ));
         }
         super.save();
-        if ( isCreate ) {
-            event.addTask(getInstance());
-        } else {
+        if( !isCreate ){
             instance.setDuration(duration);
             instance.setTitle(title);
             instance.setComment(comment);

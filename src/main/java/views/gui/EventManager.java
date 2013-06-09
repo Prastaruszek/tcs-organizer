@@ -30,13 +30,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
-import models.Event;
-import models.EventGroup;
-import models.EventPriority;
-import models.Organizer;
-import models.Resource;
-import models.ResourceFile;
-import models.User;
+import models.*;
 import views.gui.components.LimitedDocument;
 import controllers.DatePickerController;
 import controllers.EventManagerController;
@@ -57,7 +51,7 @@ public class EventManager extends JFrame {
 	private JComboBox<String> endTimeBox;
 	private JComboBox<EventPriority> importanceBox;
     private User currentUser;
-    private JList<Resource> list = null;
+    private JList<Task> list = null;
     private Event event = null;
     private LinkedList<ResourceFile> removeList;
 
@@ -107,7 +101,7 @@ public class EventManager extends JFrame {
      *
      * @param event If null then new event will be added. Otherwise given event will be edited;
      */
-	private EventManager(User currentUser, Event event) {
+	private EventManager(final User currentUser, final Event event) {
         this.currentUser = currentUser;
         // there is similar if at the end of the constructor because some values (calendars) had to be set before
         // creating components and some (text areas, list) after.
@@ -233,40 +227,38 @@ public class EventManager extends JFrame {
 		);
 		panel_5.setLayout(gl_panel_5);
 		
-		JButton btnAddResource = new JButton("Add resource");
-		btnAddResource.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				AddResourceDialog.getInstance(getResourcesJList()).setVisible(true);
-			}
-		});
-		
-		JButton btnRemoveresource = new JButton("Remove resource");
-        btnRemoveresource.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-            	if(list.getSelectedValue() instanceof ResourceFile)
-            		removeList.add(((ResourceFile)list.getSelectedValue()));
-                ((DefaultListModel<Resource>)list.getModel()).removeElement(list.getSelectedValue());
+		JButton btnAddTask = new JButton("Add task");
+		btnAddTask.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                TaskManager.getInstance(currentUser, null, event, getResourcesJList()).setVisible(true);
             }
         });
-		list = new JList<>(new DefaultListModel<Resource>());
+		
+		JButton btnRemoveTask = new JButton("Remove task");
+        btnRemoveTask.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ((DefaultListModel<Task>) list.getModel()).removeElement(list.getSelectedValue());
+            }
+        });
+		list = new JList<Task>(new DefaultListModel<Task>());
 		JScrollPane listHolder = new JScrollPane(list);
 		
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup()
-					.addComponent(btnAddResource)
+					.addComponent(btnAddTask)
 					.addPreferredGap(ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-					.addComponent(btnRemoveresource))
+					.addComponent(btnRemoveTask))
 				.addComponent(listHolder, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
 		);
 		gl_panel_4.setVerticalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAddResource)
-						.addComponent(btnRemoveresource))
+						.addComponent(btnAddTask)
+						.addComponent(btnRemoveTask))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(listHolder, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
 		);
@@ -470,8 +462,8 @@ public class EventManager extends JFrame {
         if(event!=null){
             txtfldTitle.setText(event.getTitle());
             txtrComment.setText(event.getComment());
-            for(Resource resource : event.getResources())
-                ((DefaultListModel<Resource>)list.getModel()).addElement(resource);
+            for(Task t : event.getTasks())
+                ((DefaultListModel<Task>)list.getModel()).addElement(t);
             int h = startCalendar.get(java.util.Calendar.HOUR_OF_DAY);
             int m = startCalendar.get(java.util.Calendar.MINUTE);
             startTimeBox.setSelectedItem(
@@ -548,12 +540,12 @@ public class EventManager extends JFrame {
 	protected JComboBox<String> getEndTimeBox() {
 		return endTimeBox;
 	}
-	protected JList<Resource> getResourcesJList() {
+	protected JList<Task> getResourcesJList() {
 		return list;
 	}
-	public List<Resource> getResources() {
-		ListModel<Resource> model = getResourcesJList().getModel();
-        List<Resource> ret = new LinkedList<>();
+	public List<Task> getResources() {
+		ListModel<Task> model = getResourcesJList().getModel();
+        List<Task> ret = new LinkedList<>();
         for(int i=0;i<model.getSize();i++)
             ret.add(model.getElementAt(i));
         return ret;
@@ -608,5 +600,13 @@ public class EventManager extends JFrame {
     
     public LinkedList<ResourceFile> getRemovedList() {
     	return removeList;
+    }
+
+    public List<Task> getTasks() {
+        ListModel<Task> model = list.getModel();
+        List<Task> ret = new LinkedList<>();
+        for(int i=0;i<model.getSize();i++)
+            ret.add(model.getElementAt(i));
+        return ret;
     }
 }

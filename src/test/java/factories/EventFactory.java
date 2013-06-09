@@ -1,9 +1,6 @@
 package factories;
 
-import models.Event;
-import models.EventGroup;
-import models.EventPriority;
-import models.Resource;
+import models.*;
 
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
@@ -17,6 +14,6 @@ public class EventFactory {
         GregorianCalendar endTime = (GregorianCalendar) startTime.clone();
         endTime.add(GregorianCalendar.HOUR, 1);
         EventGroup group = new EventGroup("Title");
-        return new Event(group, "Comment", startTime, endTime, UserProfileFactory.create(), EventPriority.getEnum(1), new LinkedList<Resource>());
+        return new Event(group, "Comment", startTime, endTime, UserProfileFactory.create(), EventPriority.getEnum(1), new LinkedList<Task>());
     }
 }

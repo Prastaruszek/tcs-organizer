@@ -14,7 +14,7 @@ public final class EventForm extends ModelForm<Event> {
     private Calendar startTime;
     private Calendar endTime;
     private UserProfile profile;
-    private List<Resource> resources;
+    private List<Task> tasks;
     private EventPriority priority;
     
     public EventForm(Event instance, UserProfile profile) {
@@ -115,7 +115,7 @@ public final class EventForm extends ModelForm<Event> {
                     endTime,
                     profile,
                     priority,
-                    resources
+                    tasks
             ));
         }
         super.save();
@@ -128,7 +128,7 @@ public final class EventForm extends ModelForm<Event> {
             instance.setStartTime(startTime);
             instance.setTitle(title);
             instance.setComment(comment);
-            instance.setResources(resources);
+            instance.setTasks(tasks);
             instance.setPriority(priority);
         }
         return getInstance();
@@ -155,14 +155,11 @@ public final class EventForm extends ModelForm<Event> {
         this.parent = parent;
     }
 
-    public void setResources(List<Resource> resources){
-    	this.resources = new LinkedList<>();
+    public void setTasks(List<Task> tasks){
+    	this.tasks = new LinkedList<>();
     	
-    	for(Resource r : resources) {
-    		if(r instanceof ResourceFile)
-    			this.resources.add(new ResourceFile((ResourceFile)r));
-    		else
-    			this.resources.add(r);
+    	for(Task t : tasks) {
+    		this.tasks.add(t);
     	}
     }
     
