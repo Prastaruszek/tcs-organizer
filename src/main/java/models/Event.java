@@ -80,6 +80,10 @@ public class Event implements Serializable {
     public String getTitle() {
         return this.parent.getTitle();
     }
+    
+    public void setProfile(UserProfile profile) {
+    	this.profile = profile;
+    }
 
     public UserProfile getProfile() {
         return profile;

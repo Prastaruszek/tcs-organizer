@@ -27,9 +27,10 @@ public class ImportController implements ActionListener {
 			EventSet eS = models.EventManager.importEventSet(tmpPath);
 			
 			models.EventManager manager = currentUser.getUserProfile().getEvents();
-			
-			for(Event ev : eS)
+			for(Event ev : eS){
+				ev.setProfile(currentUser.getUserProfile());
 				manager.add(ev);
+			}
 			
 			
 			for(Event ev : currentUser.getUserProfile().getEvents().all())
