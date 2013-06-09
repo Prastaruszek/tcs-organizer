@@ -1,7 +1,9 @@
 package forms;
 
 import models.*;
+import utils.DateUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -69,7 +71,10 @@ public final class EventForm extends ModelForm<Event> {
                 if(event.getStartTime().before(startTime)&&event.getEndTime().after(startTime))
                     overlap = true;
                 if ( overlap ) {
-                    this.getErrors().appendError("General", "Event overlaps existing one" + event.getTitle() + event.getStartTime().getTime() + event.getEndTime().getTime());
+                    SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm");
+                    this.getErrors().appendError("General", "Event overlaps existing one " + event.getTitle() +  "<br>" +
+                            event.getTitle()+" starts: "+ df.format(event.getStartTime().getTime())+
+                            " ends: " + df.format(event.getEndTime().getTime()) );
                     valid =  false;
                     break;
                 }
