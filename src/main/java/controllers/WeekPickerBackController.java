@@ -5,11 +5,10 @@ import models.Organizer;
 
 import java.awt.event.ActionEvent;
 
+
 /**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 14.05.13
- * Time: 14:24
+ * @author n3v
+ * Sets previous week on the calendar
  */
 public class WeekPickerBackController extends Controller {
     @Override

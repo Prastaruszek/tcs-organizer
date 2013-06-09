@@ -8,13 +8,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 15.05.13
- * Time: 23:29
- */
 
+/**
+ * @author n3v
+ * Sets the callendar for the specific date
+ */
 public class WeekPickerController extends DatePickerController {
     @Override
     public void actionPerformed(ActionEvent e) {

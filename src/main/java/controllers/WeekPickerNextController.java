@@ -6,10 +6,8 @@ import models.Organizer;
 import java.awt.event.ActionEvent;
 
 /**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 14.05.13
- * Time: 15:24
+ * @author n3v
+ *  Switches callendar to the next week
  */
 public class WeekPickerNextController extends Controller {
     @Override
