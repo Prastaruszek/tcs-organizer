@@ -1,6 +1,8 @@
 package controllers;
 
 import models.Organizer;
+import models.Resource;
+import models.ResourceFile;
 import models.Task;
 import views.gui.TaskDetails;
 
@@ -36,6 +38,9 @@ public class TaskDetailsController extends Controller {
             alert.createDialog(frame, "").setVisible(true);
             if(alert.getValue().equals(1))
                 return;
+            for(Resource f : frame.getTask().getResources())
+            	if(f instanceof ResourceFile)
+            		((ResourceFile)f).removeFromResourcesDirectory();
             frame.getEvent().getTasks().remove(frame.getTask());
             ((DefaultListModel<Task>)frame.getTaskJList().getModel()).removeElement(frame.getTask());
             Organizer.getInstance().update();

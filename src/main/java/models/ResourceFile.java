@@ -5,13 +5,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/**
- * Created with IntelliJ IDEA.
- * User: laiq
- * Date: 5/28/13
- * Time: 12:44 AM
- * To change this template use File | Settings | File Templates.
- */
 public class ResourceFile extends Model implements Resource, Serializable {
 
 	private static final long serialVersionUID = 2660584783146068707L;
