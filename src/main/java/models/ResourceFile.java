@@ -17,6 +17,7 @@ public class ResourceFile extends Model implements Resource, Serializable {
 	private static final long serialVersionUID = 2660584783146068707L;
 	private File file;
 	private String filesPath;
+	private boolean appended;
 	
     @Override
     public void open() {
@@ -62,14 +63,29 @@ public class ResourceFile extends Model implements Resource, Serializable {
     public ResourceFile(File file, String path){
         this.file=file;
         this.filesPath = path;
+        this.appended = false;
     }
 
     public String getPath() {
     	return file.getPath();
     }
     
+    /** Appends newPath (random event seed) to path, does it only once.
+     * @param newPath
+     */
     public void appendPath(String newPath) {
-    	this.filesPath += newPath;
+    	if(!appended) {
+    		this.filesPath += newPath;
+    		appended = true;
+    	}
+    }
+    
+    
+    /**
+     * @return String with full path name (data_folder/random_event_seed)
+     */
+    public String getFullPath() {
+    	return filesPath;
     }
     
     @Override

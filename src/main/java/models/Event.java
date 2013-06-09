@@ -1,9 +1,11 @@
 package models;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 public class Event implements Serializable {
 	
@@ -15,6 +17,7 @@ public class Event implements Serializable {
     private UserProfile profile;
     private EventPriority priority;
     private String title;
+    private String random;
 
     private List<Resource> resources;
 
@@ -28,6 +31,7 @@ public class Event implements Serializable {
         this.endTime = endTime;
         this.priority = priority;
         this.resources = resources;
+        this.random = String.valueOf(new Random().nextInt(10000000));
     }
     
     public Event(UnboundEvent event, Calendar sTime, Calendar eTime){
@@ -115,9 +119,15 @@ public class Event implements Serializable {
     }
 
     public void delete() {
-    	for(Resource r : resources)
-    		if(r instanceof ResourceFile)
+    	String path = null;
+    	for(Resource r : resources) {
+    		if(r instanceof ResourceFile) {
+    			path = ((ResourceFile) r).getFullPath();
     			((ResourceFile) r).removeFromResourcesDirectory();
+    		}
+    	}
+    	if(path != null)
+    		new File(path).delete();
         profile.getEvents().removeEvent(this);
     }
 
@@ -154,5 +164,13 @@ public class Event implements Serializable {
             return true;
         return startTime.getTimeInMillis() <= eventStart.getTimeInMillis() &&
                eventStart.getTimeInMillis() <= endTime.getTimeInMillis();
+    }
+    
+    
+    /**	
+     * @return String that is used as folder name for this event
+     */
+    public String getRandom() {
+    	return this.random;
     }
 }

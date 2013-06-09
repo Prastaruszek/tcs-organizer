@@ -32,6 +32,10 @@ public class EventManagerController extends Controller {
         else
             group = eventManager.getEvent().getParent();
         List<EventForm> forms = new LinkedList <>();
+        
+        for(ResourceFile f : eventManager.getRemovedList())
+        	f.removeFromResourcesDirectory();
+        
         if(!eventManager.isRepeating()){
             EventForm form = new EventForm(eventManager.getEvent(), profile);
             form.setStartTime(eventManager.getStartCalendar());
@@ -81,11 +85,10 @@ public class EventManagerController extends Controller {
                 failForm = form;
                 event = form.save();
                 events.add(event);
-                String hash = String.valueOf(event.hashCode());
-                new File(profile.getPath()+hash).mkdirs();
+                new File(profile.getPath()+event.getRandom()).mkdirs();
                 for(Resource resource : event.getResources()){
                      if(resource instanceof ResourceFile) {
-                    	 ((ResourceFile)resource).appendPath(hash);
+                    	 ((ResourceFile)resource).appendPath(event.getRandom());
                          ((ResourceFile)resource).copyToResourcesDirectory();
                      }
                 }
