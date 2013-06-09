@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.List;
 
-public class UnbindedEvent implements Serializable{
+public class UnboundEvent implements Serializable{
 	
 	private static final long serialVersionUID = 1237493344848846964L;
 	private EventGroup parent;
@@ -15,7 +15,7 @@ public class UnbindedEvent implements Serializable{
 
     private List<Resource> resources;
 
-	public UnbindedEvent(EventGroup parent, String comment, int durationInMinutes,
+	public UnboundEvent(EventGroup parent, String comment, int durationInMinutes,
 			UserProfile profile, EventPriority priority, List<Resource> resources) {
 		this.profile = profile;
 		this.parent = parent;
@@ -24,6 +24,15 @@ public class UnbindedEvent implements Serializable{
 		this.priority = priority;
         this.resources = resources;
     }
+	
+	public UnboundEvent(Event event){
+		this.profile = event.getProfile();
+		this.parent = event.getParent();
+		this.comment = event.getComment();
+		this.durationInMinutes = (int) ((event.getEndTime().getTimeInMillis() - event.getStartTime().getTimeInMillis()) / 60000L);
+		this.priority = event.getPriorityObject();
+        this.resources = event.getResources();
+	}
     
 	public void setDuration(int durationInMinutes){
 		this.durationInMinutes = durationInMinutes;

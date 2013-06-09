@@ -36,6 +36,7 @@ public class EventManagerController extends Controller {
             EventForm form = new EventForm(eventManager.getEvent(), profile);
             form.setStartTime(eventManager.getStartCalendar());
             form.setEndTime(eventManager.getEndCalendar());
+            form.setTitle(eventManager.getEventTitle());
             form.setComment(eventManager.getEventComment());
             form.setParent(group);
             form.setResources(eventManager.getResources());
@@ -56,6 +57,7 @@ public class EventManagerController extends Controller {
                 EventForm form = new EventForm(eventManager.getEvent(), profile);
                 form.setStartTime((Calendar) startCalendar.clone());
                 form.setEndTime((Calendar) endCalendar.clone());
+                form.setTitle(eventManager.getEventTitle());
                 form.setComment(eventManager.getEventComment());
                 form.setParent(group);
                 form.setResources(eventManager.getResources());
