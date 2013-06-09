@@ -3,6 +3,7 @@ package forms;
 import models.*;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 public final class EventForm extends ModelForm<Event> {
@@ -151,7 +152,14 @@ public final class EventForm extends ModelForm<Event> {
     }
 
     public void setResources(List<Resource> resources){
-        this.resources = resources;
+    	this.resources = new LinkedList<>();
+    	
+    	for(Resource r : resources) {
+    		if(r instanceof ResourceFile)
+    			this.resources.add(new ResourceFile((ResourceFile)r));
+    		else
+    			this.resources.add(r);
+    	}
     }
     
     public void setPriority(EventPriority priority) {
