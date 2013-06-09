@@ -68,13 +68,14 @@ public class Calendar implements Observer {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
 		frame.setTitle("This is your Calendar - " + currentUser.getUsername());
-		frame.setMinimumSize(new Dimension(600, 460));
+		frame.setMinimumSize(new Dimension(900, 460));
 		
 		JPanel panel = new JPanel();
 		
 		JPanel panel_2 = new JPanel();
 		
 		lblUserPic = new JLabel("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" /></html>");
+		lblUserPic.setToolTipText("You can change user picture in settings.");
 		
 		File icon = new File(currentUser.getUserProfile().getIconPath());
 		if(icon.canRead())
@@ -213,10 +214,12 @@ public class Calendar implements Observer {
 		panel_1.setLayout(gl_panel_1);
 		
 		lblVelocity = new JLabel("Velocity: " + currentUser.getUserProfile().getVelocity().toString());
+		lblVelocity.setToolTipText("Unused. Wait for next version.");
 		lblVelocity.setFont(new Font("Dialog", Font.BOLD, 20));
 		panel_2.add(lblVelocity);
 		
 		JButton btnPrevious = new JButton("Previous");
+		btnPrevious.setToolTipText("Previous week.");
 		btnPrevious.addActionListener(new WeekPickerBackController());
 		panel.add(btnPrevious);
 
@@ -233,6 +236,7 @@ public class Calendar implements Observer {
 
 
 		JButton btnNext = new JButton("Next");
+		btnNext.setToolTipText("Next week.");
 		btnNext.addActionListener(new WeekPickerNextController());
 		panel.add(btnNext);
 		Organizer.getInstance().addObserver(calendarController);

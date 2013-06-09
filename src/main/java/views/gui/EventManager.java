@@ -10,12 +10,26 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
-import controllers.EventManagerController;
 import models.Event;
 import models.EventGroup;
 import models.EventPriority;
@@ -23,8 +37,12 @@ import models.Organizer;
 import models.Resource;
 import models.ResourceFile;
 import models.User;
+
 import controllers.DatePickerController;
+
 import views.gui.components.LimitedDocument;
+import controllers.DatePickerController;
+import controllers.EventManagerController;
 
 public class EventManager extends JFrame {
 
