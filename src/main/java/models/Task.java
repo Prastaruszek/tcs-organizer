@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.util.List;
 
+/** Part of an event.
+ */
 public class Task implements Serializable{
 	
 	private static final long serialVersionUID = 1237493344848846964L;
@@ -36,109 +38,112 @@ public class Task implements Serializable{
 	}
     
 	/** Sets the duration for the task
-	 * @param durationInMinutes
+	 * @param durationInMinutes duration in minutes
 	 */
 	public void setDuration(int durationInMinutes){
 		this.durationInMinutes = durationInMinutes;
     }
     
 	/** Returns duration of the current task in minutes
-	 * @return durationInMinutes
+	 * @return duration of the current task in minutes
 	 */
 	public int getDuration(){
 		return durationInMinutes;
 	}
 
 	/** Returns priority of the current task as an int
-	 * @return priority
+	 * @return priority of the current task as an int
 	 */
 	public int getPriority() {
 		return priority.getPriority();
 	}
     
 	/** Returns the priority of the current task as EventPriority object
-	 * @return priority
+	 * @return priority of the current task as EventPriority object
 	 */
 	public EventPriority getPriorityObject() {
 		return priority;
 	}
     
 	/** Returns the priority of the task as a roman numeral
-	 * @return priority
+	 * @return priority of the task as a roman numeral
 	 */
 	public String getRomanPriority() {
 		return priority.getRomanPriority();
 	}
     
 	/** Sets the priority of the current task (influences color)
-	 * @param priority
+	 * @param priority EventPriority object
 	 */
 	public void setPriority(EventPriority priority) {
 		this.priority = priority;
 	}
     
-	/** Returns color with which should this task be drawn
-	 * @return Color
+	/** Returns color with which this task should be drawn
+	 * @return color with which this task should be drawn
 	 */
 	public Color getColor() {
 		return priority.getColor(profile);
 	}
     
 	/** Returns the comment for the task
-	 * @return comment
+	 * @return comment for the task
 	 */
 	public String getComment() {
 		return comment;
 	}
 
 	/** Sets the comment for the task
-	 * @param comment
+	 * @param comment comment to be set
 	 */
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
 	/**	 Returns the title of the current task
-	 * @return title
+	 * @return title of the current task
 	 */
 	public String getTitle() {
 		return this.title;
 	}
 
     /** Sets title of the current task
-     * @param title
+     * @param title title to be set
      */
     public void setTitle(String title) {
         this.title = title;
     }
 	/** Returns the profile related with the current task
-	 * @return profile
+	 * @return profile related with the current task
 	 */
 	public UserProfile getProfile() {
 		return profile;
 	}
 
 	/** Returns the parent (EventGroup) of the current task
-	 * @return parent
+	 * @return parent of the current task
 	 */
 	public EventGroup getParent() {
 		return parent;
 	}
 
-	/** Returns List of resources related with the current tast
-	 * @return resources
+	/** Returns List of resources related with the current task
+	 * @return List of resources related with the current task
 	 */
 	public List<Resource> getResources() {
         return resources;
 	}
 
-	/**	 Sets List of resources related with the current task
-	 * @param resources
+	/** Sets List of resources related with the current task
+	 * @param resources resources to be set
 	 */
 	public void setResources(List<Resource> resources) {
 		this.resources = resources;
 	}
     
+	/** Returns string representation of this task
+     * @return string representation of this task
+     */
 	public String toString(){
 		String res = title + ", duration " + durationInMinutes + " minutes, resources: "+resources.size();
 		return res;

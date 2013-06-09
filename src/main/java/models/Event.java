@@ -110,7 +110,7 @@ public class Event implements Serializable {
     	return priority.getRomanPriority();
     }
     
-    /** Sets the priority of thie event (influences Color)
+    /** Sets the priority of this event (influences Color)
      * @param priority
      */
     public void setPriority(EventPriority priority) {
@@ -188,7 +188,7 @@ public class Event implements Serializable {
     }
 
     /** Saves this event into EventManager
-     * @return true if save ended with success, false otherwise
+     * @return <code>true</code> if save ended with success, <code>false</code> otherwise
      */
     public Event save() {
         if ( profile == null )

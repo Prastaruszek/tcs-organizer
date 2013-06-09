@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashSet;
 
 /** This class provides methods for event management.
  * Every instance of this class contains a reference to the associated set of events.
@@ -43,7 +44,7 @@ public class EventManager implements Serializable{
     /** Adds a given event to the associated event set.
      * @param e the event to be added.
      * @return true if the set did not already contain the specified event.
-     * @see EventSet#add(Event)
+     * @see HashSet#add(Object)
      */
     public boolean add(Event e) {
         return events.add(e);

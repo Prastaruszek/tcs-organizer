@@ -38,7 +38,7 @@ public class UserProfile extends Model implements Serializable{
     }
 
     /** Checks if the user has provided schedule.
-     * @return true if the user has provided schedule, false otherwise.
+     * @return <code>true</code> if the user has provided schedule, <code>false</code> otherwise.
      */
     public boolean hasProvidedSchedule() {
         return hasProvidedSchedule;

@@ -48,7 +48,7 @@ public class User extends Model implements Serializable{
     
     /** Checks if a given proper password is equal to the User's one.
      * @param rawPass A proper password.
-     * @return True, if password check was successful. False otherwise.
+     * @return <code>true</code>, if password check was successful, <code>false</code> otherwise.
      */
     public boolean hasPassword(char[] rawPass){
         return password.equals(hashIt(rawPass));
@@ -106,8 +106,8 @@ public class User extends Model implements Serializable{
 	}
 
 	/** Compares this user to the given object.
-	 * The result is true if and only if the argument is not null and is a User
-	 * object that represents a user with the same username and password.
+	 * The result is <code>true</code> if and only if the argument is not null and
+	 * is a User object that represents a user with the same username and password.
      * @param obj the object to compare this user to.
      */
 	@Override

@@ -83,7 +83,7 @@ public class UserManager implements Serializable{
     
     /** Adds a given user to the associated user set.
      * @param user the user to be added
-     * @return true if the set did not already contain the specified user
+     * @return <code>true</code> if the set did not already contain the specified user
      */
     public boolean add(User user) {
         return users.add(user);
@@ -93,7 +93,7 @@ public class UserManager implements Serializable{
      * User is first validated with {@link #validateUser(String, char[]) validateUser} method.
      * @param username string representing the username.
      * @param rawPassword char array representing the password.
-     * @return true if removing was successful, false if there is no such user.
+     * @return <code>true</code> if removing was successful, <code>false</code> if there is no such user.
      */
     public boolean remove(String username, char[] rawPassword) {
     	User user = validateUser(username, rawPassword);

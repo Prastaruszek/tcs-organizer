@@ -3,7 +3,7 @@ package models;
 import java.util.HashSet;
 import java.util.Vector;
 
-/** A set which stores instances of {@link User User} class.
+/** A set of users.
  */
 public class UserSet extends HashSet<User> {
 	private static final long serialVersionUID = 3451957181511705129L;

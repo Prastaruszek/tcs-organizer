@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+/** This class wraps events which belong to the same group.
+ */
 public class EventGroup extends Model implements Serializable {
 	
 	private static final long serialVersionUID = -8544701639746640340L;
@@ -12,7 +14,7 @@ public class EventGroup extends Model implements Serializable {
     private List<Event> childEvents = new LinkedList<>();
 
     /** Creates EventGroup and sets its title
-     * @param title
+     * @param title title to be set
      */
     public EventGroup(String title) {
         this.title = title;
@@ -26,7 +28,7 @@ public class EventGroup extends Model implements Serializable {
     }
 
     /** Adds event into the group
-     * @param event
+     * @param event event to be added
      */
     public void addEvent(Event event) {
         childEvents.add(event);
@@ -41,15 +43,16 @@ public class EventGroup extends Model implements Serializable {
         }
     }
 
-    /** Returns true if EventGroup consists of only 1 event
-     * @return true if EventGroup consists of only 1 event
+    /** Returns <code>true</code> if EventGroup consists of only 1 event
+     * @return <code>true</code> if EventGroup consists of only 1 event,
+     * <code>false</code> otherwise
      */
     public boolean isSingle(){
         return childEvents.size()<=1;
     }
     
     /** Returns maximum length of a title
-     * @return maxTitleLength
+     * @return maximum length of a title
      */
     public static int getMaxTitleLength() {
     	return maxTitleLength;
