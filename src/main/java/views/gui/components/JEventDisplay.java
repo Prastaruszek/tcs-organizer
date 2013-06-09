@@ -204,7 +204,7 @@ public class JEventDisplay extends JComponent{
         private Calendar endTime;
         private Color color;
         private String title;
-        private String comment;
+  //      private String comment;
         boolean isStartBeforeMonday = false;
         public Event getEvent(){
             return event;
@@ -220,7 +220,7 @@ public class JEventDisplay extends JComponent{
 		public EventRectangle(Event event) {
             this.event = event;
 			this.title = event.getTitle();
-            this.comment = event.getComment();
+    //        this.comment = event.getComment();
             this.startTime = event.getStartTime();
             this.endTime = event.getEndTime();
             this.color = event.getColor();

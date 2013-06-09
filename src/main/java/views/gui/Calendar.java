@@ -1,12 +1,12 @@
 package views.gui;
 
 import controllers.CalendarController;
+import controllers.ImportController;
 import controllers.WeekPickerBackController;
 import controllers.WeekPickerController;
 import controllers.WeekPickerNextController;
 import models.DisplayState;
 import models.Event;
-import models.EventSet;
 import models.Organizer;
 import models.User;
 import views.gui.components.JEventDisplay;
@@ -15,13 +15,11 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import forms.EventForm;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -132,29 +130,7 @@ public class Calendar implements Observer {
 		});
 		
 		JButton btnImport = new JButton("Import");
-		btnImport.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser file = new JFileChooser();
-				if(file.showDialog(frame, "Choose") == JFileChooser.APPROVE_OPTION) {
-					String tmpPath = file.getSelectedFile().getAbsolutePath();
-					
-					EventSet eS = models.EventManager.importEventSet(tmpPath);
-					
-					models.EventManager manager = currentUser.getUserProfile().getEvents();
-					
-					for(Event ev : eS)
-						manager.add(ev);
-					
-					
-					for(Event ev : currentUser.getUserProfile().getEvents().all())
-						System.out.println(ev);
-				
-					Organizer.getInstance().update();
-					Organizer.getInstance().notifyObservers();
-				}
-
-			}
-		});
+		btnImport.addActionListener(new ImportController(currentUser));
 		
 		JButton btnExport = new JButton("Export");
 		btnExport.addActionListener(new ActionListener() {

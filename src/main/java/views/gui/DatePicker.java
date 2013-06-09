@@ -46,7 +46,7 @@ public class DatePicker extends JFrame {
 		setResizable(false);
 		setContentPane(contentPane);
 		
-		jCalendar = new JCalendar(currentUser.getUserProfile().getState().getFirstDay());
+		jCalendar = new JCalendar(this.currentUser.getUserProfile().getState().getFirstDay());
 		JButton btnOk = new JButton("OK");
 		datePickerController.setUp(jCalendar,this);
 		btnOk.addActionListener(datePickerController);
