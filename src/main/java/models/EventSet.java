@@ -10,6 +10,9 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashSet;
 
+/** A set of events.
+ * @see HashSet
+ */
 public class EventSet extends HashSet<Event> {
 	private static final long serialVersionUID = 5541922632969721520L;
 	
@@ -23,6 +26,9 @@ public class EventSet extends HashSet<Event> {
         this.eventManager = eventManager;
     }
     
+    /** This method returns this EventSet in a form of an sorted array.
+     * @return a sorted by starting points array of events in this EventSet.
+     */
     public Event[] getSortedArray(){
     	Event[] array = new Event[this.size()];
     	int it = 0;
@@ -64,6 +70,11 @@ public class EventSet extends HashSet<Event> {
         return ret;
     }
 
+    /** Returns a subset of this EventSet that overlaps with whole-day interval given by parameters.
+     * @param _startTime start of the interval(will be extended to the 00:00).
+     * @param _endTime end of the interval(will be extended to 23:59).
+     * @return A subset that overlaps with given interval.
+     */
     public EventSet overlapping(Calendar _startTime, Calendar _endTime) {
         EventSet ret = new EventSet(eventManager);
         Calendar startTime = (Calendar) _startTime.clone();
@@ -86,6 +97,10 @@ public class EventSet extends HashSet<Event> {
         return ret;
     }
     
+    /** Exports this EventSet to a given location to a file of a given name.
+     * @param exportPath external path.
+     * @param name destination file.
+     */
     public void exportEventSet(String exportPath, String name){
     	try {
     		String filename = exportPath + "/" + name;
