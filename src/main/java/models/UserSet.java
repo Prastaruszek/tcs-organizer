@@ -3,7 +3,7 @@ package models;
 import java.util.HashSet;
 import java.util.Vector;
 
-/** This class is designed to store instances of {@link User User} class.
+/** A set which stores instances of {@link User User} class.
  */
 public class UserSet extends HashSet<User> {
 	private static final long serialVersionUID = 3451957181511705129L;
@@ -27,9 +27,9 @@ public class UserSet extends HashSet<User> {
         return ret;
     }
     
-    /** Returns the user with a given username.
-     * @param username string representing username.
-     * @return user with a given username, null if there is no such user in this user set.
+    /** Returns user with a given username.
+     * @param username string representing the username.
+     * @return user with the given username, null if there is no such user in this user set.
      */
     public User getByUsername(String username){
     	User res = null;

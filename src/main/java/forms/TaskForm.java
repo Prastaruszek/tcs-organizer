@@ -26,7 +26,9 @@ public final class TaskForm extends ModelForm<Task> {
     @Override
     public boolean isValid() {
         clean();
-
+        if ( title == null ) {
+            return false;
+        }
         if ( comment == null )
             return false;
 
@@ -68,6 +70,7 @@ public final class TaskForm extends ModelForm<Task> {
                     priority,
                     resources
             ));
+            getInstance().setTitle(title);
         }
         super.save();
         if( !isCreate ){
