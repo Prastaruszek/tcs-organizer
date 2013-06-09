@@ -17,7 +17,7 @@ import java.util.List;
 public class JEventDisplay extends JComponent implements Scrollable{
 
 	/**
-	 * 
+	 *  Component for displaying events during a week.
 	 */
 	private static final long serialVersionUID = -6850617078923766896L;
 
@@ -28,6 +28,9 @@ public class JEventDisplay extends JComponent implements Scrollable{
 	String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	Iterable<EventRectangle> events = new LinkedList<>();
 	List<ActionListener> actionListeners = new LinkedList<>();
+    /**
+     *  Creates component.
+     */
 	public JEventDisplay() {
 		// tooltip instant display
 		addMouseListener(new MouseAdapter() {
@@ -60,15 +63,31 @@ public class JEventDisplay extends JComponent implements Scrollable{
 		});
 		
 	}
+
+    /**
+     * Adds action listener. This components returns actions when somebody clicks on event.
+     * @param listener
+     */
 	public void addActionListener(ActionListener listener){
 		actionListeners.add(listener);
 	}
+
+    /**
+     * Returns currently shown events.
+     * @return events
+     */
 	public Iterable<Event> getEvents() {
 		List<Event> ret = new LinkedList<>();
 		for(EventRectangle eventRectangle : events)
 			ret.add(eventRectangle.getEvent());
 		return ret;
 	}
+
+    /**
+     * Sets current events.
+     * @param events should be overlapping with current week
+     * @param mondayDate sets first day of current week
+     */
 	public void setEvents(Iterable<Event> events,Calendar mondayDate) {
 		List<EventRectangle> tmp = new LinkedList<>();
 		for(Event event : events)
@@ -162,6 +181,12 @@ public class JEventDisplay extends JComponent implements Scrollable{
 				width, height,
 				arcWidth, arcHeight);
 	}
+
+    /**
+     * Returns tooltip text.
+     * @param event mouse click.
+     * @return
+     */
 	@Override
 	public String getToolTipText(MouseEvent event) {
 		String ret = "";
@@ -173,7 +198,12 @@ public class JEventDisplay extends JComponent implements Scrollable{
 		}
 		return ret;
 	}
-	
+
+    /**
+     * Returns tooltip location.
+     * @param event
+     * @return location
+     */
 	@Override
 	public Point getToolTipLocation(MouseEvent event) {
 		if(!getToolTipText(event).equals(""))
@@ -181,21 +211,47 @@ public class JEventDisplay extends JComponent implements Scrollable{
 		else return new Point(-10000,-10000);
 	}
 
+    /**
+     * Method name tells everything.
+     * @return dimensions
+     */
     @Override
     public Dimension getPreferredScrollableViewportSize() {
         return new Dimension(1000,800);
     }
 
+    /**
+     * Preffered size for this component.
+     * @return dimensions
+     */
     @Override
     public Dimension getPreferredSize() {
+        /**
+         * Constants numbers in maximums are minimum width and height for this component.
+         * When component width/height is bigger components starts to scale instead of scrolling.
+         */
         return new Dimension(Math.max(getParent().getWidth(),600),Math.max(getParent().getHeight(), 500));
     }
 
+    /**
+     * Speed of scroll. Always returns 7 because its width of character.
+     * @param rectangle viewport
+     * @param orientation horizontal or vertical, use SwingConstants.HORIZONTAL or VERITCAL
+     * @param direction of scroll
+     * @return 7 is good enought
+     */
     @Override
     public int getScrollableUnitIncrement(Rectangle rectangle, int orientation, int direction) {
         return 7;
     }
 
+    /**
+     * Defines what happens if we use block increment on scroll. It should jump to the max value of scroll.
+     * @param rectangle viewport
+     * @param orientation horizontal or vertical, use SwingConstants.HORIZONTAL or VERITCAL
+     * @param direction of scroll
+     * @return width or height of rectangle
+     */
     @Override
     public int getScrollableBlockIncrement(Rectangle rectangle, int orientation, int direction) {
         if( orientation == SwingConstants.HORIZONTAL ){
@@ -206,16 +262,27 @@ public class JEventDisplay extends JComponent implements Scrollable{
         }
     }
 
+    /**
+     * Always returns false.
+     * @return false
+     */
     @Override
     public boolean getScrollableTracksViewportWidth() {
         return false;
     }
 
+    /**
+     * look at getScrollableTracksViewportWidth
+     * @return false
+     */
     @Override
     public boolean getScrollableTracksViewportHeight() {
         return false;
     }
 
+    /**
+     * Inner class for managing rectangles representing events.
+     */
     private class EventRectangle {
         private Event event;
 
@@ -260,6 +327,13 @@ public class JEventDisplay extends JComponent implements Scrollable{
             this.endTime = event.getEndTime();
             this.color = event.getColor();
 		}
+
+        /**
+         * Draws rectangle.
+         * @param colWidth width of column
+         * @param rowHeight height of row
+         * @param g graphics used to draw rectangle.
+         */
 		public void draw(int colWidth, int rowHeight,Graphics g){
             if(getStartTime().before(mondayDate)){
                 startTime = (Calendar) mondayDate.clone();
@@ -332,6 +406,12 @@ public class JEventDisplay extends JComponent implements Scrollable{
 				g.drawString(eventTitleShrinked, x + arcWidth/2, y + (g.getFontMetrics().getHeight()*2)/3);
 			}
 		}
+
+        /**
+         * Checks if the point is inside rectangle. Used by tooltips and actions.
+         * @param point
+         * @return true if point is in rectangle
+         */
 		public boolean contains(Point point){
 			for(Rectangle rectangle : rectangles){
 				if(rectangle.contains(point))
