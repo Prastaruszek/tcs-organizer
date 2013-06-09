@@ -7,6 +7,7 @@ import views.gui.EventManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -31,6 +32,10 @@ public class EventManagerController extends Controller {
         else
             group = eventManager.getEvent().getParent();
         List<EventForm> forms = new LinkedList <>();
+        
+        for(ResourceFile f : eventManager.getRemovedList())
+        	f.removeFromResourcesDirectory();
+        
         if(!eventManager.isRepeating()){
             EventForm form = new EventForm(eventManager.getEvent(), profile);
             form.setStartTime(eventManager.getStartCalendar());
@@ -80,9 +85,12 @@ public class EventManagerController extends Controller {
                 failForm = form;
                 event = form.save();
                 events.add(event);
+                new File(profile.getPath()+event.getRandom()).mkdirs();
                 for(Resource resource : event.getResources()){
-                     if(resource instanceof ResourceFile)
+                     if(resource instanceof ResourceFile) {
+                    	 ((ResourceFile)resource).appendPath(event.getRandom());
                          ((ResourceFile)resource).copyToResourcesDirectory();
+                     }
                 }
             }
             eventManager.dispose();

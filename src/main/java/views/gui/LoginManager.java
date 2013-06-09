@@ -48,7 +48,7 @@ public class LoginManager extends JFrame {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 250);
 		setResizable(false);
-		setTitle("User manager");
+		setTitle("Login");
 		contentPane = new JTabbedPane();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
