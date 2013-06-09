@@ -14,6 +14,7 @@ public class Event implements Serializable {
     private Calendar endTime;
     private UserProfile profile;
     private EventPriority priority;
+    private String title;
 
     private List<Resource> resources;
 
@@ -21,6 +22,7 @@ public class Event implements Serializable {
                  Calendar endTime, UserProfile profile, EventPriority priority, List<Resource> resources) {
         this.profile = profile;
         this.parent = parent;
+        this.title = parent.getTitle();
         this.comment = comment;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -78,7 +80,11 @@ public class Event implements Serializable {
     }
 
     public String getTitle() {
-        return this.parent.getTitle();
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
     
     public void setProfile(UserProfile profile) {

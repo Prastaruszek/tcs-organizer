@@ -7,6 +7,7 @@ import java.util.List;
 
 public final class EventForm extends ModelForm<Event> {
     private EventGroup parent;
+    private String title;
     private String comment;
     private Calendar startTime;
     private Calendar endTime;
@@ -45,7 +46,7 @@ public final class EventForm extends ModelForm<Event> {
             valid = false;
         }
 
-        if ( parent.getTitle().isEmpty()) {
+        if ( title.isEmpty()) {
             this.getErrors().appendError("Title", "Cannot be empty");
         	valid = false;
         }
@@ -120,6 +121,8 @@ public final class EventForm extends ModelForm<Event> {
         } else {
             instance.setEndTime(endTime);
             instance.setStartTime(startTime);
+            instance.setTitle(title);
+            instance.setComment(comment);
             instance.setResources(resources);
             instance.setPriority(priority);
         }
@@ -132,6 +135,11 @@ public final class EventForm extends ModelForm<Event> {
 
     public void setStartTime(Calendar startTime) {
         this.startTime = startTime;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+
     }
 
     public void setComment(String comment) {
