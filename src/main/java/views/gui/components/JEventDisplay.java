@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JEventDisplay extends JComponent{
+public class JEventDisplay extends JComponent implements Scrollable{
 
 	/**
 	 * 
@@ -180,8 +180,43 @@ public class JEventDisplay extends JComponent{
 			return null;
 		else return new Point(-10000,-10000);
 	}
-	
-	private class EventRectangle {
+
+    @Override
+    public Dimension getPreferredScrollableViewportSize() {
+        return new Dimension(1000,800);
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(Math.max(getParent().getWidth(),600),Math.max(getParent().getHeight(), 500));
+    }
+
+    @Override
+    public int getScrollableUnitIncrement(Rectangle rectangle, int orientation, int direction) {
+        return 7;
+    }
+
+    @Override
+    public int getScrollableBlockIncrement(Rectangle rectangle, int orientation, int direction) {
+        if( orientation == SwingConstants.HORIZONTAL ){
+            return rectangle.width;
+        }
+        else {
+            return rectangle.height;
+        }
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportWidth() {
+        return false;
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportHeight() {
+        return false;
+    }
+
+    private class EventRectangle {
         private Event event;
 
         private Calendar getStartTime() {
