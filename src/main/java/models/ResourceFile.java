@@ -17,7 +17,7 @@ public class ResourceFile extends Model implements Resource, Serializable {
 	private static final long serialVersionUID = 2660584783146068707L;
 	private File file;
 	private String filesPath;
-	private boolean appended;
+	private String appendedPath;
 	
     @Override
     public void open() {
@@ -32,7 +32,7 @@ public class ResourceFile extends Model implements Resource, Serializable {
         try {
             InputStream in = new FileInputStream(file);
             OutputStream out;
-            File outDirectory = new File(filesPath);
+            File outDirectory = new File(filesPath + appendedPath);
             if(!outDirectory.exists())
                 outDirectory.mkdirs();
             out = new FileOutputStream(outDirectory.getPath()+"/"+file.getName());
@@ -46,7 +46,7 @@ public class ResourceFile extends Model implements Resource, Serializable {
             }
             in.close();
             out.close();
-            file = new File(filesPath+"/"+file.getName());
+            file = new File(filesPath+appendedPath+"/"+file.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,21 +63,24 @@ public class ResourceFile extends Model implements Resource, Serializable {
     public ResourceFile(File file, String path){
         this.file=file;
         this.filesPath = path;
-        this.appended = false;
+        this.appendedPath = "";
+    }
+    
+    public ResourceFile(ResourceFile r) {
+    	this.file = new File(r.file.getAbsolutePath());
+    	this.filesPath = new String(r.filesPath);
+    	this.appendedPath = "";
     }
 
     public String getPath() {
     	return file.getPath();
     }
     
-    /** Appends newPath (random event seed) to path, does it only once.
+    /** Appends newPath (random event seed) to path.
      * @param newPath
      */
     public void appendPath(String newPath) {
-    	if(!appended) {
-    		this.filesPath += newPath;
-    		appended = true;
-    	}
+    	this.appendedPath = "/" + newPath;
     }
     
     
@@ -85,7 +88,7 @@ public class ResourceFile extends Model implements Resource, Serializable {
      * @return String with full path name (data_folder/random_event_seed)
      */
     public String getFullPath() {
-    	return filesPath;
+    	return filesPath + appendedPath;
     }
     
     @Override
