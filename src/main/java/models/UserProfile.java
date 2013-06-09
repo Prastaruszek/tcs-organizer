@@ -5,7 +5,7 @@ import views.gui.Calendar;
 import java.awt.Color;
 import java.io.Serializable;
 
-/** This class stores unique properties and management tools for a particular user.
+/** Instances of this class store unique properties and management tools for a particular user.
  */
 public class UserProfile extends Model implements Serializable{
 	
@@ -71,8 +71,8 @@ public class UserProfile extends Model implements Serializable{
         return user;
     }
     
-    /** Sets path to folder where user items will be stored.
-     * @param newPath string representing path.
+    /** Sets path to the folder where user items will be stored.
+     * @param newPath string representing the path.
      */
     public void setPath(String newPath) {
     	this.filesPath = newPath;
@@ -93,7 +93,7 @@ public class UserProfile extends Model implements Serializable{
     }
     
     /** Sets user icon path.
-     * @param path string representing icon path.
+     * @param path string representing the icon path.
      */
     public void setIconPath(String path) {
     	this.iconPath = path;
