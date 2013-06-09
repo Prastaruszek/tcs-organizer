@@ -5,12 +5,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/**
- * Created with IntelliJ IDEA.
- * User: laiq
- * Date: 5/28/13
- * Time: 12:44 AM
- * To change this template use File | Settings | File Templates.
+/** An object representing a file. This class implements Resource interface.
+ * @see Resource
  */
 public class ResourceFile extends Model implements Resource, Serializable {
 
@@ -19,6 +15,8 @@ public class ResourceFile extends Model implements Resource, Serializable {
 	private String filesPath;
 	private String appendedPath;
 	
+	/** Opens the file represented by this object.
+	 */
     @Override
     public void open() {
         try {
@@ -28,6 +26,10 @@ public class ResourceFile extends Model implements Resource, Serializable {
         }
     }
     
+    /** Copies the file represented by this object to resources directory.
+     * <b>Important:</b> after successful copying this object represents
+     * the copied file with changed path.
+	 */
     public void copyToResourcesDirectory(){
         try {
             InputStream in = new FileInputStream(file);
@@ -52,6 +54,8 @@ public class ResourceFile extends Model implements Resource, Serializable {
         }
     }
     
+    /** Removes the file represented by this object from resources directory.
+	 */
     public void removeFromResourcesDirectory() {
     	try {
 			Files.deleteIfExists(Paths.get(filesPath+appendedPath+"/"+file.getName()));
@@ -60,37 +64,50 @@ public class ResourceFile extends Model implements Resource, Serializable {
 		}
     }
     
+    /** Constructs a new ResourceFile representing a given file.
+     * @param file original file.
+     * @param path copy destination folder.
+     */
     public ResourceFile(File file, String path){
         this.file=file;
         this.filesPath = path;
         this.appendedPath = "";
     }
     
+    /** Constructs a new ResourceFile which is a copy of a given ResourceFile.
+     * @param r the given ResourceFile.
+     */
     public ResourceFile(ResourceFile r) {
     	this.file = new File(r.file.getAbsolutePath());
     	this.filesPath = new String(r.filesPath);
     	this.appendedPath = "";
     }
 
+    /** Returns path to the file representing by this object.
+     * @return path to the file representing by this object.
+     */
     public String getPath() {
     	return file.getPath();
     }
     
     /** Appends newPath (random event seed) to path.
-     * @param newPath
+     * @param newPath string to be appended.
      */
     public void appendPath(String newPath) {
     	this.appendedPath = "/" + newPath;
     }
     
     
-    /**
-     * @return String with full path name (data_folder/random_event_seed)
+    /** Returns String with full path name.
+     * @return String with full path name (data_folder/random_event_seed).
      */
     public String getFullPath() {
     	return filesPath + appendedPath;
     }
     
+    /** Returns file name representing by this object.
+     * @return file name representing by this object.
+     */
     @Override
     public String toString() {
         return file.getName();
