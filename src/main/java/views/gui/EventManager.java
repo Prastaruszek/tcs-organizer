@@ -20,6 +20,7 @@ import models.EventGroup;
 import models.EventPriority;
 import models.Organizer;
 import models.Resource;
+import models.ResourceFile;
 import models.User;
 import controllers.DatePickerController;
 import utils.DateUtils;
@@ -43,6 +44,7 @@ public class EventManager extends JFrame {
     private User currentUser;
     private JList<Resource> list = null;
     private Event event = null;
+    private LinkedList<ResourceFile> removeList;
 
 
     public JCheckBox getChckbxSun() {
@@ -105,6 +107,9 @@ public class EventManager extends JFrame {
             startCalendar = event.getStartTime();
             this.event = event;
         }
+        
+        removeList = new LinkedList<>();
+        
         dateUntilCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
         setResizable(false);
 		setBounds(100, 100, 397, 529);
@@ -224,6 +229,8 @@ public class EventManager extends JFrame {
         btnRemoveresource.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+            	if(list.getSelectedValue() instanceof ResourceFile)
+            		removeList.add(((ResourceFile)list.getSelectedValue()));
                 ((DefaultListModel<Resource>)list.getModel()).removeElement(list.getSelectedValue());
             }
         });
@@ -572,5 +579,9 @@ public class EventManager extends JFrame {
     public boolean isRepeating(){
         return isMondayRepeat()||isTuesdayRepeat()||isWednesdayRepeat()
                 ||isThursdayRepeat()||isFridayRepeat()||isSaturdayRepeat()||isSundayRepeat();
+    }
+    
+    public LinkedList<ResourceFile> getRemovedList() {
+    	return removeList;
     }
 }

@@ -35,6 +35,10 @@ public class Calendar implements Observer {
 	private JLabel lblUserPic;
 	private JLabel lblVelocity;
     private User currentUser;
+    /**
+     * @wbp.nonvisual location=243,569
+     */
+    private final Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
 	
     public JEventDisplay getEventDisplay() {
 		return eventDisplay;
@@ -60,21 +64,18 @@ public class Calendar implements Observer {
 		
 		Organizer.getInstance();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 550);
+		frame.setBounds(100, 100, 819, 568);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+<<<<<<< HEAD
 		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
 		frame.setTitle("This is your Calendar - " + currentUser.getUsername());
+=======
+		frame.setMinimumSize(new Dimension(600, 400));
+		
+>>>>>>> 6be7442a6da33983ab8be4cf70f6bb2cfb1be861
 		JPanel panel = new JPanel();
 		
 		JPanel panel_2 = new JPanel();
-		
-		eventDisplay = new JEventDisplay();
-		eventDisplay.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new EventDetails((Event) arg0.getSource()).setVisible(true);
-			}
-		});
-		eventDisplay.setToolTipText("");
 		
 		lblUserPic = new JLabel("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" /></html>");
 		
@@ -86,18 +87,20 @@ public class Calendar implements Observer {
 		lblUsername = new JLabel(currentUser.getUsername());
 		
 		JPanel panel_1 = new JPanel();
+		
+		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
 					.addGap(6))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addComponent(eventDisplay, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -107,13 +110,27 @@ public class Calendar implements Observer {
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(panel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(1)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-							.addGap(11))
-						.addComponent(eventDisplay, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
+							.addGap(1)
+							.addComponent(panel_1, 0, 0, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)))
+					.addContainerGap())
 		);
+		
+		eventDisplay = new JEventDisplay();
+		eventDisplay.setSize(800, 600);
+		scrollPane.setViewportView(eventDisplay);
+		eventDisplay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new EventDetails((Event) arg0.getSource()).setVisible(true);
+			}
+		});
+		eventDisplay.setToolTipText("");
+		
+		CalendarController calendarController = new CalendarController(eventDisplay);
 		
 		JButton btnAddEvent = new JButton("Add Event");
 		btnAddEvent.addActionListener(new ActionListener() {
@@ -221,7 +238,6 @@ public class Calendar implements Observer {
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new WeekPickerNextController());
 		panel.add(btnNext);
-		CalendarController calendarController = new CalendarController(eventDisplay);
 		Organizer.getInstance().addObserver(calendarController);
 		
 		frame.addWindowListener(new WindowAdapter() {
