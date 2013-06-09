@@ -4,6 +4,7 @@ import controllers.EventDetailsController;
 import models.Event;
 import models.Organizer;
 import models.Resource;
+import models.Task;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
@@ -31,7 +32,7 @@ public class EventDetails extends JFrame {
 	private JLabel lblEventEnd;
 	private JSplitPane infoPane;
 	private JTextArea txtrEventComment;
-	private JList<Resource> resourceList;
+	private JList<Task> tasksList;
 	/**
 	 * Launch the application.
 	 */
@@ -110,68 +111,68 @@ public class EventDetails extends JFrame {
 		JScrollPane commentHolder = new JScrollPane(txtrEventComment);
 		infoPane.add(commentHolder);
 		
-		resourceList = new JList<>();
-		resourceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		resourceList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent arg0) {
-				if(resourceList.getSelectedValue() == null)
-					return;
-				resourceList.getSelectedValue().open();
-				resourceList.clearSelection();
-			}
-		});
-		JScrollPane resourceHolder = new JScrollPane(resourceList);
+		tasksList = new JList<>();
+		tasksList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tasksList.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent arg0) {
+                if (tasksList.getSelectedValue() == null)
+                    return;
+                new TaskDetails(tasksList.getSelectedValue(), event, tasksList).setVisible(true);
+                tasksList.clearSelection();
+            }
+        });
+		JScrollPane resourceHolder = new JScrollPane(tasksList);
 		infoPane.add(resourceHolder);
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(12)
-					.addComponent(lblPriority, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblFrom)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblEventStart)
-							.addGap(18)
-							.addComponent(lblTo)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblEventEnd)
-							.addContainerGap(182, Short.MAX_VALUE))
-						.addComponent(txtrEventTitle)))
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblComment)
-					.addContainerGap(407, Short.MAX_VALUE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(infoPane, GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
-					.addContainerGap())
-		);
+                gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                                .addGap(12)
+                                .addComponent(lblPriority, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                                .addGap(18)
+                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+                                        .addGroup(gl_contentPane.createSequentialGroup()
+                                                .addComponent(lblFrom)
+                                                .addPreferredGap(ComponentPlacement.RELATED)
+                                                .addComponent(lblEventStart)
+                                                .addGap(18)
+                                                .addComponent(lblTo)
+                                                .addPreferredGap(ComponentPlacement.RELATED)
+                                                .addComponent(lblEventEnd)
+                                                .addContainerGap(182, Short.MAX_VALUE))
+                                        .addComponent(txtrEventTitle)))
+                        .addComponent(panel, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblComment)
+                                .addContainerGap(407, Short.MAX_VALUE))
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(infoPane, GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                                .addContainerGap())
+        );
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblPriority, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(txtrEventTitle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblFrom)
-								.addComponent(lblEventStart)
-								.addComponent(lblTo)
-								.addComponent(lblEventEnd))))
-					.addGap(18)
-					.addComponent(lblComment)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(infoPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-		);
+                gl_contentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(gl_contentPane.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+                                        .addComponent(lblPriority, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(gl_contentPane.createSequentialGroup()
+                                                .addComponent(txtrEventTitle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+                                                        .addComponent(lblFrom)
+                                                        .addComponent(lblEventStart)
+                                                        .addComponent(lblTo)
+                                                        .addComponent(lblEventEnd))))
+                                .addGap(18)
+                                .addComponent(lblComment)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(infoPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(panel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
+        );
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnEdit = new JButton("Edit");
@@ -197,10 +198,10 @@ public class EventDetails extends JFrame {
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
 		panel.add(btnClose);
 		contentPane.setLayout(gl_contentPane);
 
@@ -212,17 +213,17 @@ public class EventDetails extends JFrame {
         txtrEventComment.setCaretPosition(0);
         lblPriority.setBackground(event.getColor());
         lblPriority.setText(event.getRomanPriority());
-        DefaultListModel<Resource> listModel = new DefaultListModel<>();
-        for(Resource resource : event.getResources())
-            listModel.addElement(resource);
-        resourceList.setModel(listModel);
+        DefaultListModel<Task> listModel = new DefaultListModel<>();
+        for(Task task : event.getTasks())
+            listModel.addElement(task);
+        tasksList.setModel(listModel);
         setVisible(true);
 	}
 	
 	public Event getEvent() {
 		return event;
 	}
-	public JList<Resource> getResourceList() {
-		return resourceList;
+	public JList<Task> getTasksList() {
+		return tasksList;
 	}
 }

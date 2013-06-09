@@ -95,9 +95,7 @@ public class Task implements Serializable{
 	}
     
 	public String toString(){
-		String res = "UnbindedEvent[";
-		res += durationInMinutes;
-		res += "]";
+		String res = title + ", duration " + durationInMinutes + " minutes, resources: "+resources.size();
 		return res;
 	}
 
