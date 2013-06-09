@@ -34,6 +34,35 @@ public class EventManager implements Serializable{
 		events.remove(e);
 	}
 	
+	public EventSet addSet(EventSet newEvents){
+		EventSet leftovers = new EventSet();
+		
+		Event[] currSet = events.getSortedArray(),
+				newSet = newEvents.getSortedArray();
+		
+		for(int i = 0, j = 0; i < newSet.length ; ++i){
+			while(	j < currSet.length - 1 && 
+					currSet[j+1].getStartTime().getTimeInMillis() <= 
+					newSet[i].getStartTime().getTimeInMillis())
+				j++;
+			if(j == currSet.length - 1){
+				if(newSet[i].overlaps(currSet[j].getStartTime(), currSet[j].getEndTime()))
+					leftovers.add(newSet[i]);
+				else
+					this.add(newSet[i]);
+			}
+			else{
+				if(newSet[i].overlaps(currSet[j].getStartTime(), currSet[j].getEndTime())
+						|| newSet[i].overlaps(currSet[j+1].getStartTime(), currSet[j+1].getEndTime()))
+					leftovers.add(newSet[i]);
+				else
+					this.add(newSet[i]);
+			}
+		}
+		
+		return leftovers;
+	}
+	
 	public static EventSet importEventSet(String filename){
     	EventSet res = null;
     	try {

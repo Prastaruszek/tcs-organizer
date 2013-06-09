@@ -19,21 +19,26 @@ public class ImportController implements ActionListener {
 		this.currentUser = currentUser;
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent X) {
 		JFileChooser file = new JFileChooser();
 		if(file.showDialog(null, "Choose") == JFileChooser.APPROVE_OPTION) {
 			String tmpPath = file.getSelectedFile().getAbsolutePath();
 			
-			EventSet eS = models.EventManager.importEventSet(tmpPath);
+			EventSet newEvents = models.EventManager.importEventSet(tmpPath);
+			
 			
 			models.EventManager manager = currentUser.getUserProfile().getEvents();
-			for(Event ev : eS){
+			
+			for(Event ev : newEvents)
 				ev.setProfile(currentUser.getUserProfile());
-				manager.add(ev);
-			}
+			
+			EventSet leftover = manager.addSet(newEvents);
+			
+			if(leftover!=null && leftover.size() > 0)
+				System.out.println("eureka");
 			
 			
-			for(Event ev : currentUser.getUserProfile().getEvents().all())
+			for(Event ev : leftover)
 				System.out.println(ev);
 		
 			Organizer.getInstance().update();
