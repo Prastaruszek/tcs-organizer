@@ -35,61 +35,106 @@ public class Task implements Serializable{
         this.resources = event.getResources();
 	}
     
+	/** Sets the duration for the task
+	 * @param durationInMinutes
+	 */
 	public void setDuration(int durationInMinutes){
 		this.durationInMinutes = durationInMinutes;
     }
     
+	/** Returns duration of the current task in minutes
+	 * @return durationInMinutes
+	 */
 	public int getDuration(){
 		return durationInMinutes;
 	}
 
+	/** Returns priority of the current task as an int
+	 * @return priority
+	 */
 	public int getPriority() {
 		return priority.getPriority();
 	}
     
+	/** Returns the priority of the current task as EventPriority object
+	 * @return priority
+	 */
 	public EventPriority getPriorityObject() {
 		return priority;
 	}
     
+	/** Returns the priority of the task as a roman numeral
+	 * @return priority
+	 */
 	public String getRomanPriority() {
 		return priority.getRomanPriority();
 	}
     
+	/** Sets the priority of the current task (influences color)
+	 * @param priority
+	 */
 	public void setPriority(EventPriority priority) {
 		this.priority = priority;
 	}
     
+	/** Returns color with which should this task be drawn
+	 * @return Color
+	 */
 	public Color getColor() {
 		return priority.getColor(profile);
 	}
     
+	/** Returns the comment for the task
+	 * @return comment
+	 */
 	public String getComment() {
 		return comment;
 	}
 
+	/** Sets the comment for the task
+	 * @param comment
+	 */
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
+	/**	 Returns the title of the current task
+	 * @return title
+	 */
 	public String getTitle() {
 		return this.title;
 	}
 
+    /** Sets title of the current task
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
+	/** Returns the profile related with the current task
+	 * @return profile
+	 */
 	public UserProfile getProfile() {
 		return profile;
 	}
 
+	/** Returns the parent (EventGroup) of the current task
+	 * @return parent
+	 */
 	public EventGroup getParent() {
 		return parent;
 	}
 
+	/** Returns List of resources related with the current tast
+	 * @return resources
+	 */
 	public List<Resource> getResources() {
         return resources;
 	}
 
+	/**	 Sets List of resources related with the current task
+	 * @param resources
+	 */
 	public void setResources(List<Resource> resources) {
 		this.resources = resources;
 	}
