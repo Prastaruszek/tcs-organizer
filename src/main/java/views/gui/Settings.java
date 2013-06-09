@@ -62,10 +62,11 @@ public class Settings extends JFrame {
 		setResizable(false);
         this.currentUser = currentUser;
         editVelocity = new JTextField();
+        editVelocity.setToolTipText("Unused. Wait for next version.");
         editVelocity.setColumns(10);
 		setTitle("Settings");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 453, 265);
+		setBounds(100, 100, 466, 292);
 		setMinimumSize(new Dimension(getWidth(), getHeight()));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -95,8 +96,10 @@ public class Settings extends JFrame {
 		JPanel panel = new JPanel();
 		
 		JLabel lblVelocity = new JLabel("Velocity:");
+		lblVelocity.setToolTipText("Unused. Wait for next version.");
 		
         JLabel folderLabel = new JLabel("Data folder:");
+        folderLabel.setToolTipText("Data folder stores all event resources.");
 		
 		editVelocity.setText(currentUser.getUserProfile().getVelocity().toString());
 		
@@ -105,7 +108,7 @@ public class Settings extends JFrame {
         lblIcon = new JLabel("<html><img src=\"file:" + new File(Calendar.DEFAULT_USER_ICON)+"\" width=70 height=70 /></html>");
         if(icon.canRead())
 			lblIcon = new JLabel("<html><img src=\"file:"+icon+"\" width=70 height=70 /></html>");
-		
+        lblIcon.setToolTipText("Click to change user picture.");
 		JLabel colorLabel = new JLabel("Color:");
 		
 		modColors = new Color[5];
@@ -162,12 +165,14 @@ public class Settings extends JFrame {
 		});
 		colorBox.setSelectedIndex(0);
 		
+		JLabel lblPriority = new JLabel("priority");
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(folderLabel)
@@ -182,14 +187,16 @@ public class Settings extends JFrame {
 											.addComponent(colorButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 											.addGap(18)
 											.addComponent(colorBox, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)))
-									.addPreferredGap(ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblPriority, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addComponent(lblIcon)
 									.addGap(42))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
 									.addContainerGap())))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
 							.addContainerGap())))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -202,7 +209,8 @@ public class Settings extends JFrame {
 								.addComponent(lblIcon, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
 								.addComponent(colorLabel)
 								.addComponent(colorButton)
-								.addComponent(colorBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(colorBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPriority))
 							.addGap(40))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(29)
