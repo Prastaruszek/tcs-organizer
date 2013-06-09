@@ -52,6 +52,7 @@ public class EventDetails extends JFrame {
 	 * Create the frame.
 	 */
 	public EventDetails(Event _event ) {
+		setTitle("Details");
         this.event = _event;
 		setBounds(100, 100, 500, 360);
 		setMinimumSize(new Dimension(getWidth(), getHeight()));

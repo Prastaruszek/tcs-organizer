@@ -39,7 +39,7 @@ public class ImportController implements ActionListener {
 			if(leftover!=null && leftover.size() > 0)
 				System.out.println("leftover");
 			
-			//przyklad dzia³ania tej strategii : wynik w konsoli
+			//przyklad dzialania tej strategii : wynik w konsoli
 			AddStrategy AS = new FirstPossibleEvent();
 			for(Event ev : leftover){
 				System.out.println(ev + " AS prop> " + AS.getAddableEvent(new UnboundEvent(ev), manager, ev.getStartTime()));

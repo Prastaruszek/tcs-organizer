@@ -49,7 +49,7 @@ public class ExportManager extends JFrame {
 	
 	private ExportManager() {
 		
-		setName("Export Manager");
+		setTitle("Export your events to a file so that others can see how miserable is your life");
 		setBounds(100, 100, 400, 400);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -102,7 +102,7 @@ public class ExportManager extends JFrame {
 			eventView.add(box);
 		
 		if(checkboxes.isEmpty())
-			eventView.add(new JLabel("Nothing to do here"));
+			eventView.add(new JLabel("You have no events to export!"));
 		
 		JButton btnSelectAll = new JButton("Select all");
 		btnSelectAll.addActionListener(new ActionListener() {

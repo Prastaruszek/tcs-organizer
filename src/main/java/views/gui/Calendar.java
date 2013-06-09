@@ -63,7 +63,7 @@ public class Calendar implements Observer {
 		frame.setBounds(100, 100, 1000, 550);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
-		
+		frame.setTitle("This is your Calendar - " + currentUser.getUsername());
 		JPanel panel = new JPanel();
 		
 		JPanel panel_2 = new JPanel();

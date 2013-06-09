@@ -95,10 +95,12 @@ public class EventManager extends JFrame {
         // there is similar if at the end of the constructor because some values (calendars) had to be set before
         // creating components and some (text areas, list) after.
         if(event==null) {
+        	setTitle("Event creation zone");
             endCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
             startCalendar = Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay();
         }
         else {
+        	setTitle("Event edition zone");
             endCalendar = event.getEndTime();
             startCalendar = event.getStartTime();
             this.event = event;
