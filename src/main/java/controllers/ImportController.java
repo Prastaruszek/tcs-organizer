@@ -15,7 +15,7 @@ import models.Task;
 import models.User;
 
 
-public class ImportController implements ActionListener {
+public class ImportController extends Controller {
 	
 	private User currentUser;
 	

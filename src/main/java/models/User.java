@@ -6,6 +6,9 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/** A box for storing basic user data.
+ * The stored data are the username, the hashed password and the user profile.
+ */
 public class User extends Model implements Serializable{
 	
 	private static final long serialVersionUID = 7429787799167627798L;
@@ -29,10 +32,16 @@ public class User extends Model implements Serializable{
         return username;
     }
 
+    /** Returns user profile.
+     * @return user profile.
+     */
     public UserProfile getUserProfile() {
         return userProfile;
     }
 
+    /** Sets the user profile to a given one.
+     * @param profile profile to be set for this user.
+     */
     public void setUserProfile(UserProfile profile) {
         userProfile = profile;
     }
@@ -96,6 +105,11 @@ public class User extends Model implements Serializable{
 		return result;
 	}
 
+	/** Compares this user to the given object.
+	 * The result is true if and only if the argument is not null and is a User
+	 * object that represents a user with the same username and password.
+     * @param obj the object to compare this user to.
+     */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -118,6 +132,9 @@ public class User extends Model implements Serializable{
 		return true;
 	}
 	
+	/** Returns string representation of this user.
+     * @return string representation of this user.
+     */
 	public String toString(){
 		String res = "User[";
 		res += ("name:" + username + ", ");
