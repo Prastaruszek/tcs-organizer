@@ -24,7 +24,6 @@ import models.Resource;
 import models.ResourceFile;
 import models.User;
 import controllers.DatePickerController;
-import utils.DateUtils;
 import views.gui.components.LimitedDocument;
 
 public class EventManager extends JFrame {

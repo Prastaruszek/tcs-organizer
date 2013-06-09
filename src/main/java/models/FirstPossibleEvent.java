@@ -8,9 +8,9 @@ public class FirstPossibleEvent implements AddStrategy {
 	
 	@Override
 	public Event getAddableEvent(UnboundEvent event, EventManager manager,
-			 Calendar startTim) {
-		Calendar startTime = ((Calendar) startTim.clone()),
-					endTime = ((Calendar) startTim.clone());
+			 Calendar Tim) {
+		Calendar startTime = ((Calendar) Tim.clone()),
+					endTime = ((Calendar) Tim.clone());
 		endTime.add(Calendar.MINUTE, event.getDuration());
 		
 		Event[] currEvents = manager.all().getSortedArray();
@@ -45,7 +45,7 @@ public class FirstPossibleEvent implements AddStrategy {
 			}
 			else if(endTime.get(Calendar.HOUR_OF_DAY) > 22){
 				int offset = (60 - startTime.get(Calendar.MINUTE)) + 60* ( 8 + 23 - startTime.get(Calendar.HOUR_OF_DAY));
-				startTime.add(Calendar.MINUTE, offset);
+				startTime.add(Calendar.MINUTE, offset);	
 				endTime.add(Calendar.MINUTE, offset);
 			}
 			else

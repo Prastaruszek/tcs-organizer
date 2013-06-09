@@ -9,6 +9,7 @@ import models.AddStrategy;
 import models.Event;
 import models.EventSet;
 import models.FirstPossibleEvent;
+import models.LastPossibleEvent;
 import models.Organizer;
 import models.UnboundEvent;
 import models.User;
@@ -40,7 +41,7 @@ public class ImportController implements ActionListener {
 				System.out.println("leftover");
 			
 			//przyklad dzialania tej strategii : wynik w konsoli
-			AddStrategy AS = new FirstPossibleEvent();
+			AddStrategy AS = new LastPossibleEvent();
 			for(Event ev : leftover){
 				System.out.println(ev + " AS prop> " + AS.getAddableEvent(new UnboundEvent(ev), manager, ev.getStartTime()));
 			}
