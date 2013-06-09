@@ -65,7 +65,7 @@ public class DisplayState extends Model implements Serializable {
     /**
      * Returns
      *
-     * @return      EventSet containing events overlapping given week
+     * @return EventSet containing events overlapping given week
      */
     public String getRangeDisplay() {
         DateFormat d = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
@@ -74,10 +74,8 @@ public class DisplayState extends Model implements Serializable {
         return from + " to " + to;
     }
 
-    /**
-     * Returns events which belong to given week.
-     *
-     * @return      EventSet containing events overlapping given week
+    /** Returns events which belong to given week.
+     * @return EventSet containing events overlapping given week
      */
     public EventSet getCurrentWeekEvents(){
 		return Organizer.getInstance().getCurrentUser().getUserProfile().getEvents().overlapping(firstDay, lastDay);

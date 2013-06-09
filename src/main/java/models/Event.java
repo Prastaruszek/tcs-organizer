@@ -8,9 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-/**
+/** Implements whole Event model, used to store Tasks and locate them in time.
  * @author n3v
- *	Implements whole Event model, used to store Tasks and locate them in time
  */
 public class Event implements Serializable {
 	
