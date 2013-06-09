@@ -30,7 +30,7 @@ public class Event implements Serializable {
         this.resources = resources;
     }
     
-    public Event(UnbindedEvent event, Calendar sTime, Calendar eTime){
+    public Event(UnboundEvent event, Calendar sTime, Calendar eTime){
     	this(event.getParent(), event.getComment(), sTime, eTime, 
     			event.getProfile(), event.getPriorityObject(), event.getResources() );
     }
