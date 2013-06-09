@@ -1,13 +1,7 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
-import forms.EventForm;
 import forms.TaskForm;
 import forms.ValidationException;
 import models.*;
@@ -15,10 +9,16 @@ import views.gui.TaskManager;
 
 import javax.swing.*;
 
+/**
+ * Controller used to create new Task from user specific data
+ */
 public class TaskManagerController extends Controller {
 	protected TaskManager taskManager;
     private UserProfile profile;
 
+    /** Creates new Task from data specified by user
+     * @param taskManager
+     */
     public TaskManagerController(views.gui.TaskManager taskManager) {
 		super();
 		this.taskManager = taskManager;
@@ -27,7 +27,6 @@ public class TaskManagerController extends Controller {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-        Event event;
 
         for(ResourceFile f : taskManager.getRemovedList())
             f.removeFromResourcesDirectory();
