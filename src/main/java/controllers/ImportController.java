@@ -10,7 +10,7 @@ import models.Event;
 import models.EventSet;
 import models.FirstPossibleEvent;
 import models.Organizer;
-import models.UnboundEvent;
+import models.Task;
 import models.User;
 
 
@@ -42,7 +42,7 @@ public class ImportController implements ActionListener {
 			//przyklad dzialania tej strategii : wynik w konsoli
 			AddStrategy AS = new FirstPossibleEvent();
 			for(Event ev : leftover){
-				System.out.println(ev + " AS prop> " + AS.getAddableEvent(new UnboundEvent(ev), manager, ev.getStartTime()));
+				System.out.println(ev + " AS prop> " + AS.getAddableEvent(new Task(ev), manager, ev.getStartTime()));
 			}
 		
 			Organizer.getInstance().update();

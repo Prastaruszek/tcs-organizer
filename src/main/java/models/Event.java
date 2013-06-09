@@ -34,7 +34,7 @@ public class Event implements Serializable {
         this.random = String.valueOf(new Random().nextInt(10000000));
     }
     
-    public Event(UnboundEvent event, Calendar sTime, Calendar eTime){
+    public Event(Task event, Calendar sTime, Calendar eTime){
     	this(event.getParent(), event.getComment(), sTime, eTime, 
     			event.getProfile(), event.getPriorityObject(), event.getResources() );
     }

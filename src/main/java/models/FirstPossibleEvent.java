@@ -7,7 +7,7 @@ public class FirstPossibleEvent implements AddStrategy {
 	public FirstPossibleEvent() { }
 	
 	@Override
-	public Event getAddableEvent(UnboundEvent event, EventManager manager,
+	public Event getAddableEvent(Task event, EventManager manager,
 			 Calendar startTim) {
 		Calendar startTime = ((Calendar) startTim.clone()),
 					endTime = ((Calendar) startTim.clone());
