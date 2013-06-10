@@ -167,9 +167,9 @@ public final class EventForm extends ModelForm<Event> {
         }
         super.save();
         if ( isCreate ) {
-            EventManager manager = profile.getEvents();
+            EventHandler handler = profile.getEvents();
             getInstance().getParent().addEvent(getInstance());
-            manager.add(getInstance());
+            handler.add(getInstance());
         } else {
             instance.setEndTime(endTime);
             instance.setStartTime(startTime);

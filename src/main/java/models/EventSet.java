@@ -16,14 +16,14 @@ import java.util.HashSet;
 public class EventSet extends HashSet<Event> {
 	private static final long serialVersionUID = 5541922632969721520L;
 	
-	private final EventManager eventManager;
+	private final EventHandler eventHandler;
 
 	public EventSet(){
-		eventManager = null;
+		eventHandler = null;
 	}
 	
-    public EventSet(EventManager eventManager) {
-        this.eventManager = eventManager;
+    public EventSet(EventHandler eventHandler) {
+        this.eventHandler = eventHandler;
     }
     
     /** This method returns this EventSet in a form of an sorted array.
@@ -57,7 +57,7 @@ public class EventSet extends HashSet<Event> {
      * @return Set of Events.
      */
     public EventSet between(Calendar _startTime, Calendar _endTime) {
-        EventSet ret = new EventSet(eventManager);
+        EventSet ret = new EventSet(eventHandler);
         Calendar startTime = (Calendar) _startTime.clone();
         Calendar endTime = (Calendar) _endTime.clone();
         startTime.set(Calendar.HOUR_OF_DAY, 0);
@@ -76,7 +76,7 @@ public class EventSet extends HashSet<Event> {
      * @return A subset that overlaps with given interval.
      */
     public EventSet overlapping(Calendar _startTime, Calendar _endTime) {
-        EventSet ret = new EventSet(eventManager);
+        EventSet ret = new EventSet(eventHandler);
         Calendar startTime = (Calendar) _startTime.clone();
         Calendar endTime = (Calendar) _endTime.clone();
         startTime.set(Calendar.HOUR_OF_DAY, 0);
@@ -94,7 +94,7 @@ public class EventSet extends HashSet<Event> {
      * @return event set containing all events in this set.
      */
     public EventSet all() {
-        EventSet ret = new EventSet(eventManager);
+        EventSet ret = new EventSet(eventHandler);
         for ( Event e : this )
             ret.add(e);
         return ret;

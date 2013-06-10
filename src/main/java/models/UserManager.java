@@ -27,7 +27,7 @@ public class UserManager implements Serializable{
     public void initializeUser(String username, char[] rawPassword) {
     	User user = new User(username, rawPassword);
         DisplayState state = new DisplayState();
-        EventManager events = new EventManager();
+        EventHandler events = new EventHandler();
         UserProfile profile = new UserProfile(state, events, user);
         user.setUserProfile(profile);
         this.add(user);
