@@ -476,7 +476,7 @@ public class EventManager extends JFrame {
             endTimeBox.setSelectedItem(
                     (h<=9?"0":"")+h+":"+
                             (m<=9?"0":"")+m);
-        }
+        }	
 		setVisible(true);
 	}
 	public String getEventTitle() {
@@ -499,7 +499,7 @@ public class EventManager extends JFrame {
 			} catch(NumberFormatException exception){
 				return false;
 			}
-			if(h>=0&&h<=24&&m>=0&&m<=59)
+			if(h>=0&&h<=23&&m>=0&&m<=59)
 				return true;
 		}
 		return false;

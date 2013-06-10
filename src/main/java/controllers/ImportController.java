@@ -52,7 +52,7 @@ public class ImportController extends Controller {
 			if(leftover!=null && leftover.size() > 0)
 				System.out.println("leftover");
 			
-			ImportManager.getInstance(leftover, currentUser.getUserProfile().getEvents()).setVisible(true);
+			ImportManager.getInstance(leftover, currentUser).setVisible(true);
 		}
 
 	}

@@ -241,11 +241,24 @@ public class Event implements Serializable {
      * @return string representation of this event.
      */
     public String toString(){
-    	String res = "Event[";
-    	res += startTime.getTime();
-    	res += endTime.getTime();
-    	res += "]";
-    	return res;
+    	String startDate = new String(), endDate = new String();
+		Calendar tmp = this.getStartTime();
+		startDate += tmp.get(Calendar.HOUR_OF_DAY) + 
+				":" + ( (tmp.get(Calendar.MINUTE)<10 )?"0":"") + 
+				tmp.get(Calendar.MINUTE) +
+				" " +tmp.get(Calendar.DAY_OF_MONTH) + 
+				"." + (tmp.get(Calendar.MONTH)+1) + 
+				"." + tmp.get(Calendar.YEAR);
+		
+		tmp = this.getEndTime();
+		
+		endDate += tmp.get(Calendar.HOUR_OF_DAY) + 
+				":" + ( (tmp.get(Calendar.MINUTE)<10 )?"0":"") + 
+				tmp.get(Calendar.MINUTE) +
+				" " +tmp.get(Calendar.DAY_OF_MONTH) + 
+				"." + (tmp.get(Calendar.MONTH)+1) + 
+				"." + tmp.get(Calendar.YEAR);
+    	return this.getTitle() + "  Starts: " + startDate +  "  Ends: " + endDate;
     }
 
     /** Checks whether or not this Event overlaps with given time range 
