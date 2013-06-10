@@ -23,6 +23,11 @@ public final class TaskForm extends ModelForm<Task> {
         this.instance = instance;
     }
 
+    /**
+     * Validates task. Duration can not be 0 and title can not be empty.
+     * Title and comment should be null but this actually should never happen.
+     * @return boolean true if task is valid.
+     */
     @Override
     public boolean isValid() {
         clean();
