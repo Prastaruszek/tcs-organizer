@@ -86,17 +86,18 @@ public class EventTest {
         assertFalse(event.isBetween(after, before));
         assertFalse(event.overlaps(after, before));
 
+        // Creates no overlap for tangent events
         after = (Calendar) now.clone();
         before = (Calendar) event.getStartTime().clone();
         after.add(Calendar.DAY_OF_MONTH, -6);
         assertFalse(event.isBetween(after, before));
-        assertTrue(event.overlaps(after, before));
+        assertFalse(event.overlaps(after, before));
 
         after = (Calendar) event.getEndTime().clone();
         before = (Calendar) now.clone();
         before.add(Calendar.DAY_OF_MONTH, 6);
         assertFalse(event.isBetween(after, before));
-        assertTrue(event.overlaps(after, before));
+        assertFalse(event.overlaps(after, before));
 
         after = (Calendar) event.getEndTime().clone();
         after.add(Calendar.MILLISECOND, 1);
