@@ -5,6 +5,15 @@ import models.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * <code>TaskForm</code> is responsible for process of tasks
+ * creation. <code>instance</code> field is reference to Task
+ * associated with this form (in case its null new object is
+ * created).
+ *
+ * @author laiqu
+ * @see ModelForm
+ */
 public final class TaskForm extends ModelForm<Task> {
     private EventGroup parent;
     private String title;
@@ -21,6 +30,11 @@ public final class TaskForm extends ModelForm<Task> {
         this.instance = instance;
     }
 
+    /**
+     * Validates task. Duration can not be 0 and title can not be empty.
+     * Title and comment should be null but this actually should never happen.
+     * @return boolean true if task is valid.
+     */
     @Override
     public boolean isValid() {
         clean();

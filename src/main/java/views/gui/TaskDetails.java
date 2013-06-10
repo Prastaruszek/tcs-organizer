@@ -20,6 +20,18 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.text.SimpleDateFormat;
 
+/**
+ * <code>TaskDetails</code> creates window responsible for
+ * showing details of given task. It allows user to modify
+ * and/or remove task and view resources. This class is very
+ * similar to <code>EventDetails</code>
+ *
+ * @author laiqu
+ *
+ * @see Task
+ *
+ * @see EventDetails
+ */
 public class TaskDetails extends JFrame {
 
 	private static final long serialVersionUID = 4815288079833804727L;
@@ -205,19 +217,35 @@ public class TaskDetails extends JFrame {
         resourceList.setModel(listModel);
         setVisible(true);
 	}
-	
+
+    /**
+     * Returns displayed task.
+     * @return Task
+     */
 	public Task getTask() {
 		return task;
 	}
 
+    /**
+     * Returns event connected to this task.
+     * @return Event
+     */
     public Event getEvent() {
         return event;
     }
 
+    /**
+     * Returns JList of tasks from event details connected  to this task.
+     * @return JList
+     */
     public JList<Task> getTaskJList() {
         return taskJList;
     }
 
+    /**
+     * Returns JList of resources which displays resources of this task.
+     * @return JList
+     */
     public JList<Resource> getResourceList() {
 		return resourceList;
 	}

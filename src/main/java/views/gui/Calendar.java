@@ -23,6 +23,12 @@ import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * <code>Calendar</code> is responsible of creation of main window.
+ * Main window contains event display, control buttons like settings, import/export.
+ *
+ * @author laiqu
+ */
 public class Calendar implements Observer {
 
 	public static final String SRC_MAIN_IMAGES_DATE_PICKER_ICON_GIF = "src/main/images/DatePickerIcon.gif";

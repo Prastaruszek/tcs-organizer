@@ -45,6 +45,15 @@ import controllers.TaskManagerController;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
+
+
+/**
+ * <code>TaskManager</code> is responsible for creating of window
+ * which manages given task. It creates new task if provided in constructor is null.
+ * Check Task class if you want to know exactly which fields event manager sets.
+ * @author laiqu
+ * @see Task
+ */
 public class TaskManager extends JFrame {
 
 	private static final long serialVersionUID = -1113743261857828270L;
