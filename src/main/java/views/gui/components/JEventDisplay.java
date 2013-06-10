@@ -22,8 +22,8 @@ public class JEventDisplay extends JComponent implements Scrollable{
 	private static final long serialVersionUID = -6850617078923766896L;
 
 
-	private int rowCount=14;
-	private int startingHour = 8;
+	private int rowCount=24;
+	private int startingHour = 0;
     private Calendar mondayDate = null;
 	String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	Iterable<EventRectangle> events = new LinkedList<>();
@@ -279,6 +279,38 @@ public class JEventDisplay extends JComponent implements Scrollable{
     @Override
     public boolean getScrollableTracksViewportHeight() {
         return false;
+    }
+
+    /**
+     * Sets first hour of display.
+     * @param startingHour
+     */
+    public void setStartingHour(int startingHour) {
+        this.startingHour = startingHour;
+    }
+
+    /**
+     * Sets number of hours to be displayed, so the last hour is startingHour + hoursNumber.
+     * @param hoursNumber
+     */
+    public void setHourNumber(int hoursNumber) {
+        this.rowCount = hoursNumber;
+    }
+
+    /**
+     * Returns number of displayed hour.
+     * @return
+     */
+    public int getHourNumber() {
+        return rowCount;
+    }
+
+    /**
+     * Returns first hour of display.
+     * @return
+     */
+    public int getStartingHour() {
+        return startingHour;
     }
 
     /**

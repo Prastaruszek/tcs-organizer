@@ -24,6 +24,10 @@ public class CalendarController extends Controller implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		display.setEvents(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getCurrentWeekEvents(),
                 Organizer.getInstance().getCurrentUser().getUserProfile().getState().getFirstDay());
+        display.setStartingHour(Organizer.getInstance().getCurrentUser().getUserProfile().getDisplayFirstHour());
+        display.setHourNumber(
+                Organizer.getInstance().getCurrentUser().getUserProfile().getDisplayLastHour()-
+                        display.getStartingHour()+1);
 	}
 
 }

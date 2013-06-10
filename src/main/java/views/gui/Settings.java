@@ -30,6 +30,8 @@ public class Settings extends JFrame {
     private static Settings instance;
     private JButton colorButton;
     private Color[] modColors;
+    private JComboBox endBox;
+    private JComboBox startBox;
 
     /**
 	 * Launch the settings view
@@ -167,6 +169,17 @@ public class Settings extends JFrame {
 		
 		JLabel lblPriority = new JLabel("priority");
 		
+		JLabel lblDisplayHoursBetween = new JLabel("Display hours between:");
+		
+		startBox = new JComboBox();
+		startBox.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"}));
+		startBox.setSelectedIndex(currentUser.getUserProfile().getDisplayFirstHour());
+		JLabel lblNewLabel = new JLabel("and");
+		
+		endBox = new JComboBox();
+		endBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"}));
+		endBox.setSelectedIndex(currentUser.getUserProfile().getDisplayLastHour()-1);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -188,16 +201,26 @@ public class Settings extends JFrame {
 											.addGap(18)
 											.addComponent(colorBox, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)))
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblPriority, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+									.addComponent(lblPriority, GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addComponent(lblIcon)
 									.addGap(42))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+									.addComponent(chosenFolder, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
 									.addContainerGap())))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
 							.addContainerGap())))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(13)
+					.addComponent(lblDisplayHoursBetween)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(startBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(endBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(181, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -221,7 +244,13 @@ public class Settings extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(chosenFolder, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(folderLabel))
-					.addGap(70)
+					.addGap(14)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblDisplayHoursBetween)
+						.addComponent(startBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel)
+						.addComponent(endBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(41)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 		);
         newPath = currentUser.getUserProfile().getIconPath();
@@ -303,5 +332,28 @@ public class Settings extends JFrame {
 		
 		return modColors;
 		
+	}
+
+    /**
+     * Returns first hour for events display
+     * @return int with current first hour
+     */
+    public int getDisplayFirstHour() {
+        return Integer.valueOf((String)getStartBox().getSelectedItem());
+    }
+
+    /**
+     * Returns last hour for events display
+     * @return int with current last hour
+     */
+    public int getDisplayLastHour() {
+        return Integer.valueOf((String)getEndBox().getSelectedItem());
+    }
+
+	protected JComboBox getEndBox() {
+		return endBox;
+	}
+	protected JComboBox getStartBox() {
+		return startBox;
 	}
 }
