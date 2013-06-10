@@ -1,15 +1,11 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import models.Event;
 import models.EventSet;
 import models.User;
 import views.gui.ImportManager;
-import views.gui.components.JEventBox;
 import views.gui.components.JLabelledBtn;
 
 public class ImportManagerController extends Controller {

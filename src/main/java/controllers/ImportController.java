@@ -1,7 +1,6 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
 
@@ -10,7 +9,6 @@ import views.gui.ImportManager;
 import models.AddStrategy;
 import models.Event;
 import models.EventSet;
-import models.FirstPossibleEvent;
 import models.LastPossibleEvent;
 import models.Organizer;
 import models.Task;

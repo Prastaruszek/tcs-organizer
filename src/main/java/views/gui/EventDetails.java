@@ -3,7 +3,6 @@ package views.gui;
 import controllers.EventDetailsController;
 import models.Event;
 import models.Organizer;
-import models.Resource;
 import models.Task;
 
 import javax.swing.*;
