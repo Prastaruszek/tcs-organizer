@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
 
+import views.gui.ImportManager;
+
 import models.AddStrategy;
 import models.Event;
 import models.EventSet;
@@ -37,8 +39,6 @@ public class ImportController extends Controller {
 			
 			EventSet leftover = manager.addSet(newEvents);
 			
-			if(leftover!=null && leftover.size() > 0)
-				System.out.println("leftover");
 			
 			//przyklad dzialania tej strategii : wynik w konsoli
 			AddStrategy AS = new LastPossibleEvent();
@@ -48,6 +48,11 @@ public class ImportController extends Controller {
 		
 			Organizer.getInstance().update();
 			Organizer.getInstance().notifyObservers();
+			
+			if(leftover!=null && leftover.size() > 0)
+				System.out.println("leftover");
+			
+			ImportManager.getInstance(leftover, currentUser.getUserProfile().getEvents()).setVisible(true);
 		}
 
 	}
