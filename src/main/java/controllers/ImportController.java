@@ -6,15 +6,17 @@ import javax.swing.JFileChooser;
 
 import views.gui.ImportManager;
 
-import models.AddStrategy;
 import models.Event;
 import models.EventSet;
-import models.LastPossibleEvent;
 import models.Organizer;
-import models.Task;
 import models.User;
 
 
+/** This class is used when User presses the "import" button in main calendar view.
+ * It tries to add as many events as it can without any overlapping issues, then, if there are any events still to add,
+ * creates an instance of ImportManager.
+ * @see ImportManager
+ */
 public class ImportController extends Controller {
 	
 	private User currentUser;
@@ -37,12 +39,6 @@ public class ImportController extends Controller {
 			
 			EventSet leftover = manager.addSet(newEvents);
 			
-			
-			//przyklad dzialania tej strategii : wynik w konsoli
-			AddStrategy AS = new LastPossibleEvent();
-			for(Event ev : leftover){
-				System.out.println(ev + " AS prop> " + AS.getAddableEvent(new Task(ev), manager, ev.getStartTime()));
-			}
 		
 			Organizer.getInstance().update();
 			Organizer.getInstance().notifyObservers();

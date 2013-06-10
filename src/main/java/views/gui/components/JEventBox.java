@@ -16,6 +16,10 @@ public class JEventBox extends JCheckBox {
 		return event;
 	}
 	
+	/** Creates a checkbox which is hooked to an event.
+	 * @param s name for this checkbox.
+	 * @param event event which this checkbox will be hooked to.
+	 */
 	public JEventBox(String s, Event event){
 		super(s);
 		this.event = event;
