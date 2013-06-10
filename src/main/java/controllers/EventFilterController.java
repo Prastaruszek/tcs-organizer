@@ -8,10 +8,17 @@ import javax.swing.event.DocumentListener;
 import views.gui.ExportManager;
 import views.gui.components.JEventBox;
 
+/** Filters events in export manager.
+ * Shows events checkboxes which match a given string, hides the others.
+ */
 public class EventFilterController implements DocumentListener {
 	
 	private ExportManager exportManager;
 	
+	/**
+	 * Constructs a new controller associated with a given export manager window.
+	 * @param exportManager the associated export manager window.
+	 */
 	public EventFilterController(ExportManager exportManager) {
 		this.exportManager = exportManager;
 	}

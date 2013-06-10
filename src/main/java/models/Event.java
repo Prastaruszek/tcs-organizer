@@ -192,7 +192,7 @@ public class Event implements Serializable {
         this.tasks = tasks;
     }
 
-    /** Saves this event into EventManager
+    /** Saves this event into EventHandler
      * @return <code>true</code> if save ended with success, <code>false</code> otherwise
      */
     public Event save() {

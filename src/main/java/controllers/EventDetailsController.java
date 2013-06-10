@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Handles event management form an event details window.
+ */
 public class EventDetailsController extends Controller {
 	private EventDetails frame;
     private RemoveListener removeListener = null;

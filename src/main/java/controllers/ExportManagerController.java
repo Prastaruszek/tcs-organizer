@@ -13,10 +13,16 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+/** Handles export process.
+ */
 public class ExportManagerController extends Controller {
 
 	ExportManager exportManager;
 	
+	/**
+	 * Constructs a new controller associated with a given export manager window.
+	 * @param exportManager the associated export manager window.
+	 */
 	public ExportManagerController(ExportManager exportManager) {
 		super();
 		this.exportManager = exportManager;

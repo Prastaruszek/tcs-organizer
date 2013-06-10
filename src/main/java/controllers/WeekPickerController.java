@@ -9,9 +9,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-/**
+/** Sets the calendar for the specific date.
  * @author n3v
- * Sets the callendar for the specific date
  */
 public class WeekPickerController extends DatePickerController {
     @Override

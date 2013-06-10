@@ -6,17 +6,17 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashSet;
 
-/** This class provides methods for event management.
+/** This class provides methods for event handling.
  * Every instance of this class contains a reference to the associated set of events.
  */
-public class EventManager implements Serializable{
+public class EventHandler implements Serializable{
 	
 	private static final long serialVersionUID = -2897014193380647665L;
 	private final EventSet events;
 
-	/** Constructs a new event manager with an empty event set.
+	/** Constructs a new event handler with an empty event set.
      */
-    public EventManager() {
+    public EventHandler() {
         this.events = new EventSet(this);
     }
 
@@ -58,8 +58,8 @@ public class EventManager implements Serializable{
 		events.remove(e);
 	}
 	
-	/** Tries to add an EventSet to this manager. All overlapping events will be returned.
-	 * @param newEvents Events to add to this manager.
+	/** Tries to add an EventSet to this handler. All overlapping events will be returned.
+	 * @param newEvents Events to add to this handler.
 	 * @return EventSet of overlapping events.
 	 */
 	public EventSet addSet(EventSet newEvents){
@@ -107,11 +107,11 @@ public class EventManager implements Serializable{
     	return res;
     }
    
-	/** Returns string representation of this event manager.
-     * @return string representation of this event manager.
+	/** Returns string representation of this event handler.
+     * @return string representation of this event handler.
      */
     public String toString(){
-    	String res = "EventMananger[";
+    	String res = "EventHandler[";
     	res += events;
     	res += "]";
     	return res;

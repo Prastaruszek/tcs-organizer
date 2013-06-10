@@ -6,6 +6,9 @@ import views.gui.DatePicker;
 import java.awt.event.ActionEvent;
 import java.util.GregorianCalendar;
 
+/**
+ * Handles date picking by a user.
+ */
 public abstract class DatePickerController extends Controller {
     protected JCalendar jCalendar;
     protected DatePicker picker;

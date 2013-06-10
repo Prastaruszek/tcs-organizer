@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFileChooser;
 
+import models.*;
 import views.gui.ImportManager;
 
 import models.Event;
@@ -31,11 +32,11 @@ public class ImportController extends Controller {
 			
 			String tmpPath = file.getSelectedFile().getAbsolutePath();
 			
-			EventSet newEvents = models.EventManager.importEventSet(tmpPath);
+			EventSet newEvents = EventHandler.importEventSet(tmpPath);
 			for(Event ev : newEvents)
 				ev.setProfile(currentUser.getUserProfile());
 			
-			models.EventManager manager = currentUser.getUserProfile().getEvents();
+			EventHandler manager = currentUser.getUserProfile().getEvents();
 			
 			EventSet leftover = manager.addSet(newEvents);
 			

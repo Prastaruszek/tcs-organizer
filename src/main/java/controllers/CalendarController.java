@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * Responsible for drawing and updating calendar view.
+ */
 public class CalendarController extends Controller implements Observer {
 	JEventDisplay display;
 	public CalendarController(JEventDisplay eventDisplay) {

@@ -8,6 +8,8 @@ import models.User;
 import views.gui.ImportManager;
 import views.gui.components.JLabelledBtn;
 
+/** Handles import process.
+ */
 public class ImportManagerController extends Controller {
 	private List<JLabelledBtn> events;
 	private User currentUser;

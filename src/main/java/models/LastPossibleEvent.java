@@ -2,7 +2,7 @@ package models;
 
 import java.util.Calendar;
 
-/**	This class provides a method which returns the latter - the better non-overlapping event to be fit into the manager.
+/**	This class provides a method which returns the latter - the better non-overlapping event to be fit into the handler.
 *
 */
 public class LastPossibleEvent implements AddStrategy {
@@ -10,18 +10,18 @@ public class LastPossibleEvent implements AddStrategy {
 	public LastPossibleEvent() { }
 	/** Produces the latest possible event that doesn't collide with anything or is set in uncomfortable hours.
 	 * @param event task, upon which the event will be constructed.
-	 * @param manager provided so that the event won't produce any collisions in the calendar.
+	 * @param handler provided so that the event won't produce any collisions in the calendar.
 	 * @param Tim maximal ending moment for the event.
 	 * @return returns the latest possible event that doesn't collide with anything or is set in uncomfortable hours.
 	 */
 	@Override
-	public Event getAddableEvent(Task event, EventManager manager,
+	public Event getAddableEvent(Task event, EventHandler handler,
 			Calendar Tim) {
 		Calendar startTime = ((Calendar) Tim.clone()),
 				endTime = ((Calendar) Tim.clone());
 		startTime.add(Calendar.MINUTE, -event.getDuration());
 		
-		Event[] currEvents = manager.all().getSortedArray();
+		Event[] currEvents = handler.all().getSortedArray();
 		
 		boolean found = false;
 		int j = currEvents.length-1;

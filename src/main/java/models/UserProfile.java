@@ -11,7 +11,7 @@ public class UserProfile extends Model implements Serializable{
 	
 	private static final long serialVersionUID = -251344167894262924L;
 	private DisplayState state;
-    private EventManager events;
+    private EventHandler events;
     private User user;
     private boolean hasProvidedSchedule;
     private String filesPath;
@@ -30,7 +30,7 @@ public class UserProfile extends Model implements Serializable{
      * @param events event manager to be associated with the user.
      * @param user user which the created user profile is assigned to.
      */
-    public UserProfile(DisplayState state, EventManager events, User user) {
+    public UserProfile(DisplayState state, EventHandler events, User user) {
         this.state = state;
         this.events = events;
         this.user = user;
@@ -62,7 +62,7 @@ public class UserProfile extends Model implements Serializable{
     /** Returns event manager of this user profile.
      * @return event manager of this user profile.
      */
-    public EventManager getEvents() {
+    public EventHandler getEvents() {
         return events;
     }
 

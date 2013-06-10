@@ -1,7 +1,7 @@
 package factories;
 
 import models.DisplayState;
-import models.EventManager;
+import models.EventHandler;
 import models.User;
 import models.UserProfile;
 
@@ -10,7 +10,7 @@ public class UserProfileFactory {
 
     public static UserProfile create() {
         User u = UserFactory.create();
-        UserProfile ret = new UserProfile(new DisplayState(), new EventManager(), u);
+        UserProfile ret = new UserProfile(new DisplayState(), new EventHandler(), u);
         u.setUserProfile(ret);
         return ret;
     }
