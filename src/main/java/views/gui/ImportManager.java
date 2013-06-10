@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import models.Event;
 import models.EventSet;
+import models.User;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -28,17 +29,17 @@ public class ImportManager extends JFrame {
 	private static final long serialVersionUID = -328398734659873L;
 	private static ImportManager instance = null;
 
-	public static ImportManager getInstance(EventSet leftover, models.EventManager manager) {
+	public static ImportManager getInstance(EventSet leftover, User currentUser) {
 		if(instance == null)
-			instance = new ImportManager(leftover, manager);
+			instance = new ImportManager(leftover, currentUser);
 		else {
 			instance.dispose();
-			instance = new ImportManager(leftover, manager);
+			instance = new ImportManager(leftover, currentUser);
 		}
 		return instance;
 	}
 	
-	private ImportManager(final EventSet leftover, models.EventManager manager) {
+	private ImportManager(final EventSet leftover, User currentUser) {
 		setTitle("Some events couldn't be added due to overlapping!");
 		setBounds(100, 100, 400, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -66,14 +67,16 @@ public class ImportManager extends JFrame {
 			eventView.add(new JLabel("No events to organise, this shouldn't happen"));
 		}
 		
-		for(Event ev : leftover){
-			JLabelledBtn labelledbtn = new JLabelledBtn(ev);
+		Event[] evlist = leftover.getSortedArray();
+		
+		for(Event ev : evlist){
+			JLabelledBtn labelledbtn = new JLabelledBtn(ev, currentUser);
 			eventView.add(labelledbtn);
 			events.add(labelledbtn);
 		}
 		
 		JButton btnOK = new JButton("OK");
-		btnOK.addActionListener(new ImportManagerController(events, manager));
+		btnOK.addActionListener(new ImportManagerController(events, currentUser));
 		botBtns.add(btnOK);
 		
 		JButton Cancel = new JButton("Cancel");
