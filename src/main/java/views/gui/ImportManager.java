@@ -40,10 +40,17 @@ public class ImportManager extends JFrame {
 	}
 	
 	private ImportManager(final EventSet leftover, final User currentUser) {
-		setTitle("Some events couldn't be added due to overlapping!");
+		setTitle("These events couldn't be added due to overlapping!");
 		setBounds(100, 100, 400, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
+		
+		JPanel topPanel = new JPanel();
+		getContentPane().add(topPanel, BorderLayout.NORTH);
+		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+		topPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		topPanel.add(new JLabel("Imported events, that are overlapping existing ones in your schedule:"));
+		topPanel.add(new JLabel("(editions made to events don't visualise, unless you refresh the window)"));
 		
 		JPanel eventPanel = new JPanel();
 		getContentPane().add(eventPanel, BorderLayout.CENTER);
@@ -93,7 +100,7 @@ public class ImportManager extends JFrame {
 			}
 		});
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Abort these events");
 		btnCancel.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -113,6 +120,6 @@ public class ImportManager extends JFrame {
 		int maxWidth = 400;
 		for(JLabelledBtn lbtn : events)
 			maxWidth = Math.max(maxWidth, lbtn.getWidth());
-		setSize(maxWidth+20, 400);
+		setSize(maxWidth+25, 400);
 	}
 }
