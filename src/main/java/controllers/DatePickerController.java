@@ -16,10 +16,21 @@ public abstract class DatePickerController extends Controller {
         this.jCalendar = jCalendar;
         this.picker = picker;
     }
+
+    /**
+     * Sets all fields of the class.
+     * @param jCalendar calendar.
+     * @param picker DatePicker view.
+     */
     public void setUp(JCalendar jCalendar, DatePicker picker){
     	this.jCalendar = jCalendar;
         this.picker = picker;
     }
+
+    /**
+     * Returns picked calendar.
+     * @return GregorianCalendar picked calendar.
+     */
     public GregorianCalendar getGregorianCalendar(){
     	GregorianCalendar calendar = new GregorianCalendar();
     	calendar.setTime(jCalendar.getDate());

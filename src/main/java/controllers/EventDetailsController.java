@@ -20,18 +20,29 @@ public class EventDetailsController extends Controller {
         throw new RuntimeException("This should never happen. Please report bug on github.");
 	}
 
+    /**
+     * Returns ActionListener for remove button.
+     * @return RemoveListener
+     */
     public RemoveListener getRemoveListener() {
         if(removeListener == null)
             removeListener = new RemoveListener();
         return removeListener;
     }
 
+    /**
+     * Returns ActionListener for removing group button (it displays only if event is in group).
+     * @return RemoveGroupListener
+     */
     public RemoveGroupListener getRemoveGroupListener() {
         if(removeGroupListener == null)
             removeGroupListener = new RemoveGroupListener();
         return removeGroupListener;
     }
 
+    /**
+     * ActionListener for remove button.
+     */
     private class RemoveListener implements ActionListener {
 
         @Override
@@ -48,6 +59,9 @@ public class EventDetailsController extends Controller {
         }
     }
 
+    /**
+     * ActionListener for removing group button (it displays only if event is in group).
+     */
     private class RemoveGroupListener implements ActionListener {
 
         @Override

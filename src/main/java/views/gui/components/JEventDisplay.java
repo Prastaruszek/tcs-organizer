@@ -402,9 +402,9 @@ public class JEventDisplay extends JComponent implements Scrollable{
 				int height = rowHeight*(endHour-(startingDay-endingDay==0?startHour:startingHour))+(int)((float)rowHeight*((float)(endingMinute-(startingDay-endingDay==0?startingMinute:0))/60.0f));
 				Rectangle rectangle;
 				if(day==startingDay&&day==endingDay){
-                    if(isStartBeforeMonday)
-                        rectangle = new Rectangle(x,rowHeight-arcHeight,width,height+arcHeight);
-                    else
+//                    if(isStartBeforeMonday)
+//                        rectangle = new Rectangle(x,rowHeight-arcHeight,width,height+arcHeight);
+//                    else
 					    rectangle = new Rectangle(x,y,width,height);
 				}
 				else if(day==startingDay){

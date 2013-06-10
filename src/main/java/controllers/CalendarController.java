@@ -20,6 +20,11 @@ public class CalendarController extends Controller implements Observer {
 
 	}
 
+    /**
+     * Observer method. Updates events in display and sets display range.
+     * @param arg0 unused
+     * @param arg1 unused
+     */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		display.setEvents(Organizer.getInstance().getCurrentUser().getUserProfile().getState().getCurrentWeekEvents(),
