@@ -7,6 +7,15 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * <code>TaskForm</code> is responsible for process of tasks
+ * creation. <code>instance</code> field is reference to Task
+ * associated with this form (in case its null new object is
+ * created).
+ *
+ * @author laiqu
+ * @see ModelForm
+ */
 public final class TaskForm extends ModelForm<Task> {
     private EventGroup parent;
     private String title;

@@ -37,6 +37,13 @@ import views.gui.components.LimitedDocument;
 import controllers.DatePickerController;
 import controllers.EventManagerController;
 
+/**
+ * <code>views.gui.EventManager</code> is responsible for creating of window
+ * which manages given event. It creates new event if provided in constructor is null.
+ * Check Event class if you want to know exactly which fields event manager sets.
+ * @author laiqu
+ * @see Event
+ */
 public class EventManager extends JFrame {
 
 	private static final long serialVersionUID = -1113743261857828270L;
