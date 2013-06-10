@@ -63,16 +63,17 @@ public class ImportManager extends JFrame {
 		eventPanel.add(searchPanel, BorderLayout.NORTH);
 		searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
 		
-		if(leftover.size() == 0){
+		if(leftover == null || leftover.size() == 0){
 			eventView.add(new JLabel("No events to organise, this shouldn't happen"));
 		}
+		else{
+			Event[] evlist = leftover.getSortedArray();
 		
-		Event[] evlist = leftover.getSortedArray();
-		
-		for(Event ev : evlist){
-			JLabelledBtn labelledbtn = new JLabelledBtn(ev, currentUser);
-			eventView.add(labelledbtn);
-			events.add(labelledbtn);
+			for(Event ev : evlist){
+				JLabelledBtn labelledbtn = new JLabelledBtn(ev, currentUser);
+				eventView.add(labelledbtn);
+				events.add(labelledbtn);
+			}
 		}
 		
 		JButton btnOK = new JButton("OK");
