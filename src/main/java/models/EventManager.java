@@ -58,6 +58,10 @@ public class EventManager implements Serializable{
 		events.remove(e);
 	}
 	
+	/** Tries to add an EventSet to this manager. All overlapping events will be returned.
+	 * @param newEvents Events to add to this manager.
+	 * @return EventSet of overlapping events.
+	 */
 	public EventSet addSet(EventSet newEvents){
 		EventSet leftovers = new EventSet();
 		
@@ -76,7 +80,7 @@ public class EventManager implements Serializable{
 					this.add(newSet[i]);
 			}
 			else{
-				if(newSet[i].overlaps(currSet[j].getStartTime(), currSet[j].getEndTime())
+				if(j < currSet.length && newSet[i].overlaps(currSet[j].getStartTime(), currSet[j].getEndTime())
 						|| newSet[i].overlaps(currSet[j+1].getStartTime(), currSet[j+1].getEndTime()))
 					leftovers.add(newSet[i]);
 				else
