@@ -13,6 +13,17 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * <code>EventManagerController</code> controls actions invoked by <code>views.gui.EventManager</code>.
+ * It allows editing and adding events (if <code>views.gui.EventManager</code> is not in edit mode).
+ *
+ *
+ * @author laiqu
+ *
+ * @see Event# Model managed by this controller.
+ * @see views.gui.EventManager# View for this controller.
+ * @see TaskManagerController# Similar class for tasks.
+ */
 public class EventManagerController extends Controller {
 	protected EventManager eventManager;
     private UserProfile profile;
