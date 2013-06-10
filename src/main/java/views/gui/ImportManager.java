@@ -39,7 +39,7 @@ public class ImportManager extends JFrame {
 		return instance;
 	}
 	
-	private ImportManager(final EventSet leftover, User currentUser) {
+	private ImportManager(final EventSet leftover, final User currentUser) {
 		setTitle("Some events couldn't be added due to overlapping!");
 		setBounds(100, 100, 400, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,9 +67,10 @@ public class ImportManager extends JFrame {
 			eventView.add(new JLabel("No events to organise, this shouldn't happen"));
 		}
 		else{
-			Event[] evlist = leftover.getSortedArray();
-		
-			for(Event ev : evlist){
+			Event[] evList;
+			evList = leftover.getSortedArray();
+			
+			for(Event ev : evList){
 				JLabelledBtn labelledbtn = new JLabelledBtn(ev, currentUser);
 				eventView.add(labelledbtn);
 				events.add(labelledbtn);
@@ -78,16 +79,31 @@ public class ImportManager extends JFrame {
 		
 		JButton btnOK = new JButton("OK");
 		btnOK.addActionListener(new ImportManagerController(events, currentUser));
-		botBtns.add(btnOK);
 		
-		JButton Cancel = new JButton("Cancel");
-		Cancel.addActionListener(new ActionListener(){
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				EventSet eS = new EventSet();
+				for(JLabelledBtn btn : events){
+					eS.add(btn.getEvent());
+				}
+				getInstance(eS, currentUser);
+			}
+		});
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 			}
 		});
-		botBtns.add(Cancel);
+		
+		botBtns.add(btnRefresh);
+		botBtns.add(btnOK);
+		botBtns.add(btnCancel);
 		
 		setVisible(true);
 		updateWidth();

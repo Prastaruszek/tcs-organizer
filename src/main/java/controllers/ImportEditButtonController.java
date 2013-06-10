@@ -2,24 +2,25 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 
-import models.Event;
+import views.gui.components.JLabelledBtn;
+
 import models.User;
 
 public class ImportEditButtonController extends Controller {
 
-	private Event event;
+	private JLabelledBtn jLabelledBtn;
 	private User currentUser;
 	
-	public ImportEditButtonController(Event event, User currentUser) {
-		this.event = event;
+	public ImportEditButtonController(JLabelledBtn jLabelledBtn, User currentUser) {
+		this.jLabelledBtn = jLabelledBtn;
 		this.currentUser = currentUser;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		views.gui.EventManager editWindow = views.gui.EventManager.getInstance(currentUser, event);
+		views.gui.EventManager editWindow = views.gui.EventManager.getInstance(currentUser, jLabelledBtn.getEvent());
+		jLabelledBtn.getButton().setText("Edited");
 		editWindow.setVisible(true);
-		editWindow.setFocusable(true);
 		
 	}
 
