@@ -5,9 +5,8 @@ import models.Organizer;
 
 import java.awt.event.ActionEvent;
 
-/**
+/** Switches calendar to the next week.
  * @author n3v
- *  Switches callendar to the next week
  */
 public class WeekPickerNextController extends Controller {
     @Override

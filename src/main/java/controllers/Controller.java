@@ -3,10 +3,7 @@ package controllers;
 import java.awt.event.ActionListener;
 
 /**
- * Created with IntelliJ IDEA.
- * User: stnatic
- * Date: 04.05.13
- * Time: 22:39
+ * Abstract superclass responsible for communication between user and application.
  */
 public abstract class Controller implements ActionListener {
 }

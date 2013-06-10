@@ -6,9 +6,8 @@ import models.Organizer;
 import java.awt.event.ActionEvent;
 
 
-/**
+/** Sets previous week on the calendar.
  * @author n3v
- * Sets previous week on the calendar
  */
 public class WeekPickerBackController extends Controller {
     @Override

@@ -8,8 +8,14 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
+/** Saves user settings.
+ */
 public class SettingsController extends Controller {
 	
+	/**
+	 * Constructs a new controller associated with a given settings window.
+	 * @param ref the associated settings window.
+	 */
 	public SettingsController(Settings ref) {
 		this.ref = ref;
 	}

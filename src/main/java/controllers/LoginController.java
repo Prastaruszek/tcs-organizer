@@ -8,6 +8,8 @@ import views.gui.LoginManager;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
+/** Handles login process. 
+ */
 public class LoginController extends Controller {
 	private LoginManager login;
 	private JComboBox<String> username;

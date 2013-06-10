@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
+/**
+ * Handles user creation process.
+ */
 public class CreateUserController extends Controller {
 	private LoginManager login;
 	private JTextField username;
