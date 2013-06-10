@@ -86,7 +86,7 @@ public class Settings extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				JFileChooser file = new JFileChooser();
 				file.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				if(file.showDialog(Settings.this, "Choose") == JFileChooser.APPROVE_OPTION) {
+				if(file.showDialog(Settings.this, "Change your icon!") == JFileChooser.APPROVE_OPTION) {
 					chosenFolder.setText(file.getSelectedFile().getAbsolutePath());
 				}
 			}
