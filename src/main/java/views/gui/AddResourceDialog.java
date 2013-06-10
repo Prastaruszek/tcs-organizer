@@ -23,6 +23,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
+/**
+ * <code>AddResourceDialog</code> is simple class for creating window
+ * which allows adding resource to given task. See resource for more
+ * information about resources.
+ *
+ * @author laiqu
+ *
+ * @see Resource# Resource interface.
+ */
 public class AddResourceDialog extends JDialog {
 
 	private static final long serialVersionUID = -8708883406191310458L;

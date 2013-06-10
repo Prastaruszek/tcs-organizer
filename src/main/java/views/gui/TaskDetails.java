@@ -20,6 +20,18 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.text.SimpleDateFormat;
 
+/**
+ * <code>TaskDetails</code> creates window responsible for
+ * showing details of given task. It allows user to modify
+ * and/or remove task and view resources. This class is very
+ * similar to <code>EventDetails</code>
+ *
+ * @author laiqu
+ *
+ * @see Task
+ *
+ * @see EventDetails
+ */
 public class TaskDetails extends JFrame {
 
 	private static final long serialVersionUID = 4815288079833804727L;
