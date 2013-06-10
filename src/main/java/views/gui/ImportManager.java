@@ -23,6 +23,9 @@ import controllers.ImportManagerController;
 
 import views.gui.components.JLabelledBtn;
 
+/**
+ * Creates a window for import functionality.
+ */
 public class ImportManager extends JFrame {
 	
 	List<JLabelledBtn> events = new ArrayList<JLabelledBtn>();

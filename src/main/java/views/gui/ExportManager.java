@@ -15,6 +15,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+/**
+ * Creates a window for export functionality.
+ */
 public class ExportManager extends JFrame {
 	
 	private static final long serialVersionUID = -7741300109933336770L;

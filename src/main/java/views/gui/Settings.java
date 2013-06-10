@@ -16,6 +16,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
+/**
+ * Creates a settings window.
+ */
 public class Settings extends JFrame {
 
 	private static final long serialVersionUID = -6483555840304512880L;

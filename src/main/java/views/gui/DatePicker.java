@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * A simple window for choosing date.
+ */
 public class DatePicker extends JFrame {
 
 	private static final long serialVersionUID = 6758451286754259312L;

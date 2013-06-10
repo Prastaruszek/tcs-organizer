@@ -19,6 +19,9 @@ import java.text.SimpleDateFormat;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
+/**
+ * A window containing event details.
+ */
 public class EventDetails extends JFrame {
 
 	private static final long serialVersionUID = 4815288079833804727L;
@@ -49,7 +52,8 @@ public class EventDetails extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creates the frame.
+	 * @param _event the event to be displayed.
 	 */
 	public EventDetails(Event _event ) {
 		setTitle("Details");
@@ -219,9 +223,18 @@ public class EventDetails extends JFrame {
         setVisible(true);
 	}
 	
+	/**
+	 * Returns event which this window is displaying.
+	 * @return event which this window is displaying.
+	 */
 	public Event getEvent() {
 		return event;
 	}
+	
+	/**
+	 * Returns JList of tasks connected to the event. 
+	 * @return JList of tasks connected to the event.
+	 */
 	public JList<Task> getTasksList() {
 		return tasksList;
 	}
