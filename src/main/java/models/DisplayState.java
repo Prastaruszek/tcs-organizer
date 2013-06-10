@@ -45,7 +45,7 @@ public class DisplayState extends Model implements Serializable {
         calendar.setFirstDayOfWeek(firstDayOfWeek);
         firstDay = (Calendar) calendar.clone();
         firstDay.add(Calendar.DAY_OF_YEAR, (-7-calendar.get(Calendar.DAY_OF_WEEK) + 2)%7);
-        firstDay.set(Calendar.HOUR, 5);
+        firstDay.set(Calendar.HOUR, 0);
         firstDay.set(Calendar.MINUTE,0);
         firstDay.set(Calendar.MILLISECOND,0);
         lastDay = (Calendar) firstDay.clone();
