@@ -3,12 +3,16 @@ package controllers;
 import models.Event;
 import models.EventSet;
 import models.Organizer;
+import models.Resource;
+import models.ResourceFile;
+import models.Task;
 import views.gui.ExportManager;
 import views.gui.components.JEventBox;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -39,8 +43,20 @@ public class ExportManagerController extends Controller {
 		}
 		EventSet eS = new EventSet();
 		for(JEventBox box : exportManager.getEventBoxes())
-			if(box.isSelected())
-				eS.add(box.getEvent());
+			if(box.isSelected()) {
+				Event tmp = box.getEvent();
+				List<Task> newTaskList = new LinkedList<Task>();
+				for(Task t : tmp.getTasks()) {
+					List<Resource> newResourceList = new LinkedList<Resource>();
+					for(Resource r : t.getResources())
+						if(!(r instanceof ResourceFile))
+							newResourceList.add(r);
+					newTaskList.add(new Task(t.getParent(), t.getComment(), t.getDuration(), t.getProfile(), t.getPriorityObject(), newResourceList));
+				}
+				Event cpy = new Event(tmp.getParent(), tmp.getComment(), tmp.getStartTime(), tmp.getEndTime(), tmp.getProfile(), tmp.getPriorityObject(), newTaskList);
+				
+				eS.add(cpy);
+			}
 		if(!eS.isEmpty()){
 			eS.exportEventSet(dest, Organizer.getInstance().getCurrentUser().getUsername()+"_expo");
 		}
