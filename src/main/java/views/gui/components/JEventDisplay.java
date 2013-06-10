@@ -14,6 +14,17 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * <code>JEventDisplay</code> is custom component designed to
+ * show users chosen week events. It's scrollable if window
+ * is to small and dates under day disappear if row is too narrow.
+ * It is possible to change display range in settings.
+ * CalendarController manages displayed week and display range.
+ *
+ * @author laiqu
+ *
+ * @see controllers.CalendarController
+ */
 public class JEventDisplay extends JComponent implements Scrollable{
 
 	/**
