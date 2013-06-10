@@ -19,11 +19,11 @@ public class JLabelledBtn extends JPanel{
 	
 	public JLabelledBtn(Event event, User currentUser){
 		this.event = event;
-		this.button = new JButton("edit");
+		this.button = new JButton("Edit");
 		
 		this.label = new JLabel(this.event.toString());
 		
-		button.addActionListener(new ImportEditButtonController(event, currentUser));
+		button.addActionListener(new ImportEditButtonController(this, currentUser));
 		
 		add(button);
 		add(label);
@@ -31,6 +31,14 @@ public class JLabelledBtn extends JPanel{
 	
 	public Event getEvent(){
 		return event;
+	}
+	
+	public JButton getButton(){
+		return button;
+	}
+	
+	public JLabel getLabel(){
+		return label;
 	}
 	
 }
