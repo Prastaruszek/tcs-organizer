@@ -80,8 +80,8 @@ public class EventManager implements Serializable{
 					this.add(newSet[i]);
 			}
 			else{
-				if(j < currSet.length && newSet[i].overlaps(currSet[j].getStartTime(), currSet[j].getEndTime())
-						|| newSet[i].overlaps(currSet[j+1].getStartTime(), currSet[j+1].getEndTime()))
+				if(j < currSet.length && (newSet[i].overlaps(currSet[j].getStartTime(), currSet[j].getEndTime())
+						|| newSet[i].overlaps(currSet[j+1].getStartTime(), currSet[j+1].getEndTime())))
 					leftovers.add(newSet[i]);
 				else
 					this.add(newSet[i]);
