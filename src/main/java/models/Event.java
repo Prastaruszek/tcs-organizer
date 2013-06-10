@@ -273,14 +273,14 @@ public class Event implements Serializable {
             return false;
         if ( isBetween(startTime, endTime) )
             return true;
-        if ( startTime.getTimeInMillis() <= eventEnd.getTimeInMillis() &&
+        if ( startTime.getTimeInMillis() < eventEnd.getTimeInMillis() &&
              eventEnd.getTimeInMillis() <= endTime.getTimeInMillis() )
             return true;
         if ( eventStart.getTimeInMillis() <= startTime.getTimeInMillis() && 
         		eventEnd.getTimeInMillis() >= endTime.getTimeInMillis())
         	return true;
         return startTime.getTimeInMillis() <= eventStart.getTimeInMillis() &&
-               eventStart.getTimeInMillis() <= endTime.getTimeInMillis();
+               eventStart.getTimeInMillis() < endTime.getTimeInMillis();
     }
     
     
