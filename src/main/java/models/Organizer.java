@@ -91,6 +91,7 @@ public class Organizer extends Observable {
      * @see Observable
      */
     public void update() {
+    	saveToFile(savePath);
         setChanged();
     }
 }
