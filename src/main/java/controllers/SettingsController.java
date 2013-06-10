@@ -41,7 +41,7 @@ public class SettingsController extends Controller {
 
         if(ref.getDisplayFirstHour()>=ref.getDisplayLastHour()){
             JOptionPane alert = new JOptionPane("Start hour cannot be equal or after end hour",
-                    JOptionPane.ERROR_MESSAGE, JOptionPane.OK_OPTION);
+                    JOptionPane.ERROR_MESSAGE, JOptionPane.DEFAULT_OPTION);
             alert.createDialog(ref, "").setVisible(true);
             if(alert.getValue().equals(0))
                 return;
