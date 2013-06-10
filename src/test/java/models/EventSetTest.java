@@ -3,16 +3,12 @@ package models;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -49,7 +45,8 @@ public class EventSetTest {
         allEvents = eventSet.toArray(allEvents);
     }
 
-    @Test
+    @SuppressWarnings("deprecation")
+	@Test
     public void testBetween() throws Exception {
         EventSet result = eventSet.between(start, end);
         assertEquals(Arrays.asList(between).size(), result.size());
@@ -61,7 +58,8 @@ public class EventSetTest {
         }
     }
 
-    @Test
+    @SuppressWarnings("deprecation")
+	@Test
     public void testOverlapping() throws Exception {
         EventSet result = eventSet.overlapping(start, end);
         assertEquals(Arrays.asList(overlapping).size(), result.size());

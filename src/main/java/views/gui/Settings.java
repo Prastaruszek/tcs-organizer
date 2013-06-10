@@ -33,8 +33,10 @@ public class Settings extends JFrame {
     private static Settings instance;
     private JButton colorButton;
     private Color[] modColors;
-    private JComboBox endBox;
-    private JComboBox startBox;
+    @SuppressWarnings("rawtypes")
+	private JComboBox endBox;
+    @SuppressWarnings("rawtypes")
+	private JComboBox startBox;
 
     /**
 	 * Launch the settings view
@@ -63,6 +65,7 @@ public class Settings extends JFrame {
         return instance;
     }
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private Settings(User currentUser) {
 		setResizable(false);
         this.currentUser = currentUser;
@@ -178,7 +181,6 @@ public class Settings extends JFrame {
 		startBox.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"}));
 		startBox.setSelectedIndex(currentUser.getUserProfile().getDisplayFirstHour());
 		JLabel lblNewLabel = new JLabel("and");
-		
 		endBox = new JComboBox();
 		endBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"}));
 		endBox.setSelectedIndex(currentUser.getUserProfile().getDisplayLastHour()-1);
@@ -352,10 +354,11 @@ public class Settings extends JFrame {
     public int getDisplayLastHour() {
         return Integer.valueOf((String)getEndBox().getSelectedItem());
     }
-
+    @SuppressWarnings("rawtypes")
 	protected JComboBox getEndBox() {
 		return endBox;
 	}
+    @SuppressWarnings("rawtypes")
 	protected JComboBox getStartBox() {
 		return startBox;
 	}

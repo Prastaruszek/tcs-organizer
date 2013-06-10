@@ -3,9 +3,6 @@ package controllers;
 import models.Event;
 import models.EventSet;
 import models.Organizer;
-import models.Resource;
-import models.ResourceFile;
-import models.Task;
 import views.gui.ExportManager;
 import views.gui.components.JEventBox;
 
@@ -15,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;

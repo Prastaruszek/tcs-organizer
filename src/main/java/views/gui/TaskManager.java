@@ -4,8 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,9 +12,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +22,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
@@ -34,13 +29,11 @@ import javax.swing.border.EmptyBorder;
 import models.Event;
 import models.EventGroup;
 import models.EventPriority;
-import models.Organizer;
 import models.Resource;
 import models.ResourceFile;
 import models.Task;
 import models.User;
 import views.gui.components.LimitedDocument;
-import controllers.DatePickerController;
 import controllers.TaskManagerController;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -65,12 +58,14 @@ public class TaskManager extends JFrame {
 	private JTextField txtfldTitle;
 	private JTextArea txtrComment;
 	private JComboBox<EventPriority> importanceBox;
-    private User currentUser;
+    @SuppressWarnings("unused")
+	private User currentUser;
     private JList<Resource> list = null;
     private LinkedList<ResourceFile> removeList;
     private Task task;
     private JLabel lblDurationVal;
-    private JList taskJList;
+    
+	private JList<Task> taskJList;
 
 
     /**
@@ -265,7 +260,8 @@ public class TaskManager extends JFrame {
 					.addComponent(listHolder, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
 		);
 		panel_4.setLayout(gl_panel_4);
-        final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        @SuppressWarnings("unused")
+		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 
 		JLabel lblDuration = new JLabel("Duration:");
 

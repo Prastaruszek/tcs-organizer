@@ -51,13 +51,15 @@ public class EventFormTest {
         endTime = new GregorianCalendar();
         endTime.add(Calendar.HOUR, -2);
         form.setEndTime(endTime);
-        Event e = form.save();
+        @SuppressWarnings("unused")
+		Event e = form.save();
     }
 
     @Test
     public void testSaveThrowsValidationExceptionForOverlappingEvents() throws Exception {
         try {
-            Event e = form.save();
+            @SuppressWarnings("unused")
+			Event e = form.save();
         } catch ( ValidationException e ) {
             fail("First save should be successful");
         }
@@ -70,7 +72,8 @@ public class EventFormTest {
         form.setStartTime(start);
         form.setEndTime(end);
         try {
-            Event e = form.save();
+            @SuppressWarnings("unused")
+			Event e = form.save();
             fail("Events are overlapping");
         } catch ( ValidationException e ) {
         }
@@ -81,7 +84,8 @@ public class EventFormTest {
         form.setStartTime(start);
         form.setEndTime(end);
         try {
-            Event e = form.save();
+            @SuppressWarnings("unused")
+			Event e = form.save();
             fail("Events are overlapping");
         } catch ( ValidationException e ) {
         }
@@ -89,7 +93,8 @@ public class EventFormTest {
 
     @Test
     public void testModifiesExistingInstance() throws Exception {
-        Event e = form.save();
+        @SuppressWarnings("unused")
+		Event e = form.save();
         try {
             e = form.save();
         } catch ( ValidationException ex ) {

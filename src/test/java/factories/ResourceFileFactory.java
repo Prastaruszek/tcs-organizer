@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import models.ResourceFile;
 
 public class ResourceFileFactory {
+	@SuppressWarnings("unused")
 	private static Class<?> klass = ResourceFile.class;
 	
 	public static ResourceFile create(Path path) {

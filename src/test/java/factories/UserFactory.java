@@ -9,7 +9,8 @@ import models.User;
  * Time: 00:16
  */
 public class UserFactory {
-    private static Class<?> klass = User.class;
+    @SuppressWarnings("unused")
+	private static Class<?> klass = User.class;
 
     public static User create() {
         User ret = new User("john_doe", "secret".toCharArray());

@@ -1,7 +1,6 @@
 package models;
 
 import factories.UserFactory;
-import factories.UserProfileFactory;
 import org.junit.Before;
 import org.junit.Test;
 
