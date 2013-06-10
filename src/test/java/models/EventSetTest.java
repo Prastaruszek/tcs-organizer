@@ -72,13 +72,4 @@ public class EventSetTest {
             verify(e, times(1)).overlaps(any(Calendar.class), any(Calendar.class));
         }
     }
-
-    @Test
-    public void testAll() throws Exception {
-        EventSet result = eventSet.all();
-        assertNotSame(result, eventSet);
-        assertArrayEquals(result.<Event>toArray(), eventSet.<Event>toArray());
-        result.remove(new ArrayList<>(result).get(0));
-        assertNotEquals(result.size(), eventSet.size());
-    }
 }
