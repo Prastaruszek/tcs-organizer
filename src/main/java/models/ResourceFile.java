@@ -108,6 +108,13 @@ public class ResourceFile extends Model implements Resource, Serializable {
     	return filesPath + appendedPath;
     }
     
+    /** Sets new path for the file
+     * @param newPath for the file
+     */
+    public void setPath(String newPath) {
+    	filesPath = newPath;
+    }
+    
     /** Returns file name representing by this object.
      * @return file name representing by this object.
      */

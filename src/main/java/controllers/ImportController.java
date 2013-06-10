@@ -79,8 +79,13 @@ public class ImportController extends Controller {
 			tmpPath = ser;
 			
 			EventSet newEvents = EventHandler.importEventSet(tmpPath);
-			for(Event ev : newEvents)
+			for(Event ev : newEvents) {
 				ev.setProfile(currentUser.getUserProfile());
+				for(Task t: ev.getTasks())
+					for(Resource r : t.getResources())
+						if(r instanceof ResourceFile)
+							((ResourceFile)r).setPath(currentUser.getUserProfile().getPath());
+			}
 			
 			EventHandler manager = currentUser.getUserProfile().getEvents();
 			
