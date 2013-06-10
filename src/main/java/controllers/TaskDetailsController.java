@@ -10,6 +10,18 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * <code>TaskDetailsController</code> defines actions for buttons in
+ * <code>views.gui.TaskDetails</code>. It allows removing and/or editing
+ * tasks.
+ *
+ * @author laiqu
+ *
+ * @see Task# Model of which details are displayed.
+ * @see views.gui.TaskDetails# View for this controller.
+ * @see views.gui.TaskManager# Manages and edits tasks.
+ * @see views.gui.EventDetails# Similar class for events.
+ */
 public class TaskDetailsController extends Controller {
 	private TaskDetails frame;
     private RemoveListener removeListener = null;
