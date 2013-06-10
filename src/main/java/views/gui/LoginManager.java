@@ -17,6 +17,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Creates a window for user management options.
+ * Enables user validating, user deletion and user creation.
+ */
 public class LoginManager extends JFrame {
 
 	private static final long serialVersionUID = -370406313299117919L;
