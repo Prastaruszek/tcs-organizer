@@ -7,17 +7,18 @@ import java.util.List;
 
 import models.Event;
 import models.EventSet;
+import models.User;
 import views.gui.ImportManager;
 import views.gui.components.JEventBox;
 import views.gui.components.JLabelledBtn;
 
 public class ImportManagerController extends Controller {
 	private List<JLabelledBtn> events;
-	private models.EventManager manager;
+	private User currentUser;
 	
-	public ImportManagerController(List<JLabelledBtn> events, models.EventManager manager){
+	public ImportManagerController(List<JLabelledBtn> events, User currentUser){
 		this.events = events;
-		this.manager = manager;
+		this.currentUser = currentUser;
 	}
 	
 	@Override
@@ -25,10 +26,10 @@ public class ImportManagerController extends Controller {
 		EventSet eS = new EventSet(), leftover;
 		for(JLabelledBtn btn : events)
 			eS.add(btn.getEvent());
-		leftover = manager.addSet(eS);
+		leftover = currentUser.getUserProfile().getEvents().addSet(eS);
 		
 		if(leftover != null && leftover.size()>0){
-			ImportManager.getInstance(leftover, manager).setVisible(true);
+			ImportManager.getInstance(leftover, currentUser).setVisible(true);
 		}
 	}
 	

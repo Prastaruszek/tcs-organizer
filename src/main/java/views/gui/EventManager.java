@@ -476,7 +476,7 @@ public class EventManager extends JFrame {
             endTimeBox.setSelectedItem(
                     (h<=9?"0":"")+h+":"+
                             (m<=9?"0":"")+m);
-        }
+        }	
 		setVisible(true);
 	}
 	public String getEventTitle() {
