@@ -56,9 +56,9 @@ public class DisplayState extends Model implements Serializable {
     }
 
     /** Sets this state to the week with a given date.
-     * @param year year
-     * @param month month
-     * @param day day
+     * @param year year of the given date
+     * @param month month of the given date
+     * @param day day of the given date
      */
     public void setWeek(int year, int month, int day) {
         _setWeek(year, month, day);

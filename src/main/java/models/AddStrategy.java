@@ -6,7 +6,7 @@ import java.util.Calendar;
  *
  */
 public interface AddStrategy {
-	/**
+	/** Returns a new event that can be fit into the manager without any overlapping issues.
 	 * @param event task-type event that's supposed to be fit into the manager.
 	 * @param manager method should return an event that doesn't overlap any of manager's events.
 	 * @param Tim timestamp which will be used to determine new event's position.

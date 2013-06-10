@@ -25,14 +25,14 @@ public class Event implements Serializable {
 
     private List<Task> tasks;
 
-    /** Constructs the event
-     * @param parent
-     * @param comment
-     * @param startTime
-     * @param endTime
-     * @param profile
-     * @param priority
-     * @param tasks
+    /** Constructs a new event
+     * @param parent event group for the event
+     * @param comment comment for the event
+     * @param startTime start time of the event
+     * @param endTime end time of the event
+     * @param profile user profile the event will be assigned to
+     * @param priority priority of the event
+     * @param tasks list of tasks for the event
      */
     public Event(EventGroup parent, String comment, Calendar startTime,
                  Calendar endTime, UserProfile profile, EventPriority priority, List<Task> tasks) {
@@ -47,16 +47,16 @@ public class Event implements Serializable {
         this.random = String.valueOf(new Random().nextInt(10000000));
     }
     
-    /** Constructs the Event
-     * @param event
-     * @param sTime
-     * @param eTime
+    /** Constructs a new event with a given task.
+     * @param task the given task
+     * @param sTime start time
+     * @param eTime end time
      */
-    public Event(final Task event, Calendar sTime, Calendar eTime){
-    	this(event.getParent(), event.getComment(), sTime, eTime, 
-    			event.getProfile(), event.getPriorityObject(), null);
+    public Event(final Task task, Calendar sTime, Calendar eTime){
+    	this(task.getParent(), task.getComment(), sTime, eTime, 
+    			task.getProfile(), task.getPriorityObject(), null);
         List<Task> tmp = new LinkedList<>();
-        tmp.add(event);
+        tmp.add(task);
         setTasks(tmp);
     }
 
@@ -68,7 +68,7 @@ public class Event implements Serializable {
     }
 
     /** Sets start time of this Event
-     * @param startTime
+     * @param startTime start time to be set
      */
     public void setStartTime(Calendar startTime) {
         this.startTime = (Calendar) startTime.clone();
@@ -82,7 +82,7 @@ public class Event implements Serializable {
     }
 
     /** Sets ending time of this Event
-     * @param endTime
+     * @param endTime ending time to be set
      */
     public void setEndTime(Calendar endTime) {
         this.endTime = (Calendar) endTime.clone();
@@ -110,7 +110,7 @@ public class Event implements Serializable {
     }
     
     /** Sets the priority of this event (influences Color)
-     * @param priority
+     * @param priority priority to be set
      */
     public void setPriority(EventPriority priority) {
     	this.priority = priority;
@@ -131,7 +131,7 @@ public class Event implements Serializable {
     }
 
     /** Sets the comment for this Event
-     * @param comment
+     * @param comment comment to be set
      */
     public void setComment(String comment) {
         this.comment = comment;
@@ -145,14 +145,14 @@ public class Event implements Serializable {
     }
 
     /** Sets the title for the Event
-     * @param title
+     * @param title title to be set
      */
     public void setTitle(String title) {
         this.title = title;
     }
     
     /** Sets UserProfile of the owner of this Event
-     * @param profile
+     * @param profile owner to be set
      */
     public void setProfile(UserProfile profile) {
     	this.profile = profile;
@@ -180,7 +180,7 @@ public class Event implements Serializable {
     }
 
     /** Sets the Task list for the current Event
-     * @param tasks
+     * @param tasks list of tasks to be set
      */
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
@@ -224,8 +224,8 @@ public class Event implements Serializable {
     }
 
     /** Returns whether or not this event exists between particular dates
-     * @param startTime
-     * @param endTime
+     * @param startTime start date
+     * @param endTime end date
      * @return whether or not this event exists between particular dates
      */
     public boolean isBetween(Calendar startTime, Calendar endTime) {
@@ -237,6 +237,9 @@ public class Event implements Serializable {
                eventEnd.getTimeInMillis() <= endTime.getTimeInMillis();
     }
     
+    /** Returns string representation of this event.
+     * @return string representation of this event.
+     */
     public String toString(){
     	String res = "Event[";
     	res += startTime.getTime();
@@ -246,8 +249,8 @@ public class Event implements Serializable {
     }
 
     /** Checks whether or not this Event overlaps with given time range 
-     * @param startTime
-     * @param endTime
+     * @param startTime time range start
+     * @param endTime time range end
      * @return whether or not this Event overlaps with given time range 
      */
     public boolean overlaps(Calendar startTime, Calendar endTime) {

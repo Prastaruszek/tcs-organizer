@@ -7,7 +7,7 @@ import java.net.ServerSocket;
 
 public class Main {
     /**
-     * Launch the application.
+     * Launches the application.
      */
 
     public static void main(String[] args) {
