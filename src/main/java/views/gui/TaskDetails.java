@@ -205,19 +205,35 @@ public class TaskDetails extends JFrame {
         resourceList.setModel(listModel);
         setVisible(true);
 	}
-	
+
+    /**
+     * Returns displayed task.
+     * @return Task
+     */
 	public Task getTask() {
 		return task;
 	}
 
+    /**
+     * Returns event connected to this task.
+     * @return Event
+     */
     public Event getEvent() {
         return event;
     }
 
+    /**
+     * Returns JList of tasks from event details connected  to this task.
+     * @return JList
+     */
     public JList<Task> getTaskJList() {
         return taskJList;
     }
 
+    /**
+     * Returns JList of resources which displays resources of this task.
+     * @return JList
+     */
     public JList<Resource> getResourceList() {
 		return resourceList;
 	}
