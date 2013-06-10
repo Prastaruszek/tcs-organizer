@@ -12,8 +12,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import views.gui.components.JLabelledBtn;
 
 public class ImportManager extends JFrame {
 
@@ -35,19 +38,24 @@ public class ImportManager extends JFrame {
 
 	public ImportManager(EventSet leftover) {
 		
-		JPanel SearchField = new JPanel();
-		getContentPane().add(SearchField, BorderLayout.NORTH);
+		JPanel searchField = new JPanel();
+		getContentPane().add(searchField, BorderLayout.NORTH);
 		
-		JPanel BotBtns = new JPanel();
-		getContentPane().add(BotBtns, BorderLayout.SOUTH);
+		JPanel botBtns = new JPanel();
+		getContentPane().add(botBtns, BorderLayout.SOUTH);
 		
-		JPanel EventView = new JPanel();
-		getContentPane().add(EventView, BorderLayout.CENTER);
-		EventView.setLayout(new BoxLayout(EventView, BoxLayout.Y_AXIS));
-		 
+		JPanel eventView = new JPanel();
+		getContentPane().add(eventView, BorderLayout.CENTER);
+		eventView.setLayout(new BoxLayout(eventView, BoxLayout.Y_AXIS));
+		
+		
+		//test
+		for(int i = 0; i < 5; ++i){
+			eventView.add(new JLabelledBtn(new JButton("" + i), new JLabel("" + i)));
+		}
 		
 		JButton btnOK = new JButton("OK");
-		BotBtns.add(btnOK);
+		botBtns.add(btnOK);
 		
 		JButton Cancel = new JButton("Cancel");
 		Cancel.addActionListener(new ActionListener(){
@@ -56,7 +64,7 @@ public class ImportManager extends JFrame {
 				dispose();
 			}
 		});
-		BotBtns.add(Cancel);
+		botBtns.add(Cancel);
 		
 		
 	}
