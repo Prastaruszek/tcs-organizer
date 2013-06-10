@@ -206,12 +206,10 @@ public class Event implements Serializable {
      *  Deletes Event and every Task connected with it
      */
     public void delete() {
-    	for(Task t : tasks) {
+    	for(Task t : tasks)
             for(Resource r : t.getResources())
-                if(r instanceof ResourceFile) {
+                if(r instanceof ResourceFile)
                     ((ResourceFile) r).removeFromResourcesDirectory();
-                }
-    	}
     	
     	// Deletes resources folder
     	
