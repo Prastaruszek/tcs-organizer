@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+/** An object representing currently displayed week.
+ */
 public class DisplayState extends Model implements Serializable {
 	
 	private static final long serialVersionUID = 7519930680873671772L;
@@ -13,6 +15,8 @@ public class DisplayState extends Model implements Serializable {
     private Calendar firstDay;
     private Calendar lastDay;
 
+    /** Constructs a new state using the current week.
+     */
     public DisplayState() {
         Calendar c = new GregorianCalendar();
         _setWeek(
@@ -22,10 +26,16 @@ public class DisplayState extends Model implements Serializable {
         );
     }
 
+    /** Returns first day of the week represented by this state.
+     * @return first day of the week represented by this state.
+     */
     public Calendar getFirstDay() {
         return (Calendar) firstDay.clone();
     }
 
+    /** Returns last day of the week represented by this state.
+     * @return last day of the week represented by this state.
+     */
     public Calendar getLastDay() {
         return (Calendar) lastDay.clone();
     }
@@ -45,27 +55,34 @@ public class DisplayState extends Model implements Serializable {
         lastDay.set(Calendar.MILLISECOND,59);
     }
 
+    /** Sets this state to the week with a given date.
+     * @param year year
+     * @param month month
+     * @param day day
+     */
     public void setWeek(int year, int month, int day) {
         _setWeek(year, month, day);
         Organizer.getInstance().update();
     }
 
+    /** Sets this state to the next week.
+     */
     public void setNextWeek() {
         firstDay.add(Calendar.DAY_OF_YEAR, 7);
         lastDay.add(Calendar.DAY_OF_YEAR, 7);
         Organizer.getInstance().update();
     }
 
+    /** Sets this state to the previous week.
+     */
     public void setPreviousWeek() {
         firstDay.add(Calendar.DAY_OF_YEAR, -7);
         lastDay.add(Calendar.DAY_OF_YEAR, -7);
         Organizer.getInstance().update();
     }
 
-    /**
-     * Returns
-     *
-     * @return EventSet containing events overlapping given week
+    /** Returns text representation of this state.
+     * @return text representation of this state.
      */
     public String getRangeDisplay() {
         DateFormat d = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);

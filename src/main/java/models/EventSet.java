@@ -90,6 +90,9 @@ public class EventSet extends HashSet<Event> {
     }
 
 
+    /** Creates and returns new event set containing all events in this set.
+     * @return event set containing all events in this set.
+     */
     public EventSet all() {
         EventSet ret = new EventSet(eventManager);
         for ( Event e : this )
@@ -115,6 +118,9 @@ public class EventSet extends HashSet<Event> {
     	
     }
     
+    /** Returns string representation of this event set.
+     * @return string representation of this event set.
+     */
     public String toString(){
     	String res = "EventSet[";
     	for ( Event e : this )
