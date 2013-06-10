@@ -18,6 +18,8 @@ public class UserProfile extends Model implements Serializable{
     private String iconPath;
     private Integer velocity;
     private Color[] priorityColor = new Color[5];
+    private int displayFirstHour=0;
+    private int displayLastHour=23;
 
     /** Constructs a new user profile.
      */
@@ -144,5 +146,21 @@ public class UserProfile extends Model implements Serializable{
     	res += ("velocity:" + velocity);
     	res += "]";
     	return res;
+    }
+
+    public void setDisplayFirstHour(int displayFirstHour) {
+        this.displayFirstHour = displayFirstHour;
+    }
+
+    public int getDisplayFirstHour() {
+        return displayFirstHour;
+    }
+
+    public void setDisplayLastHour(int displayLastHour) {
+        this.displayLastHour = displayLastHour;
+    }
+
+    public int getDisplayLastHour() {
+        return displayLastHour;
     }
 }
