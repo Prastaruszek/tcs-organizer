@@ -74,7 +74,7 @@ public class ImportManager extends JFrame {
 		searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
 		
 		if(leftover == null || leftover.size() == 0){
-			eventView.add(new JLabel("No events to organise, this shouldn't happen"));
+			eventView.add(new JLabel("No events to organise - this should never happen."));
 		}
 		else{
 			Event[] evList;

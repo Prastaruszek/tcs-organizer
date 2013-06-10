@@ -89,7 +89,7 @@ public class Settings extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				JFileChooser file = new JFileChooser();
 				file.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				if(file.showDialog(Settings.this, "Change your icon!") == JFileChooser.APPROVE_OPTION) {
+				if(file.showDialog(Settings.this, "Choose!") == JFileChooser.APPROVE_OPTION) {
 					chosenFolder.setText(file.getSelectedFile().getAbsolutePath());
 				}
 			}
@@ -263,7 +263,7 @@ public class Settings extends JFrame {
 				JFileChooser file = new JFileChooser();
                 file.setAcceptAllFileFilterUsed(false);
                 file.setFileFilter(new FileNameExtensionFilter("(*.png, *.jpg, *.gif)", "png", "jpg", "gif"));
-				if(file.showDialog(Settings.this, "Choose") == JFileChooser.APPROVE_OPTION) {
+				if(file.showDialog(Settings.this, "Change your icon!") == JFileChooser.APPROVE_OPTION) {
 					String tmpPath = file.getSelectedFile().getAbsolutePath();
 					
 					File newIcon = new File(tmpPath);
