@@ -8,6 +8,9 @@ import models.Event;
 import models.Task;
 import models.User;
 
+/** On-click adds event specified in the constructor, applying custom strategy.
+ *
+ */
 public class AddStrategyController extends Controller {
 	
 	private AddStrategy addStrategy;
