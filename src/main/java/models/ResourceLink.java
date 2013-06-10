@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.net.URI;
 
 /** An object representing a link. This class implements Resource interface.
+ *
+ * @author laiqu
+ *
  * @see Resource
  */
 public class ResourceLink extends Model implements Resource, Serializable {

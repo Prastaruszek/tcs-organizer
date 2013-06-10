@@ -9,7 +9,13 @@ import java.util.List;
 import java.util.Random;
 
 /** Implements whole Event model, used to store Tasks and locate them in time.
+ *  Event is defined by title, start and end time. Tasks are optionals events
+ *  with duration instead of start and end, what allows user to enhance his
+ *  his organization.
+ *
  * @author n3v
+ *
+ * @see Task# More information about tasks.
  */
 public class Event implements Serializable {
 	

@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /** An object representing a file. This class implements Resource interface.
+ *
+ * @author laiqu
+ *
  * @see Resource
  */
 public class ResourceFile extends Model implements Resource, Serializable {

@@ -10,7 +10,13 @@ import views.gui.TaskManager;
 import javax.swing.*;
 
 /**
- * Controller used to create new Task from user specific data
+ * Controller used to create new Task from user specific data.
+ * It also edits task if <code>TaskManager</code> is in edit mode.
+ *
+ * @author laiqu
+ *
+ * @see Task# Model which is managed by this controller.
+ * @see TaskManager# View for this controller.
  */
 public class TaskManagerController extends Controller {
 	protected TaskManager taskManager;
