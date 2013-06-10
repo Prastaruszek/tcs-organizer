@@ -19,7 +19,7 @@ public class UserManager implements Serializable{
         users = new UserSet(this);
     }
 
-    /** Create new user with a given username and password.
+    /** Creates new user with a given username and password.
      * The user is automatically added to the user set.
      * @param username string representing the username.
      * @param rawPassword char array representing the password.

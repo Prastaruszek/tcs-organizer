@@ -6,6 +6,9 @@ import views.gui.components.JLabelledBtn;
 
 import models.User;
 
+/** This class hooks pressing the "Edit" button to opening an EventManager window for user interaction.
+ *
+ */
 public class ImportEditButtonController extends Controller {
 
 	private JLabelledBtn jLabelledBtn;

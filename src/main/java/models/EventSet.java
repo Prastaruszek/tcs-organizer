@@ -18,10 +18,17 @@ public class EventSet extends HashSet<Event> {
 	
 	private final EventHandler eventHandler;
 
+	/**
+	 * Creates a new, empty event set.
+	 */
 	public EventSet(){
 		eventHandler = null;
 	}
 	
+	/**
+	 * Creates a new, empty event set associated with a given event handler.
+	 * @param eventHandler the associated event handler.
+	 */
     public EventSet(EventHandler eventHandler) {
         this.eventHandler = eventHandler;
     }
