@@ -4,10 +4,10 @@ import models.*;
 
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
-import java.util.List;
 
 public class EventFactory {
-    private static Class<?> klass = Event.class;
+    @SuppressWarnings("unused")
+	private static Class<?> klass = Event.class;
 
     public static Event create() {
         GregorianCalendar startTime = new GregorianCalendar();

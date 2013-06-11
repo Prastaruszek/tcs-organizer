@@ -205,7 +205,8 @@ public class TaskDetails extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 
         txtrEventTitle.setText(task.getTitle());
-        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm");
+        @SuppressWarnings("unused")
+		SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy HH:mm");
 
         txtrEventComment.setText(task.getComment());
         txtrEventComment.setCaretPosition(0);

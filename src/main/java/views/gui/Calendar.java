@@ -44,7 +44,8 @@ public class Calendar implements Observer {
     /**
      * @wbp.nonvisual location=243,569
      */
-    private final Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
+    @SuppressWarnings("unused")
+	private final Component rigidArea = Box.createRigidArea(new Dimension(20, 20));
 	
     public JEventDisplay getEventDisplay() {
 		return eventDisplay;

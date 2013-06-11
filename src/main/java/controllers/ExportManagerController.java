@@ -3,17 +3,18 @@ package controllers;
 import models.Event;
 import models.EventSet;
 import models.Organizer;
-import models.Resource;
-import models.ResourceFile;
-import models.Task;
 import views.gui.ExportManager;
 import views.gui.components.JEventBox;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.swing.JOptionPane;
 
@@ -45,20 +46,55 @@ public class ExportManagerController extends Controller {
 		for(JEventBox box : exportManager.getEventBoxes())
 			if(box.isSelected()) {
 				Event tmp = box.getEvent();
-				List<Task> newTaskList = new LinkedList<Task>();
-				for(Task t : tmp.getTasks()) {
-					List<Resource> newResourceList = new LinkedList<Resource>();
-					for(Resource r : t.getResources())
-						if(!(r instanceof ResourceFile))
-							newResourceList.add(r);
-					newTaskList.add(new Task(t.getParent(), t.getComment(), t.getDuration(), t.getProfile(), t.getPriorityObject(), newResourceList));
-				}
-				Event cpy = new Event(tmp.getParent(), tmp.getComment(), tmp.getStartTime(), tmp.getEndTime(), tmp.getProfile(), tmp.getPriorityObject(), newTaskList);
-				
-				eS.add(cpy);
+				eS.add(tmp);
 			}
 		if(!eS.isEmpty()){
-			eS.exportEventSet(dest, Organizer.getInstance().getCurrentUser().getUsername()+"_expo");
+			eS.exportEventSet(Organizer.getInstance().getCurrentUser().getUserProfile().getPath(), "Events.ser");
+			try {
+				FileOutputStream fos = new FileOutputStream(dest + "/events.zip");
+				ZipOutputStream zos = new ZipOutputStream(fos);
+				ZipEntry ze = new ZipEntry("Events.ser");
+				FileInputStream in = new FileInputStream(Organizer.getInstance().getCurrentUser().getUserProfile().getPath()+ "/Events.ser");
+				
+				zos.putNextEntry(ze);
+				
+				byte[] buffer = new byte[1024];
+				
+				int len;
+				while((len = in.read(buffer)) > 0) {
+					zos.write(buffer, 0, len);
+				}
+				
+				in.close();
+				zos.closeEntry();
+				
+				for(Event e : eS) {
+					for(File f : new File(e.getProfile().getPath() + "/" + e.getRandom()).listFiles()) {
+						if(f.isDirectory())
+							continue;
+						ze = new ZipEntry(e.getRandom() + "/" + f.getName());
+						
+						zos.putNextEntry(ze);
+						
+						in = new FileInputStream(f);
+						
+						while((len = in.read(buffer)) > 0) {
+							zos.write(buffer, 0, len);
+						}
+						
+						in.close();
+						zos.closeEntry();
+					}
+					ze = new ZipEntry(e.getRandom());
+				}				
+				
+				zos.close();
+				
+			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			new File(Organizer.getInstance().getCurrentUser().getUserProfile().getPath(), "Events.ser").delete();
 		}
 		else{
 			new JOptionPane("No events have been selected", JOptionPane.ERROR_MESSAGE,

@@ -6,7 +6,8 @@ import models.User;
 import models.UserProfile;
 
 public class UserProfileFactory {
-    private static Class<?> klass = UserProfile.class;
+    @SuppressWarnings("unused")
+	private static Class<?> klass = UserProfile.class;
 
     public static UserProfile create() {
         User u = UserFactory.create();
